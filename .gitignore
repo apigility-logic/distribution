@@ -3,4 +3,7 @@
 data/mysql/data/*
 data/php/session/*
 sites/tpshop/*
+sites/meilibo/*
 !sites/tpshop/.gitkeep
+!sites/meilibo/.gitkeep
+
