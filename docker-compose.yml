@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+  db:
+    image: mysql:5.7
+    ports:
+      - "3388:3306"
+    volumes:
+      - "./data/mysql/data:/var/lib/mysql"
+      - "./data/mysql/conf:/etc/mysql/conf.d"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: abc123
+      MYSQL_DATABASE: tpshop
+      MYSQL_USER: tpshop
+      MYSQL_PASSWORD: tpshop
+
+  web:
+    depends_on:
+      - db
+    image: webdevops/php-apache:centos-7-php56
+    ports:
+      - "8000:80"
+    volumes:
+      - "./sites/tpshop:/app"
+      - "./data/php/session:/var/lib/php/session"
+    restart: always
