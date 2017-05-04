@@ -15,7 +15,7 @@ services:
       MYSQL_USER: tpshop
       MYSQL_PASSWORD: tpshop
 
-  web:
+  tpshop:
     depends_on:
       - db
     image: webdevops/php-apache:centos-7-php56
@@ -23,5 +23,38 @@ services:
       - "8000:80"
     volumes:
       - "./sites/tpshop:/app"
-      - "./data/php/session:/var/lib/php/session"
+      - "./data/php/session/tpshop:/var/lib/php/session"
+    restart: always
+
+  meilibo_admin:
+    depends_on:
+      - db
+    image: webdevops/php-nginx:centos-7-php56
+    ports:
+      - "8001:80"
+    volumes:
+      - "./sites/meilibo/admin:/app"
+      - "./data/php/session/meilibo/admin:/var/lib/php/session"
+    restart: always
+
+  meilibo_api:
+    depends_on:
+      - db
+    image: webdevops/php-nginx:centos-7-php56
+    ports:
+      - "8002:80"
+    volumes:
+      - "./sites/meilibo/api:/app"
+      - "./data/php/session/meilibo/api:/var/lib/php/session"
+    restart: always
+
+  meilibo_chatroom:
+    depends_on:
+      - db
+    image: webdevops/php-nginx:centos-7-php56
+    ports:
+      - "8003:80"
+    volumes:
+      - "./sites/meilibo/chatroom:/app"
+      - "./data/php/session/meilibo/chatroom:/var/lib/php/session"
     restart: always
