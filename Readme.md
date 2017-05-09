@@ -22,3 +22,21 @@ docker-compose up
 ```
 - 访问 http://localhost:8000 打开网站
 - 访问 localhost:3388 连接MySQL服务 （帐号密码参考docker-compose.yml中的配置）
+
+## 开发服务器帐号
+
+120.76.237.232(公)
+
+10.26.88.101(内)
+
+root meilibo123$%^
+
+admin
+admin0987
+
+七牛：
+www.qiniu.com
+app@figo.cn
+Appfigo1607
+账号：miao@miaobang520.com
+登陆密码：Haomao2017

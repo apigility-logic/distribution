@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-  db:
+  mysql:
     image: mysql:5.7
     ports:
       - "3388:3306"
@@ -11,25 +11,35 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: abc123
-      MYSQL_DATABASE: tpshop
-      MYSQL_USER: tpshop
-      MYSQL_PASSWORD: tpshop
 
-  tpshop:
-    depends_on:
-      - db
-    image: webdevops/php-apache:centos-7-php56
+  memcached:
+    image: memcached:1.4
     ports:
-      - "8000:80"
+      - "11211:11211"
+    restart: always
+
+  meilibo_chatroom:
+    depends_on:
+      - mysql
+      - memcached
+    build: ./builds/meilibo/workman
+    ports:
+      - "4646:4646"
+      - "4545:4545"
+      - "7272:7272"
+      - "1236:1236"
     volumes:
-      - "./sites/tpshop:/app"
-      - "./data/php/session/tpshop:/var/lib/php/session"
+      - "./sites/meilibo/chatroom:/app"
+      - "./data/php/session/meilibo/chatroom:/var/lib/php/session"
     restart: always
 
   meilibo_admin:
     depends_on:
-      - db
-    image: webdevops/php-nginx:centos-7-php56
+      - mysql
+      - memcached
+      - meilibo_chatroom
+      - meilibo_api
+    build: ./builds/meilibo/admin
     ports:
       - "8001:80"
     volumes:
@@ -39,22 +49,13 @@ services:
 
   meilibo_api:
     depends_on:
-      - db
-    image: webdevops/php-nginx:centos-7-php56
+      - mysql
+      - memcached
+      - meilibo_chatroom
+    build: ./builds/meilibo/api
     ports:
       - "8002:80"
     volumes:
       - "./sites/meilibo/api:/app"
       - "./data/php/session/meilibo/api:/var/lib/php/session"
-    restart: always
-
-  meilibo_chatroom:
-    depends_on:
-      - db
-    image: webdevops/php-nginx:centos-7-php56
-    ports:
-      - "8003:80"
-    volumes:
-      - "./sites/meilibo/chatroom:/app"
-      - "./data/php/session/meilibo/chatroom:/var/lib/php/session"
     restart: always
