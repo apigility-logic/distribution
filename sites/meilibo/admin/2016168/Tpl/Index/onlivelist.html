@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=7" />
+    <title>美丽播 - 后台管理中心</title>
+    <link href="__PUBLIC__/statics/css/reset.css" rel="stylesheet" type="text/css" />
+    <link href="__PUBLIC__/statics/css/system.css" rel="stylesheet" type="text/css" />
+    <link href="__PUBLIC__/statics/css/table_form.css" rel="stylesheet" type="text/css" />
+    <link href="__PUBLIC__/statics/css/dialog.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/bootstrap.min.css">
+    <script language="javascript" type="text/javascript" src="__PUBLIC__/statics/js/dialog.js"></script>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles1.css" title="styles1" media="screen" />
+    <link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles2.css" title="styles2" media="screen" />
+    <link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles3.css" title="styles3" media="screen" />
+    <link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles4.css" title="styles4" media="screen" />
+    <script language="javascript" type="text/javascript" src="__PUBLIC__/statics/js/jquery.min.js"></script>
+    <script language="javascript" type="text/javascript" src="__PUBLIC__/statics/js/admin_common.js"></script>
+    <script language="javascript" type="text/javascript" src="__PUBLIC__/statics/js/styleswitch.js"></script>
+
+</head>
+<body>
+<style type="text/css">
+    html{_overflow-y:scroll}
+</style>
+<div id="closeParentTime" style="display:none"></div>
+<div class="pad-10">
+
+        <div class="table-list">
+            <table class="table table-bordered table-condensed table-striped table-hover" width="100%">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>昵称</th>
+                    <th>房间号</th>
+                    <th>在线用户</th>
+                    <th>总收益</th>
+                    <th>开播时间</th>
+                    <th>管理操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <if condition="count($onlivelist) neq 0">
+                    <volist name="onlivelist" id="item">
+                        <tr>
+                            <td align='center' >{$item['id']}</td>
+                            <td align="center" width="100">{$item['nickname']}</td>
+                            <td align='center'>{$item['curroomnum']}</td>
+                            <td align='center'>{$item['onlinenum']}</td>
+                            <td align='center'>{$item['beanorignal']}</td>
+                            <td align="center">{$item['starttime']|date="Y-m-d H:i:s",###}</td>
+                            <td align="center"><a href="/2016168/index.php/Index/onroomlive/?room_id={$item['curroomnum']}&uid={$item['id']}">管理</a></td>
+                        </tr>
+                    </volist>
+                <else />
+                    <tr>
+                        <td colspan="99">没有查询到用户</td>
+                    </tr>
+                </if>
+                </tbody>
+            </table>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>

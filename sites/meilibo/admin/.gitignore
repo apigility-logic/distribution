@@ -1,0 +1,11 @@
+style
+style/
+./style
+.buildpath
+.hgignore
+.project
+.settings
+.idea
+
+/2016168/Runtime/*
+/nbproject/private/

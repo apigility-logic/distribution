@@ -1,0 +1,190 @@
+<tagLib name="html" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>管理中心-我操作记录</title>
+        <link rel="stylesheet" href="/style/css/family.css" type="text/css" />
+        <link rel="stylesheet" href="/style/css/common.css" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/common.css">
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/index.css">
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/user.css">
+        <script language="javascript" src="/style/js/jquery.js"></script>
+        <script language="javascript" src="/style/js/My97DatePicker/WdatePicker.js"></script>
+        <script language="javascript" src="/style/js/common.js"></script>
+        <script language="javascript" src="/style/js/personal.js"></script>
+        <script type="text/javascript" src="/style/meilibo/js/logon-2.0.js"></script>
+        <script language="javascript">
+            function reqServer(p){
+                document.getElementById("loc").value = p;
+                document.form1.submit();
+            }
+            function search(){
+                document.getElementById("loc").value = 1;
+                document.form1.submit();
+            }
+            function check(){
+                var flag = true;
+                if($('#begint').val()==''){
+                    _alert('请写开始时间',3);
+                    flag = false;
+                    
+                }
+                if($('#endt').val() == ''){
+                    _alert('请写结束时间',3);
+                    flag = false;
+                }
+                return flag;
+            }
+        </script>
+    </head>
+<body style="background:url(/style/meilibo/images/mod0_v2.jpg) no-repeat top center;">
+
+<include file="Public:header" />
+<div class="u_header">
+  <div class="wrap">
+    <div class="uphoto">
+       <img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$userinfo['id']|md5|substr=0,3}/{$userinfo['id']}_big.jpg" width="207" height="207"/>
+       <p class="bj_photo"><a href="/my/center_headerpic/"><span class="bjIcon"></span>更换头像</a></p>
+    </div>
+    <div class="userData">
+      <div class="clearfix">
+        <span class="u_nickname">{$userinfo['nickname']}</span>
+        <b class="starLV car{$userinfo['richlevelid']}"></b>      
+      </div>
+      <div class="level clearfix">
+        <span class="fl">秀币：{$userinfo['coinbalance']}</span>
+      </div>
+      <div class="level clearfix">
+        <span class="fl"><?php if (!empty($userinfo['bolevelname'])) { echo $userinfo['bolevelname']; }?></span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="u_tab">
+  <div class="wrap clearfix">
+    <div class="u_tab_left fl">
+      <a href="/my/center_editinfo/">个人设置<span class="arror"></span></a>
+      <a href="/my/mybills/">我的账单<span class="arror"></span></a>
+      <a href="/my/mytools/">我的道具<span class="arror"></span></a>
+      <a href="/my/mynumbers/">我的靓号<span class="arror"></span></a>
+      <a href="/my/mymanagers/">我的管理<span class="arror"></span></a>
+      <a  class="tabon"  href="/my/familyIJoin/">我的家族<span class="arror"></span></a>
+      <!-- <a href="/my/myfavor/">我的收藏<span class="arror"></span></a> -->
+      <a href="/my/mygods/">我的偶像<span class="arror"></span></a>
+      <a href="/my/myfans/">我的粉丝<span class="arror"></span></a>
+      <a href="/my/mylink/">我的推广链接<span class="arror"></span></a>
+    </div>
+    <div class="u_tab_right fr">
+      <a href="/{$_SESSION['roomnum']}">我的直播</a>
+      <a href="/my/charge/">充值</a>
+      <a href="/my/exchange/">兑换</a>
+      <a href="/my/settlement/">结算</a>
+    </div>
+  </div>
+</div>
+<form name="form1" method="post" action="family_familyOperationLog.htm" onsubmit="return check()">
+<input type="hidden" id="loc" name="loc" value=""/>
+<script language="javascript">
+$(function(){
+   var sm = $('.utab a,.umyhelp a').setMyTab();
+ }
+)
+</script>
+<div class="myaccount wrap">   
+<div class="account-l">
+    <a href="/my/familyIJoin/" title="我加入的家族" >我加入的家族</a>
+        <a href="/my/familyICreate/" title="我建立的家族">我建立的家族</a>
+        <a href="/my/myfamily" title="我的家族资料" >我的家族资料</a>
+        <a href="/my/myfamilyimg" title="更换家族封面" >更换家族封面</a>
+        <a href="/my/myfamilyemcee/" title="我的家族成员">成员列表</a> 
+        <a href="/my/sqmyfamily/" title="申请管理">申请管理</a> 
+        <!-- <a href="/my/familyBadge/" title="我的家族徽章"  >我的家族徽章</a> -->
+        <a href="/my/familyPrerogative/" title="我的家族特权" >我的家族特权</a>
+        <a href="/my/familyOperationLog/"  title="我的操作记录" class='on'>我的操作记录</a>
+</div>
+<div class="account-r">
+    <div class="record">
+            <input type="text" name="sTime" id="begint"  onfocus="WdatePicker({el:'begint',maxDate:'%y-%M-%d',readOnly:true});" class="input-accout" value="2012-08-08"/>
+            <span onclick="WdatePicker({el:'begint',maxDate:'%y-%M-%d'});"></span>
+            <p class="line">--</p>
+            <input type="text" name="eTime" id="endt"  onfocus="WdatePicker({el:'endt',maxDate:'%y-%M-%d',readOnly:true});" class="input-accout"  value="2012-09-08"/>
+            <span onclick="WdatePicker({el:'endt',maxDate:'%y-%M-%d'});"></span>&nbsp;&nbsp;
+            <input type="submit" class="sea-record" value="查 询"/>
+            <input name="actionType" type="radio" value="0" checked/>申请记录&nbsp;&nbsp;
+            <input name="actionType" type="radio" value="1" />退出记录&nbsp;&nbsp;
+            <input name="actionType" type="radio" value="2" />邀请记录&nbsp;&nbsp;
+    </div>
+    <table class="f_tb02">
+      <tr>
+        <th scope="col">日期</th>
+        <th scope="col">操作</th>
+        <th scope="col">目标</th>
+      </tr>
+    </table>
+</div>
+<script language="javascript" src="/style/js/jquery.js"></script>
+<script language="javascript">
+    function skipPage(p){
+        var total = document.getElementById("total").value;
+        var ps = document.getElementsByName("page");
+        if(p == 'p'){
+            p = document.getElementById("current").value - 1;
+            if(p < 1){
+                p = 1;
+            }
+        }else if(p == 'n'){
+            p = parseInt(document.getElementById("current").value) + 1;
+            if(p > total){
+                p = total;
+            }
+        }
+        document.getElementById("current").value = p;
+        var b = p - 2;
+        if(b > total - 4){
+            b = total - 4;
+        }
+        if(b < 1){
+            b = 1;
+        }
+        for(var j = 0; j < ps.length; j++){
+            ps[j].value = b++;
+        }
+        for(var i = 0; i < ps.length; i++){
+            if(ps[i].value==p){
+                ps[i].style.color='red';
+            }else{
+                ps[i].style.color='';
+            }
+        }
+        //请求服务器，最对应的查询，p为当前页码
+        reqServer(p);
+    }
+</script>
+
+
+<input type="hidden" name="total" id="total" value="0"/>
+<input type="hidden" name="current" id="current" value="0"/>
+</div>
+</form>
+<!--提示 begin-->
+<div class="p-Song" id="alertBox">
+    <div class="m-songt"><span class="s-close" id="close_msg"></span>
+    <h4>提示</h4>
+    </div>
+    <div class="m-songv">
+    <div class="promt-msg">
+        <p class="msg-text" id="msg_text"></p>
+        <div class="msg-btn" id="poptype1"><span class="play-btn" id="data-confirm">确定</span></div>
+        <div class="msg-btn" id="poptype2">
+        <span id="btnAgree" class="play-btn">同意</span>
+        <span id="btnDisgree" class="play-btn">取消</span>
+    </div>
+    </div>
+    </div>
+</div>
+
+<!--提示 end-->
+<include file="Public:footer" />
+</body>
+</html>

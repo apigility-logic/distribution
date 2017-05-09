@@ -1,0 +1,201 @@
+<tagLib name="html" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>结算记录-我的账单-管理中心-{$sitename}</title>
+<link rel="stylesheet" type="text/css" href="/style/meilibo/css/common.css">
+<link rel="stylesheet" type="text/css" href="/style/meilibo/css/user.css">
+<script language="javascript" src="/style/js/jquery.js"></script>
+<script language="javascript" src="/style/js/common.js"></script>
+<script language="javascript" src="/style/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/style/meilibo/js/logon-2.0.js"></script>
+<script>
+    UAC.showUserInfo = function(data) {if(data.isLogin == "1"){window.location.reload();}}
+  </script>
+</head>
+<body style="background:url(/style/meilibo/images/mod0_v2.jpg) no-repeat top center;">
+<include file="Public:header" />
+<div class="u_header">
+  <div class="wrap">
+    <div class="uphoto">
+       <img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$userinfo['id']|md5|substr=0,3}/{$userinfo['id']}_big.jpg" width="207" height="207"/>
+       <p class="bj_photo"><a href="/my/center_headerpic/"><span class="bjIcon"></span>更换头像</a></p>
+    </div>
+    <div class="userData">
+      <div class="clearfix" id="vo">
+        <span class="u_nickname">{$userinfo['nickname']}</span>
+      </div>
+      <div class="level clearfix">
+        <span class="fl">秀币：{$userinfo['coinbalance']}</span>
+       <!--  <b class="fl">
+          <em class="icon_rich_level icon_rich_level_0"></em>
+        </b>
+        <i class="jy_bar">
+          <span class="jy_bar_cont" style="0%"></span>
+          <em class="poab">0/2000</em>
+        </i>
+        <b class="fl">
+          <em class="icon_rich_level icon_rich_level_1"></em>
+        </b> -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="u_tab">
+  <div class="wrap clearfix">
+    <div class="u_tab_left fl">
+      <a href="/my/center_editinfo/">个人设置<span class="arror"></span></a>
+      <a href="/my/mybills/">我的账单<span class="arror"></span></a>
+      <a href="/my/mytools/">我的道具<span class="arror"></span></a>
+      <a href="/my/mynumbers/">我的靓号<span class="arror"></span></a>
+      <a href="/my/mymanagers/">我的管理<span class="arror"></span></a>
+      <a href="/my/familyIJoin/">我的家族<span class="arror"></span></a>
+      <!-- <a href="/my/myfavor/">我的收藏<span class="arror"></span></a> -->
+      <a href="/my/mygods/">我的偶像<span class="arror"></span></a>
+      <a href="/my/myfans/">我的粉丝<span class="arror"></span></a>
+      <a href="/my/mylink/">我的推广链接<span class="arror"></span></a>
+    </div>
+    <div class="u_tab_right fr">
+      <a href="/{$_SESSION['roomnum']}">我的直播</a>
+      <a href="/my/charge/">充值</a>
+      <a href="/my/exchange/">兑换</a>
+      <a class="hover" href="/my/settlement/">结算</a>
+    </div>
+  </div>
+</div>
+<div class="wrap">
+<div class="usercenter">
+<script language="javascript">
+$(function(){
+   var sm = $('.utab a,.umyhelp a').setMyTab();
+ }
+)
+</script>
+        <div class="myaccount">
+            <div class="exchange">
+                <div class="nums"><span>我的秀豆:</span><strong>{$userinfo['beanbalance']}</strong></div>
+                <div class="deal-view account">
+                    <div class="item">
+                        <ul>
+                            <li>提示：</li>
+                            <li>• 系统每10天会自动为您结算一次，默认按最大可结算数额结算。</li>
+                            <li>• 结算时，系统会自动扣除相应的秀豆数；同时往您的银行账户或支付宝账户打入相应的人民币。</li>
+                            <li>• 如您希望保留一些秀豆用作兑换，可以设置希望保留的数量。</li>
+                        </ul>
+                        <p class="tle">想保留的秀豆数量：{$userinfo['freezeincome']}</p>
+                        <p>
+                            <label><input type="radio" name="want" value="1" onclick="javascript:exchangeAll()"/>全部</label>
+                            <label class="ml20"><input type="radio" name="want" value="{$userinfo['freezeincome']}" /><input type="text" id="freezeincome" class="set_input" pro-msg="请输入数字..." value=""  onkeyup="javascript:canget()" /></label>
+                        </p>
+                    </div>
+                    <div class="item no">
+                            <label>
+                              <input type="radio" name="RadioGroup1" value="1" id="RadioGroup1_0" />
+                              以上选择仅下次结算时有效</label>
+                            <br />
+                            <label>
+                              <input type="radio" name="RadioGroup1" value="0" id="RadioGroup1_1" />
+                              以上选择在每次结算时有效</label>
+                      <p class="btn_change"><span class="change_data" onclick="javascript:setttle()">提交</span></p>
+                      <div class="succeedalert">操作已成功！</div>
+                  </div>
+                </div>
+            </div>
+            <div class="ex_history">
+                <div class="record">
+                    <strong>历史结算记录</strong>
+                </div>
+                <div class="recod-tpl">
+                                                                        
+                    <table class="r-table">
+                        <tr>
+                            <th class="t1">结算时间</th>
+                            <th class="t1">结算类型</th>
+                            <th class="t2">结算的秀豆</th>
+                            <th class="t3">获得的人民币</th>
+                        </tr>
+                        <?php if (!empty($settlements)) { ?>
+                        <volist name="settlements" id="vo" key="k">
+                            <tr>
+                                <td class="t1"><?php echo date('Y-m-d H:i:s',$vo['addtime']); ?></td>
+                                <td class="t2">系统</td>
+                                <td class="t3">{$vo['bean']}</td>
+                                <td class="t4"><?php echo round(($vo['bean']/100),2); ?></td>
+                            </tr>
+                        </volist>
+                        <?php }?>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script language="javascript"> 
+    $(function(){
+        $(".set_input").ClearRoom();
+    })
+</script>
+</div>
+
+
+<include file="Public:footer" />
+<script language="javascript">
+function exchangeAll(){
+    document.getElementById("freezeincome").value="{$userinfo['beanbalance']}";
+}
+function canget(){
+    var checkObj = document.getElementsByName("RadioGroup1");
+    for (i=0;i<checkObj.length;i++) {
+       if (checkObj[i].checked==true) {
+            checkObj[i].value
+       }else{
+               checkObj[i].checked = false;
+       }
+    }
+}
+function setttle(){
+    var freezeIncome = document.getElementById("freezeincome").value;
+    if(!(/^(\-?)(\d+)$/.test(freezeIncome))){
+        alert("请输入数字");
+        document.getElementById('freezeIncome').focus();
+        return;
+    }                    
+    var checkObj = document.getElementsByName("RadioGroup1");
+    var freezeStatus;
+    for (i=0;i<checkObj.length;i++) {
+       if (checkObj[i].checked==true) {
+            freezeStatus = checkObj[i].value;
+            break;
+       }
+    }
+    $.post('/my/freezeIncome/rand/'+Math.random(),{
+         freezeincome:freezeIncome,freezestatus:freezeStatus},function(data){
+            if(data=="000000"){
+                alert("保留秀豆成功");
+                document.location.reload();
+            }else{
+                alert("保留秀豆失败");
+            }
+         }
+     )
+}
+if("1"=="{$userinfo['freezestatus']}"){
+    document.getElementById("RadioGroup1_0").checked=true;
+}else{
+    document.getElementById("RadioGroup1_1").checked=true;
+}
+var freezeincome = document.getElementById("freezeincome").value;
+if(freezeincome==""){
+    document.getElementById("freezeincome").value = "0";
+}
+var checkObj = document.getElementsByName("want");
+for (i=0;i<checkObj.length;i++) {
+      if (checkObj[i].value=="0") {
+        checkObj[i].checked = true;
+      }else{
+          checkObj[i].checked = false;
+      }
+   }
+</script>
+</body>
+</html>

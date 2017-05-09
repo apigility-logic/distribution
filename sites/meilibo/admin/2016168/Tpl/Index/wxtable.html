@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>美丽播 - 后台管理中心</title>
+<link href="/style/statics/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="/style/statics/css/system.css" rel="stylesheet" type="text/css" />
+<link href="/style/statics/css/table_form.css" rel="stylesheet" type="text/css" />
+<link href="/style/statics/css/dialog.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/bootstrap.min.css">
+<script language="javascript" type="text/javascript" src="/style/statics/js/dialog.js"></script>
+<link rel="stylesheet" type="text/css" href="/style/statics/css/style/styles1.css" title="styles1" media="screen" />
+<link rel="alternate stylesheet" type="text/css" href="/style/statics/css/style/styles2.css" title="styles2" media="screen" />
+<link rel="alternate stylesheet" type="text/css" href="/style/statics/css/style/styles3.css" title="styles3" media="screen" />
+<link rel="alternate stylesheet" type="text/css" href="/style/statics/css/style/styles4.css" title="styles4" media="screen" />
+<link rel="stylesheet" type="text/css" href="/style/statics/css/jquery.dataTables.css"/>
+<script type="text/javascript" src="__PUBLIC__/meilibo/js/jquery-1.8.3.min.js"></script>
+<script language="javascript" type="text/javascript" src="/style/statics/js/jquery.dataTables.js"></script>
+<script language="javascript" type="text/javascript" src="/style/statics/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="/style/statics/js/styleswitch.js"></script>
+<script language="javascript" type="text/javascript" src="/style/statics/js/formvalidator.js" charset="UTF-8"></script>
+<script language="javascript" type="text/javascript" src="/style/statics/js/formvalidatorregex.js" charset="UTF-8"></script>
+<script charset="utf-8" src="/style/editor/kindeditor-min.js"></script>
+<script charset="utf-8" src="/style/editor/lang/zh_CN.js"></script><script>    var editor;
+    KindEditor.ready(function(K) {
+        editor = K.create('textarea[name="content"]', {
+            resizeType : 1,
+            allowPreviewEmoticons : false,
+            allowImageUpload : true,
+            items : [
+                'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                'insertunorderedlist', '|', 'emoticons', 'image', 'link', 'source']
+        });
+    });
+</script>
+<script type="text/javascript">
+    window.focus();
+</script>
+</head>
+<body>
+<style type="text/css">
+    html{_overflow-y:scroll}
+</style><div id="closeParentTime" style="display:none"></div>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+function ResumeError() { 
+    return true; 
+} 
+window.onerror = ResumeError;
+if(window.top.$("#current_pos").data('clicknum')==1) {
+    window.top.$("#current_pos").data('clicknum',0);
+}
+
+function checkForm(obj, type) {
+    if(upForm.title.value == '') {
+        alert("请填写标题！")
+        upForm.title.focus()
+        return false;
+    }
+}
+//-->
+
+</SCRIPT>
+<div class="pad-10">
+    <div class="pad-lr-10">
+        <form name="exportExcel" id="exportExcel" action="__URL__/exportexcel/" method="GET" onsubmit="">
+            <div class="explain-col"> 
+                操作时间：
+            <link rel="stylesheet" type="text/css" href="__PUBLIC__/statics/js/calendar/jscal2.css"/> 
+            <link rel="stylesheet" type="text/css" href="__PUBLIC__/statics/js/calendar/border-radius.css"/> 
+            <link rel="stylesheet" type="text/css" href="__PUBLIC__/statics/js/calendar/win2k.css"/> 
+            <script type="text/javascript" src="__PUBLIC__/statics/js/calendar/calendar.js"></script> 
+            <script type="text/javascript" src="__PUBLIC__/statics/js/calendar/lang/en.js"></script><input type="text" name="start_time" id="start_time" value="{$_GET['start_time']}" size="10" class="date" readonly>&nbsp;<script type="text/javascript"> 
+            Calendar.setup({
+            weekNumbers: false,
+            inputField : "start_time",
+            trigger    : "start_time",
+            dateFormat: "%Y-%m-%d",
+            showTime: false,
+            minuteStep: 1,
+            onSelect   : function() {this.hide();}
+            });
+        </script>- &nbsp;<input type="text" name="end_time" id="end_time" value="{$_GET['end_time']}" size="10" class="date" readonly>&nbsp;<script type="text/javascript"> 
+            Calendar.setup({
+            weekNumbers: false,
+            inputField : "end_time",
+            trigger    : "end_time",
+            dateFormat: "%Y-%m-%d",
+            showTime: false,
+            minuteStep: 1,
+            onSelect   : function() {this.hide();}
+            });
+        </script>  
+            <select name="status" id ="status" style="height:35px;line-height:35px;">
+                <option value="">全部</option>
+                <option value="审核通过">审核通过</option>
+                <option value="待审核">待审核</option>
+                <option value="审核不通过">审核不通过</option>
+            </select>&nbsp;&nbsp;
+            <script>
+            var status = "<?php echo $_GET['status'];?>";
+            $("#status option[value='"+status+"']").attr("selected","true");
+            </script>
+            <input type="button" name="search" id="search"class="btn btn-info btn-sm" value="搜索" /> &nbsp;&nbsp;
+            <input type="submit" id="submitdaochu" value="导出Excel" class="btn btn-info btn-sm">&nbsp;&nbsp;
+            <!-- <input type="button" value="标记为审核通过" class="btn btn-success btn-sm" id="ChangeToSuccess">&nbsp;&nbsp;
+            <input type="button" value="标记为审核失败" class="btn btn-danger btn-sm" id="ChangeToFail"> -->
+            <input type="hidden" id="earn_type" value="{$history['0']['type']}" name="earn_type">&nbsp;&nbsp;
+          </div> 
+        </form>
+    </div>
+    <div class="table-list">
+        <table id="table_id" class="table table-bordered table-condensed table-striped table-hover">
+          <thead>
+            <tr>
+                <th>ID</th>
+                <th>用户ID</th>
+                <th>用户名</th>
+                <th>用户昵称</th>
+                <th>提现金额</th>
+                <th>时间</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <volist name="history" id="data">
+                <tr>
+                    <td align="center">{$data.id}</td>
+                    <td align="center">{$data.uid}</td>
+                    <td align="center">{$data.username}</td>
+                    <td align="center">{$data.nickname}</td>
+                    <td align="center">{$data.cash}</td>
+                    <td align="center">{$data.time}</td>
+                    <switch name="data.status">
+                        <case value="待审核">
+                            <td align="center" style="color:#EE7600;">待审核</td>
+                        </case>
+                        <case value="审核通过">
+                            <td align="center" style="color:green;">审核通过</td>
+                        </case>
+                        <case value="审核不通过">
+                            <td align="center" style="color:#ec1500;">审核不通过</td>
+                        </case>
+                    </switch>
+                    <td align="center">
+                        <if condition="$data.status eq '待审核' ">
+                            <button class="wxpayment btn btn-success btn-sm">付款</button>
+                        <else />
+                            <button disabled="disabled" class="btn btn-success btn-sm">付款</button>
+                        </if>
+                    </td>
+                </tr>
+            </volist>
+          </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready( function () {
+    $('#table_id').dataTable({
+        "bLengthChange": false,
+        bPaginate:true,
+        iDisplayLength:20,
+        searching:false,
+        "oLanguage": {  
+        "sLengthMenu": "每页显示 _MENU_ 条记录",  
+        "sZeroRecords": "抱歉， 没有找到",  
+        "sInfo": "共 _TOTAL_ 条数据",  
+        "sInfoEmpty": "没有数据",  
+        "sInfoFiltered": "(从 _MAX_ 条数据中检索)",  
+        "oPaginate": {  
+        "sFirst": "首页",  
+        "sPrevious": "上一页",  
+        "sNext": "下一页",  
+        "sLast": "尾页"  
+        },  
+        "sZeroRecords": "没有检索到数据",  
+        "sProcessing": "<img src='./loading.gif' />"  
+        }  
+    });
+
+
+    $(".wxpayment_old").click(function(){
+        if(confirm("是否确定选择付款!")){
+            $.ajax({
+                url:'{:U(wxpay)}',
+                type:'post',
+                data:{'id':$(this).parents("td").siblings("td").eq(0).text()},
+                success:function(data){
+                    alert(data);
+                    // console.log(data);
+                }
+            });
+        }
+    });
+    $(".wxpayment").click(function(){
+        if(confirm("是否确定选择付款!")){
+            $.ajax({
+                url:'{:U(wxpayredpack)}',
+                type:'post',
+                data:{'id':$(this).parents("td").siblings("td").eq(0).text()},
+                success:function(data){
+                    alert(data);
+                    // console.log(data);
+                }
+            });
+        }
+    });
+    $("#search").click(function(){
+        var starttime = $('#start_time').val();
+        var endtime = $('#end_time').val();
+        var status = $('#status').val();
+        var rooturl =' <?php echo "__URL__/wxtable";?>';
+        var searchurl = rooturl+"?start_time="+starttime+"&end_time="+endtime+"&status="+status;
+        window.location.href = searchurl;
+    }); 
+} );
+
+// var ids = ""; 
+
+// var d = new Date();
+// function addzero(v) {if (v < 10) return '0' + v;return v.toString();}
+// var s = d.getFullYear().toString() +'-'+ addzero(d.getMonth() + 1) +'-'+ addzero(d.getDate());
+// var t = d.getFullYear().toString() +'-'+ addzero(d.getMonth() + 1) +'-'+ addzero(01);
+// document.getElementById('end_time').value=s;
+// document.getElementById('start_time').value=t;
+</script>
+</body>
+</html>

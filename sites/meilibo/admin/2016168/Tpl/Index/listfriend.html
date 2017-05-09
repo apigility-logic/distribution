@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<meta http-equiv="X-UA-Compatible" content="IE=7" /> 
+<title>美丽播 - 后台管理中心</title> 
+<link href="__PUBLIC__/statics/css/reset.css" rel="stylesheet" type="text/css" /> 
+<link href="__PUBLIC__/statics/css/system.css" rel="stylesheet" type="text/css" /> 
+<link href="__PUBLIC__/statics/css/table_form.css" rel="stylesheet" type="text/css" /> 
+<link href="__PUBLIC__/statics/css/dialog.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/bootstrap.min.css"> 
+<script language="javascript" type="text/javascript" src="__PUBLIC__/statics/js/dialog.js"></script> 
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles1.css" title="styles1" media="screen" /> 
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles2.css" title="styles2" media="screen" /> 
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles3.css" title="styles3" media="screen" /> 
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles4.css" title="styles4" media="screen" /> 
+<script language="javascript" type="text/javascript" src="__PUBLIC__/statics/js/jquery.min.js"></script> 
+<script language="javascript" type="text/javascript" src="__PUBLIC__/statics/js/admin_common.js"></script> 
+<script language="javascript" type="text/javascript" src="__PUBLIC__/statics/js/styleswitch.js"></script> 
+
+</head> 
+<body> 
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+        <a href='javascript:;' class="on"><em>友链管理</em></a><span>|</span><a href='__URL__/addfriend/' ><em>添加友链</em></a>    </div>
+</div>
+<style type="text/css"> 
+	html{_overflow-y:scroll}
+</style><div id="closeParentTime" style="display:none"></div> 
+<div class="pad-10"> 
+
+
+<form name="myform" id="myform" action="#" method="post" > 
+<div class="table-list"> 
+    <table width="100%" class="table table-bordered table-condensed table-striped table-hover"> 
+        <thead> 
+            <tr> 
+			<th width="40">ID</th> 
+			<th align="">友链名称</th> 
+			<th align="40">友链图片</th> 
+			<th align="">友链地址</th> 
+            <th width="120">添加时间</th> 
+            <th width="120">排序</th> 
+			<th width="120">管理操作</th> 
+            </tr> 
+        </thead> 
+<tbody> 
+	<volist name="listfriend" id="vo">
+	<tr> 
+		<td align='center'>{$vo['id']}</td> 
+		<td align="center">{$vo['f_name']}</td> 
+        <td align='center'><img src="__PUBLIC__/Friend/{$vo['f_pic']}" width="50px" /></td>
+        <td align="center">{$vo['f_url']}</td> 
+		<td align='center'>{$vo['f_addtime']|fDate}</td> 
+		<td align="center">{$vo['f_sort']}</td> 
+		<td align='center'>
+			<a href="__URL__/editfriend/id/{$vo['id']}">修改</a> 
+			| <a href="javascript:confirmurl('__URL__/delfriend/id/{$vo['id']}/return/{$_SERVER["REQUEST_URI"]|base64_encode}', '是否删除该信息？')">删除</a>
+			</td> 
+	</tr> 
+	</volist>
+             
+     </tbody> 
+     </table> 
+    <div id="pages">{$page}</div> 
+</div> 
+<input type="hidden" id="return" name="return" value="{$_SERVER["REQUEST_URI"]|base64_encode}" >
+</form>
+</div> 
+</body> 
+</html>

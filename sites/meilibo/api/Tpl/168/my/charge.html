@@ -1,0 +1,211 @@
+<tagLib name="html" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>充值中心-首页</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/common.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/user.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/charge/css/main.css" />
+<script type="text/javascript" src="__PUBLIC__/charge/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/charge/js/sitejavascript.js"></script>
+<script type="text/javascript" src="__PUBLIC__/meilibo/js/logon-2.0.js"></script>
+<script type="text/javascript" src="__PUBLIC__/meilibo/js/Pulse.js"></script>
+</head>
+<body onclick="hiddenproxy()" style="background:#F7F7F7;">
+<include file="Public:header" />
+<div  style="padding-top:72px;">
+    <div class="main clear">
+        <!--充值中心左侧导航 begin-->
+        <div class="chargenav">
+            <div class="main_left">
+                <dl>
+                    <dd  class="on" ><a href="__URL__/charge/">充值秀币</a></dd>
+                    <dd ><a href="__URL__/userbalance/">账户余额</a></dd>
+                    <dd ><a href="__URL__/chargelist/">充值记录</a></dd>
+                </dl>
+            </div>
+        </div>
+        <!--充值中心左侧导航 end-->
+        <div style="width:1200px;margin:0 auto;">
+            <div class="main_right newmain_right">
+                <!--充值中心头部 end-->
+                <div class="rec_main">
+                    <h2 class="pay_title"><em class="pay_back_icon"></em>请填写充值信息</h2>
+                        <!--使用人民币充值 begin-->
+                        <div id="PayType1" style="display:none">
+                            <div class="recform2 clear">
+                                <p class="pay_news">充值到帐号：<em self="{$_SESSION['uid']}" id = "uid">{$_SESSION['uid']}</em>账户余额：&nbsp;<em>{$user.coinbalance}</em></p>
+                                <div class="pay_tabs">
+                                    <a href="javascript:void(0);" class="on">充值<em></em></a>
+                                </div>
+                                <div class="pay_cont clearfix">
+                                    <ul class="pay_menu">
+                                        <li class="on"><a href="javascript:;" class="pay_back_icon pay_menu10" title="微信支付"></a></li>
+                                        <li><a href="javascript:;" class="pay_back_icon pay_menu2" title="支付宝支付"></a></li>
+                                    </ul>
+                                    <div class="pay_cont_box">
+                                        <form class="pay_alipay">
+                                            <dl>
+                                                <dt>当前充值方式：</dt>
+                                                <dd class="colorF09">微信</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>当前登录帐号：</dt>
+                                                <dd class="colorF09">{$user.nickname}</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>您的账户余额：</dt>
+                                                <dd><em class="colorF09">{$user.coinbalance}&nbsp;钻石</em></dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>请选择充值金额：</dt>
+                                                <dd class="label_margin">
+                                                    <label for="ebank_alipay1"><input name="money_weixinpay" value="1" type="radio" class="radiu_input" id="ebank_alipay1" checked>1元(20钻石)</label>
+                                                    <label for="ebank_alipay2"><input name="money_weixinpay" value="6" type="radio" class="radiu_input" id="ebank_alipay2">6元(60钻石)</label>
+                                                    <label for="ebank_alipay3"><input name="money_weixinpay" value="30" type="radio" class="radiu_input" id="ebank_alipay3">30元(300钻石)</label>
+                                                    <label for="ebank_alipay4"><input name="money_weixinpay" value="98" type="radio" class="radiu_input" id="ebank_alipay4">98元(980钻石)</label>
+                                                    <label for="ebank_alipay5"><input name="money_weixinpay" value="298" type="radio" class="radiu_input" id="ebank_alipay5">298元(2980钻石)</label>
+                                                    <label for="ebank_alipay6"><input name="money_weixinpay" value="588" type="radio" class="radiu_input" id="ebank_alipay6">588元(5880钻石)</label>
+                                                    <label for="ebank_alipay7"><input name="money_weixinpay" value="1598" type="radio" class="radiu_input" id="ebank_alipay7">1598元(15980钻石)</label>
+                                                    
+                                                </dd>
+                                            </dl>
+                                            <p class="pay_cont_hint">提示：1、人民币和九币兑换比例为1:10<br> <span style="padding-left:42px;">2、转账充值金额，以实际到账金额为准</span></p>
+                                            <div class="pay_but">
+                                                <input type="button" class="button_input yahei sub" value="充值">
+                                            </div>
+                                        </form>
+                                        <form class="pay_alipay hide">
+                                            <dl>
+                                                <dt>当前充值方式：</dt>
+                                                <dd class="colorF09">支付宝</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>当前登录帐号：</dt>
+                                                <dd class="colorF09">{$user.nickname}</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>您的账户余额：</dt>
+                                                <dd><em class="colorF09">{$user.coinbalance}&nbsp;钻石</em></dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>请选择充值金额：</dt>
+                                                <dd class="label_margin">
+                                                    <label for="ebank_alipay1"><input name="money_alipay" value="1" type="radio" class="radiu_input" id="ebank_alipay1" checked>1元(20钻石)</label>
+                                                    <label for="ebank_alipay2"><input name="money_alipay" value="6" type="radio" class="radiu_input" id="ebank_alipay2">6元(60钻石)</label>
+                                                    <label for="ebank_alipay3"><input name="money_alipay" value="30" type="radio" class="radiu_input" id="ebank_alipay3">30元(300钻石)</label>
+                                                    <label for="ebank_alipay4"><input name="money_alipay" value="98" type="radio" class="radiu_input" id="ebank_alipay4">98元(980钻石)</label>
+                                                    <label for="ebank_alipay5"><input name="money_alipay" value="298" type="radio" class="radiu_input" id="ebank_alipay5">298元(2980钻石)</label>
+                                                    <label for="ebank_alipay6"><input name="money_alipay" value="588" type="radio" class="radiu_input" id="ebank_alipay6">588元(5880钻石)</label>
+                                                    <label for="ebank_alipay7"><input name="money_alipay" value="1598" type="radio" class="radiu_input" id="ebank_alipay7">1598元(15980钻石)</label>
+                                                </dd>
+                                            </dl>
+                                            <p class="pay_cont_hint">提示：1、人民币和九币兑换比例为1:10<br> <span style="padding-left:42px;">2、转账充值金额，以实际到账金额为准</span></p>
+                                            <div class="pay_but">
+                                                <input type="button" class="button_input yahei sub" value="充值">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>        
+                        </div>
+                <!--充值中心底部 begin-->
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--微信充值-->
+
+<div id="page_mask" class="promptbg hide">
+    <div class="promptbox ">
+        <a class="close-big cancel _xxx">取消</a>
+        <h3>请使用微信客户端扫码</h3>
+        <div class="popCon">
+            <img id="imgurl" style="margin-left:85px;width:200px;height:200px; " src="/style/images/qrcode.png">
+            <div class="tb-inner tb-bank-intro">
+                <table style="margin: 0 auto;">
+                    <tbody>
+                        <tr><td class="msg-title">交易金额</td><td class="msg-cnt"><strong class="order-amount" id="rmb">0</strong> 元</td></tr>
+                        <tr><td class="msg-title">交易号</td><td class="msg-cnt" id="orderno"></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!--微信充值-->
+
+<include file="Public:footer" />
+<script>
+$(function(){
+    $(".pay_menu li").click(function(){
+        var _index=$(this).index();
+        $(this).addClass("on").siblings().removeClass("on");
+        $(".pay_alipay").eq(_index).removeClass("hide").siblings(".pay_alipay").addClass("hide");
+    })
+    $("input[value='1']").click(function(){
+        $(".toFriends").removeClass("hide");
+    })
+    $("input[value='0']").click(function(){
+        $(".toFriends").addClass("hide");
+    })
+    $(".pay_but").click(function(){
+        $.ajax({
+            url:"{:U('weixinpay')}",
+            type:"post",
+            data:{uid:$("#uid").attr("self"),num:$(".label_margin input[name='money_weixinpay']:checked").val()},
+            success:function(json){
+                var json = eval("("+json+")");
+                $("#imgurl").attr("src","http://paysdk.weixin.qq.com/example/qrcode.php?data="+json.imgurl);
+                $("#rmb").html( $(".label_margin input[name='money_weixinpay']:checked").val() );
+                json.orderno = json.orderno.substring( json.orderno.indexOf("_")+1);
+                $("#orderno").html(json.orderno);
+                orderno = json.orderno;
+                Pulse.create({
+                param: [[10000, 10000], [70000, 3000], [150000, 5000], [600000, 7000], [1800000, 10000]],
+                delay: false,
+                start: true,
+                stop: true,
+                pulse: function() {
+                    $.ajax({
+                        url:'{:U("my/weixinCallback")}',
+                        type: 'post',
+                        data:{orderno:orderno},
+                        dataType: 'json',
+                        cache: false,
+                        success: function(data) {
+                            if ($.trim(data) === '1') {
+                                location.reload();
+                            }
+                        }
+                    });
+                    }
+                });
+
+            }
+        })
+        $(".promptbg").removeClass("hide");
+    })
+
+    $(".close-big").click(function(){
+        $(".promptbg").addClass("hide");
+    })
+            })
+//showcharge('1');
+showcharge('1');
+showuser('1');
+ChangePPType('1','1_ICBC-NET-B2C','人民币');
+
+var g_MaxMoney = 5000000;
+var g_CheckUser = false;
+var g_CurDestUserName = "";
+var g_ProxyUserIDArray = new Array();
+<volist name='proxyusers' id='vo' key='k'>
+g_ProxyUserIDArray[<?php echo ($k-1); ?>] = new Array("{$vo['id']}", "{$vo['nickname']}"); 
+</volist>
+</script>
+</body>
+</html>

@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Generator" content="EditPlus®">
+    <meta name="Author" content="">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <title>{$user['nickname']}的直播间</title>
+
+    <link href="__PUBLIC__/meilibo/dist/style/video-js.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/dist/style/pcshow.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/dist/style/swiper.css">
+    <script src="__PUBLIC__/meilibo/dist/js/video.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/meilibo/dist/js/videojs-contrib-hls.js"></script>
+
+    <script type="text/javascript" src="__PUBLIC__/meilibo/dist/js/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/meilibo/dist/js/queue.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/meilibo/dist/js/template.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/meilibo/dist/js/txbb-pop.js"></script>
+    <script type="text/javascript">
+        var public='__PUBLIC__/meilibo/dist/';
+        var IMG_PATH='__PUBLIC__';
+        var room_id = {$user.curroomnum};
+        var to_uid = {$user.id};
+        var User = {$userinfo.islogin} ? {:json_encode($userinfo)} : {$userinfo.islogin};
+        var fly="";
+
+        var myPlayer;
+        $(function(){
+            if("{$user['broadcasting']}" == "n"){
+                $("#state").show();
+                $("#play").hide();
+            }else{
+                $("#state").hide();
+                $("#play").show();
+            }
+            setInterval("connectChange()", 1000);
+            $n = 0;
+        });
+        function connectChange(){
+            var $domain = "{$domain}";
+            var $uid = "{$user['id']}";
+            
+            $.post($domain+"/OpenAPI/V1/Room/getBroadcasting", {"uid":$uid}, function(data){
+                if($n == 0){
+                    $bool = data.data;
+                }
+                if($bool != data.data){
+                    $n = 1;
+                }else{
+                    $n++;
+                }
+                if($n==1){
+                    myPlayer = videojs("videoHLS");
+                    if(data.data){
+                        $("#state").hide();
+                        $("#top_box").show();
+                        myPlayer.show();
+                        //myPlayer.play();
+                    }else{    
+                        $(".screen #state").show();  
+                        $(".screen #top_box").hide(); 
+                        $(".screen .jw-preview").show();               
+                        myPlayer.pause();
+                        myPlayer.hide();
+                    }
+                    // 开始或恢复播放
+                    myPlayer.on('play', function() {  
+                        $(".screen .jw-preview").hide();
+                        $(".screen #top_box").hide();
+                    });
+                    // 暂停播放
+                    myPlayer.on('pause', function() { 
+                        $(".screen #top_box").show();
+                    });
+                    
+                }
+                $bool = data.data;
+            });
+        }
+    </script>
+</head>
+<body>
+<!--点击用户头像显示信息-->
+<section class="user_info_con" id="user_info_con"></section>
+<!--视屏区域-->
+<div id="screen" class="screen">
+    <div style="width:100%;height:100%;position:absolute;top:0;left:0;overflow:hidden;">
+        <video id="videoHLS" class="video-js vjs-big-play-centered"  style="height:auto;display: none;"   data-setup='{}' preload="none" webkit-playsinline playsinline  x-webkit-airplay="true" x5-video-player-type="h5" x5-video-player-fullscreen="true" poster="">
+            <source src="<?php echo $app_url; ?>" type="application/x-mpegURL">
+        </video>
+        <canvas id="liveCanvas"></canvas>
+    </div>
+    <div class="jw-preview" style="background: url('{$user['head_url']}') no-repeat;background-size:cover;">
+    </div>
+    <div id="top_box">
+        <button id="play"><img src="__PUBLIC__/meilibo/dist/images/play.png" width="61"></button>
+    </div>
+    <div id="state">
+        <h2>抱歉，这个房间的主播已经退出房间啦...</h2>
+    </div>
+</div>
+<!--选项-->
+<div id="select" class="selectarea" >
+    <ul>
+        <li class="chat"><img src="__PUBLIC__/meilibo/dist/images/pcshow/chat.png"/><span>聊天</span></li>
+        <li class="rank" userid={$user.id}><img src="__PUBLIC__/meilibo/dist/images/pcshow/rank1.png"/><span>排行榜</span></li>
+        <li class="anchor" userid={$user.id}><img src="__PUBLIC__/meilibo/dist/images/pcshow/anchor1.png"/><span>主播</span></li>
+    </ul>
+        <div class="focus" value="{$user.id}"><span>已关注</span></div>
+</div>
+<div class="allmodular">
+    <!--聊天面板-->
+    <div class="chatinfo">
+        <article class="msg-box" id="upchat_hall">
+            <div class="msg-con"id="chat_hall"></div>
+        </article>
+        <!--礼物列表-->
+        <div class="giftlist none">
+            <div class="giftheadinfo">
+                <ul>
+                    <li style="width:82%;"><div class="balance">余额：<span class="bglance_money"> {$userinfo['coinbalance']}</span> 元</div></li>
+                    <li style="width:18%;"><a href="javascript:Ctrfn.balanceFn();" class="chongzhi" style="color:#11cd6e">充值</a></li>
+                </ul>
+            </div>
+            <div class="giftinfo">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper" id="swiper-wrapper">
+                        <article class="swiper-slide swiper-slide-active" style="width: 375px;">
+                            <div data-id="109">
+                                <img src="http://ob83ribqd.bkt.clouddn.com/img/gift/1/1-1474962788.png" data-money="10">
+                                <p>10</p>
+                            </div>  
+                        </article>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+        <script id="giftlist" type="text/html">
+            (*each pagenum as v k*)
+                <article class="swiper-slide">
+                    (*each giftlist as value key*)
+                    (*if key>=(k)*8&&key<=(k+1)*8-1 *)
+                    <div data-id="(*value.id*)" data-giftname="(*value.giftname*)">
+                        <img src="(*value.gifticon*)" data-money="(*value.needcoin*)">
+                        <p>(*value.needcoin*)</p>
+                    </div>
+                    (*/if*)
+                    (*/each*)
+                </article>
+            (*/each*)
+        </script>
+        <!-- 输入框 -->
+        <div id="operation" class="operation" >
+            <div class="inputwords">
+                <div class="chat_barrage">
+                    <span>弹幕</span>
+                </div>
+                <div class="tinput"><input type="text" placeholder="发个弹幕或者送个礼物"id="message"></div>
+                <input type="button" value="发送" class="sub" id="onmessage"/>
+            </div>
+            <div class="gift"><img src="__PUBLIC__/meilibo/dist/images/pcshow/gift.png"></div>
+        </div>
+    </div>
+    <!--粉丝贡献排行榜-->
+    <div class="rankbox">
+        <div class="rankinfo">
+            <div class="top">
+                <div class="toprank">贡献总榜</div>
+            </div>
+            <div id="contributionval"></div>
+            <script id="ranklist" type="text/html">
+                <div class="ranklist">
+                    <ul>                
+                        (*each list as value i*)
+                            (*if i <= 2*)
+                            <li><div style="float:left;"><img src="__PUBLIC__/meilibo/dist/images/pcshow/t_rank(*i+1*).png" width="20px"><img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="(*value.avatar*)" style="border-radius:50%;width:30px;height:30px;margin-left:2px;"><img class="contr_lev" src="__PUBLIC__/meilibo/dist/images/level/public_icon_vip(*value.levelid*)@2x.png" style="width:35px;height:15px;margin:0 4px;"></div><div style="float:left;max-width:150px;overflow: hidden; text-overflow:ellipsis; white-space: nowrap;">(*value.username*)</div> <div style="float:left;font-size:12px;color:#11cd6e;margin-left:8px;">(*value.coin*)贡献值</div></li>
+                            (*/if*)
+                        (*/each*)
+                        (*each list as value i*)
+                            (*if i > 2*)
+                            <li><div class="level" style="float:left">(*i+1*)</div><div style="float:left"><img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="(*value.avatar*)" style="border-radius:50%;width:30px;height:30px;margin-left:2px;"/><img class="contr_lev" src="__PUBLIC__/meilibo/dist/images/level/public_icon_vip(*value.levelid*)@2x.png"style="width:35px;height:15px;margin:0 4px;"></div><div style="float:left;max-width:150px;overflow: hidden; text-overflow:ellipsis; white-space: nowrap;">(*value.username*)</div> <div style="float:left;font-size:12px;color:#11cd6e;margin-left:10px;">(*value.coin*)贡献值</div></li>
+                            (*/if*)
+                        (*/each*)
+                    </ul>
+                </div>
+            </script>
+        </div>
+    </div>
+
+    <!--主播信息-->
+    <div class="anchorinfo" id="anchorinfo"></div>
+    <script id="anchorInfo" type="text/html">
+        <div class="room">
+            <div class="anchorpic"><img onerror="javascript:this.src='/dist/img/0_big.jpg'" src="(*avatar*)" style="width:70px;border-radius:35px;"></div>
+            <div class="roominfo">
+                <ul>
+                    <li>
+                        <span style="font-size:15px;color:#393939">(*nickname*)</span> 
+                        (*if sex == 1*)
+                        <img src="__PUBLIC__/meilibo/dist/images/pcshow/woman.png"style="height:15px;">
+                        (*else*)
+                        <img src="__PUBLIC__/meilibo/dist/images/pcshow/man.png"style="height:15px;">
+                        (*/if*) 房间号((*curroomnum*))
+                    </li>
+                    <li style="font-size:13px;"> 粉丝:(*followers_cnt*) 票数:(*earnbean*) ID: (*id*)</li>
+                </ul>
+            </div>
+        </div>
+        <div class="notice">
+            <div style="border-bottom:1px solid #dddddd;height:30px;line-height:30px;">直播公告</div>
+            <div style="font-size:13px;color:#565656;padding-top:10px;" >(*intro*)</div>
+        </div>
+    </script>
+</div>
+<!--个人中心入口-->
+<if condition=" $userinfo.islogin eq 'false' " >
+    <a href="{:U('share_login')}?current_room={$user.curroomnum}" class="myEntrance" id="more_center" style="width:35px;height:35px;line-height:35px;">登陆</a>
+<else />
+    <a href="{:U('share_profile')}?uid={$userinfo.id}&token={$userinfo.token}" class="myEntrance" id="more_center">个人<br/>中心</a>
+</if>
+<!--个人中心入口-->
+<!--用户信息模板-->
+<script id="userinfo" type="text/html">
+    <div class="user_top clearfix"> 
+        <img class="user_close" src="__PUBLIC__/meilibo/dist/images/user_close.png">
+    </div>
+    <div class="user_photo">
+        <img onerror="javascript:this.src='/dist/img/0_big.jpg'" src="(*avatar*)">
+    </div>
+    <div class="user_name">(*nickname*)
+        (*if sex == 1*)
+        <img class="sex1" src="__PUBLIC__/meilibo/dist/images/sex1.png"/>
+        (*else*)
+        <img class="sex1" src="__PUBLIC__/meilibo/dist/images/sex0.png"/>
+        (*/if*)
+        <img src="/style/meilibo/dist/images/level/public_icon_vip(*emceelevel*)@2x.png" width="30">
+    </div>
+    <div class="user_id">
+        ID: (*id*)
+        <span>
+        <img src="__PUBLIC__/meilibo/dist/images/user_dre.png">
+        (*if city != ''*)
+        (*province*)  (*city*)
+        (*else*)
+        火星
+        (*/if*)
+        </span>
+    </div>
+    <div class="user_authentication">
+        <span class="sel"><img src="/style/meilibo/dist/images/sel.png"></span>
+        认证：还没有哦
+    </div>
+    (*if intro !=null *)
+    <div class="user_autograph">(*intro*)</div>
+    (*else*)
+    <div class="user_autograph">这家伙很懒，什么都没有留下</div>
+    (*/if*)
+    <div class="user_follow">
+        <div><span><small>关注： (*followees_cnt*)</small></span>|<span class="user_fw_span">粉丝： (*followers_cnt*)</span></div>
+        <div>
+            <span  class="user_fw_sn">送出： (*total_contribution*)</span>
+            |
+            <span><small>票数： (*beanorignal*)</small></span>
+        </div>
+    </div>
+</script>
+<!--用户信息模板-->
+<!--送礼物-->
+<section id="red_alert" class="red_alert">
+    <figure class="red_con">
+        <figcaption class="red_title">
+            送礼物
+            <span><img src="__PUBLIC__/meilibo/dist/images/close.png" onclick="Ctrfn.closeRed();"></span>
+        </figcaption>
+        <div class="red_num"><label for="number">个数</label><input type="number" id="red_number" value="1" /><label for="number" class="yuan">个</label></div>
+        <div class="red_num"><label for="number">总金额</label><input type="number" id="total_number" value="" readonly/><label for="number" class="yuan">元</label></div>
+        <div class="total_money">余额：<span>0.00</span><a href="javascript:Ctrfn.balanceFn();" class="chongzhi">我要充值</a></div>
+        <div class="send_red"><a class="red_btn" href="javascript:;">发送</a></div>
+    </figure>
+</section>
+<!--送礼物-->
+
+<!--请登录微信-->
+<section id="weui_dialog_alert" class="weui_dialog_alert" style="display:none;">
+    <div class="weui_dialog">
+        <img class="weui_dialog_hd" onclick="closechatdialog();" src="__PUBLIC__/meilibo/dist/images/user_close.png">
+        <div class="weui_dialog_bd" id="weui_dialog_content">用微信登陆，与主播亲密互动吧</div>
+        <div class="weui_dialog_ft">
+            <a id="closedialog" href="{:U('share_login')}?current_room={$user.curroomnum}" class="weui_btn_dialog">确定</a>
+        </div>
+    </div>
+</section>
+<!--请登录微信-->
+
+<!--充值-->
+<section id="chongzhi_alert" class="chongzhi_alert">
+    <figure class="chongzhi_con">
+        <figcaption class="chongzhi_title">
+            余额充值
+            <span><img src="__PUBLIC__/meilibo/dist/images/close.png" onclick="Ctrfn.closeCzhi();"></span>
+        </figcaption>
+        <div class="chongzhi_num"><label for="number">充值金额</label><input type="number" id="chongzhi_number" placeholder="填写金额" /><label for="number" class="yuan">元</label></div>
+        <div class="total_money">总金额：<span>{{ empty(\Auth::user()) ? 0 : \Auth::user()->coinbalance }}</span></div>
+        <div class="zhifu_btn" style="text-align: center;">
+            <a class="weixin_pay" href="javascript:void(0);">微信支付</a>
+        </div>
+    </figure>
+</section>
+<!--充值-->
+<!--礼物显示效果-->
+<article id="gift_show_box" class="gift_show_box"></article>
+<article id="big_gift_show_box" class="big_gift_show_box"></article>
+<!--弹幕-->
+<div class="chat_barrage_box"></div>
+<script type="text/javascript" src="__PUBLIC__/meilibo/dist/js/swiper.js"></script>
+<script type="text/javascript" src="__PUBLIC__/meilibo/dist/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/meilibo/dist/js/iShare.js"></script>
+<script type="text/javascript" src="__PUBLIC__/meilibo/dist/js/jquery.md5.js"></script>
+<script type="text/javascript" src="__PUBLIC__/meilibo/dist/js/ws.js"></script>
+<script type="text/javascript">
+        //var User = {!! empty(Auth::user()) ? '{"isLogin":false}' : json_encode(Auth::user()->jsInfo()) !!};
+        //var Anchor = {!! json_encode($anchor->anchorJsInfo()) !!};
+    var mode = 2;//电脑直播手机观看  
+    var scheight = document.body.clientHeight;
+    $("#upchat_hall").css("height",scheight-313);
+    $(".rankbox").css("height",scheight-280);
+    $(".anchorinfo").css("height",scheight-287);
+
+    videoHLS.style.width = window.screen.width + "px";     
+    videoHLS.style.height = window.screen.height + "px";   
+    videoHLS.style.height ="202px";   
+    videoHLS.style["object-position"]= "0px 0px";
+    $(window).resize(function() {
+        var scheight = document.body.clientHeight;
+        $("#upchat_hall").css("height",scheight-313);
+        $(".rankbox").css("height",scheight-280);
+        $(".anchorinfo").css("height",scheight-287);
+
+        videoHLS.style.width =  window.innerWidth + "px";     
+        videoHLS.style.height =  window.innerHeight  + "px";   
+        videoHLS.style.height ="202px"; 
+        videoHLS.style["object-position"]= "0px 0px";
+    });
+    // var oLiveVideo=document.getElementById("videoHLS");
+    // var oLiveCanvas=document.getElementById("liveCanvas");
+    // var oLiveCanvas2D=oLiveCanvas.getContext('2d');
+    // var bLiveVideoTimer=null;
+    // myPlayer = videojs("videoHLS");
+    // oLiveVideo.addEventListener('play',function() {
+    //     bLiveVideoTimer=setInterval(function() {
+    //         oLiveCanvas2D.drawImage(myPlayer,0,0,640,320);
+    //     },20);
+    // },false);
+    // oLiveVideo.addEventListener('pause',function() {
+    //         clearInterval(bLiveVideoTimer);
+    //     },false);
+    // oLiveVideo.addEventListener('ended',function() {
+    //         clearInterval(bLiveVideoTimer);
+    //     },false);
+
+    $(".chat").addClass("lifocus");
+    $(".chat").children("img").attr("src","__PUBLIC__/meilibo/dist/images/pcshow/chat.png");
+    
+    $("#play").click(function(){
+        var objbtn=$(this);
+        Ctrfn.play(objbtn);
+    })
+    
+    $(".selectarea li").click(function(){
+        var classname = $(this).attr("class");
+        var name = "."+classname;
+        if(!$(this).hasClass("lifocus")){
+            $(this).addClass("lifocus").siblings().removeClass("lifocus");
+            $(this).find("img").attr("src","__PUBLIC__/meilibo/dist/images/pcshow/"+classname+".png");
+             $(this).siblings().each(function(){
+                $(this).children("img").attr("src","__PUBLIC__/meilibo/dist/images/pcshow/"+$(this).attr("class")+"1.png");
+            })
+        }
+        var _index=$(this).index();
+        $(".allmodular > div").eq(_index).show().siblings().hide();
+
+    })
+        $(".rank").click(function(){
+            var objbtn=$(this);
+            var url='__ROOT__/OpenAPI/V1/user/sharecontributelist';
+            Ctrfn.charmval(objbtn,url);
+        })
+        $(".anchor").click(function(){
+            var objbtn=$(this);
+            var url='__ROOT__/OpenAPI/V1/user/shareProfile';
+            Ctrfn.pcanchorinfo(objbtn,url);
+        })
+
+        //聊天提示时关闭提示框
+        function closechatdialog(){
+            $('#weui_dialog_alert').css('display', 'none');
+        }
+
+        //弹幕
+        $(".chat_barrage span").click(function(){
+            if(fly==""){
+                $(this).parent().addClass("animte");
+                fly="FlyMsg"
+            }else{
+                $(this).parent().removeClass("animte");
+                fly=""
+            }
+        })
+        $("#onmessage").click(function(){
+            var url='__ROOT__/OpenAPI/V1/Gift/sendBarrage'
+            Ctrfn.onmessage(url);
+        })
+    //加载礼物列表
+    $(function(){
+        if(User){
+            $.ajax({
+            url:'__ROOT__/OpenAPI/V1/Gift/collection',
+            type: 'post',
+            data: {token:User.token},
+            dataType: 'json',
+            success: function(data) {
+                var json=eval(data);
+                console.log(json);
+                var pagenum=Math.ceil(json.data.length/8);
+                var num=[];
+                for(var i=1;i<pagenum;i++){
+                    num[i]=i;
+                }
+                var gift = {
+                    giftlist: json.data,
+                    pagenum:num,
+                };
+                console.log(gift);
+                var html = template('giftlist', gift);
+                document.getElementById('swiper-wrapper').innerHTML = html;
+                //礼物列表切换
+                var swiper = new Swiper('.swiper-container', {
+                    pagination: '.swiper-pagination',
+                    paginationClickable: true,
+                    observer: true,
+                    observeParents: true
+                });
+            }
+        }); 
+        }
+    })
+    $(".gift").click(function(){
+        if(User){
+            $(".giftlist").hasClass("none") ? $(".giftlist").removeClass("none") : $(".giftlist").addClass("none");;
+        }else{
+            $("#weui_dialog_alert").show();
+        }
+              
+    }) 
+    $('.allmodular,.selectarea,.screen,.gift_show_box,.big_gift_show_box').click(function(e) {
+            //点击其他地方隐藏礼物列表
+            var target = $(e.target);
+            if(!target.is('.gift') && !target.is('.gift *') && !target.is('.giftlist') && !target.is('.giftlist *')){
+                $(".giftlist").addClass("none");
+            }
+         });
+        var focusstatus = 0; 
+        $(document).on("click",".focus",function(){
+
+            var token = User.token;
+            if($.trim($(this).find("span").text()) == '已关注'){
+              var url = "/OpenAPI/v1/User/unfollow";
+            }else{
+              var url = "/OpenAPI/v1/User/follow";
+            }
+            var attentionid = $(this).attr("value");
+            var _this = $(this);
+            console.log(_this);
+            $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data:{'token': token,'uid':attentionid},
+                    dataType:'json',
+                    success: function(data){
+                        console.log(data);
+                            if (data.code== 0){                         
+                                if (data.data=="关注成功!"){ 
+                                    _this.removeClass("nofocus");                        
+                                    _this.find("span").text('已关注');
+                                }else{
+                                    _this.addClass("nofocus");
+                                    _this.find("span").text('关注');
+                                }
+                            }
+                    }
+            });
+            
+   })
+   //点击礼物
+    $(document).on("click",".swiper-slide > div",function(e){
+        var objbtn=$(this);
+        Ctrfn.giftBtn(objbtn);
+    })
+     //红包个数发生改变时
+    var red_val='';
+    $("#red_number").keyup(function(e){
+        red_val=$(this).val();
+        $("#total_number").val(red_val*giftmoney);
+    })
+    //点击发送红包
+    $(".red_btn").click(function(){
+        var url='__ROOT__/OpenAPI/V1/Gift/send';
+        Ctrfn.sendBtn(url);
+    })
+    //微信支付
+    $(".weixin_pay").click(function(){
+        Ctrfn.wxPay();
+    })
+    //点击聊天框用户昵称
+    $(document).on("click",".user_nickname",function(){
+        var objbtn=$(this);
+        var url='__ROOT__/OpenAPI/V1/user/shareProfile';
+        Ctrfn.userpicBtn(objbtn,url);
+    })
+    $(document).on("click",".user_close",function(){
+        $('.user_info_con').hide();
+    });
+</script>
+</body>
+</html>
+

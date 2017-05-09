@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="__PUBLIC__/meilibo/images/favicon.ico" rel="shortcut icon">
+<title>活动详情-活动中心-{$sitename}</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/common.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/inside.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/user.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/index.css">
+<script type="text/javascript" src="__PUBLIC__/meilibo/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/meilibo/js/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript" src="__PUBLIC__/meilibo/js/blocksit.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/meilibo/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/meilibo/js/wishing.js"></script>
+<script type="text/javascript" src="__PUBLIC__/meilibo/js/logon-2.0.js"></script>
+<script type="text/javascript" src="__PUBLIC__/meilibo/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="__PUBLIC__/meilibo/js/usercenter.js"></script>
+<script>
+UAC.showUserInfo = function(data) {if(data.isLogin == "1"){window.location.reload();}}
+</script>
+<style type="text/css">
+body,html{background:#f1f1f1;}
+.relative {position: relative; top: 0;left: 0;}
+.yahei {font-family: 'Microsoft Yahei';}
+.poab {position: absolute;}
+.padTB10{padding:10px 0;}
+.padTB20{padding:20px 0;}
+.padTB30{padding:30px 0;}
+.helpIndexWarp{background:#fff!important;}
+
+.helpWarp{width:1200px;margin:0 auto;padding-top:39px;background:#fff;}
+.helpqjsimg{position:absolute;top: 0;left:0;z-index: 10;background:#000;opacity: 0;}
+.helpqjsimg iframe{width:112px;}
+
+.helpIndexBox h2{color:#f13793;font-size:18px;height:48px;line-height:48px;border-bottom:1px solid #e1e1e1;padding-left:5px;}
+.helpIndexBox ul{margin:10px 0;}
+.helpIndexBox li{width:300px;height:44px;line-height:44px;font-size:16px;color:#17d4b3;float:left;}
+.helpIndexBox li span{padding:0 5px;}
+.helpIndexBox li a{font-size:18px;color:#7d7d80;}
+.helpIndexBox li a:hover{color:#f13793;}
+
+.helpQQonline{margin-top:30px;}
+.helpQQonline dl{float:left;width:112px;text-align:center;margin-right:100px;}
+.helpQQonline dl a{width:112px;height:112px;}
+.helpQQonline dl a.helpQQ1{background-position:0 0;}
+.helpQQonline dl a.helpQQ2{background-position:0 -116px;}
+.helpQQonline dl a.helpQQ3{background-position:0 -231px;}
+.helpQQonline dl dd{font-size:18px;color:#393a3c;padding-top:10px;}
+
+.helpPos{font-size:14px;}
+.helpPos i{width:30px;height:30px;background-position:-41px -349px;vertical-align: middle;}
+.helpPos span{color:#999;vertical-align: middle;margin-left:10px;}
+.helpPos a{color:#999;}
+.helpPos a:hover{color:#f13793;text-decoration: underline;}
+.helpPos b{color:#666;vertical-align: middle;}
+.helpImgBox{text-align:center;}
+.helpImgBox img{max-width:100%;}
+.helpTis{color:#f79963;font-size:14px;}
+.helpTis dt{font-size:18px;}
+.helpTis dd{padding-left:31px;}
+.helpTis2{padding-left:38px;color:#414141;font-size:16px;}
+.helpTis3{color:#666;font-size:14px;padding-left:38px;}
+.helpTis3 dt{}
+.helpTis3 dd{padding-left:56px;}
+.helpTis4{color:#666;font-size:14px;padding-left:38px;}
+.helpTis4 li{line-height:2em;}
+.helpTis5{color:#666;font-size:14px;padding-left:38px;}
+.helpTis6{color:#666;font-size:14px;padding-left:54px;}
+.helpFast{font-size:18px;color:#414141;text-align:center;}
+.helpFast span{vertical-align: middle;}
+.helpFast a{vertical-align: middle;display:inline-block;color:#fff;text-align:center;background:#fb6358;width:120px;height:40px;line-height:40px;border-radius:9px;}
+.helpContWarp{width:1160px;margin:0 auto;background:#fff;}
+
+.helpBanner{width:1160px;height:120px;line-height:120px;margin:20px auto;text-align:center;background:url(/style/meilibo/images/helpBanner.jpg);}
+.helpBanner span{padding-left:10px;font-size:18px;color:#fff;vertical-align: middle;}
+.helpBanner b{width:26px;height:27px;background-position:0 -349px;vertical-align: middle;}
+.helpBanner p{left:0;bottom:0;font-size:14px;color:#cfebff;width:1160px;text-align:center;height:50px;line-height:50px;}
+
+.helpModel1 .helpModelList{width:368px;float:left;}
+.helpModel1 .helpModelList_c{margin:0 28px;}
+
+.helpModelList .titleBox_bgblue{border:1px solid #5fbebe;background:#5fbebe;}
+.helpModelList .titleBox_bgyell{border:1px solid #e6bc43;background:#e6bc43;}
+.helpModelList .titleBox_bgred{border:1px solid #d14646;background:#d14646;}
+
+.helpModelList span{display:inline-block;width:33.3%;height:40px;line-height:40px;text-align:center;}
+.helpModelList span em{top:5px;}
+.helpModelList .titleBox span{height:48px;line-height:48px;font-size:14px;color:#fff;}
+.helpModelList .contBox{border:1px solid #cdcdcd;border-top:none;}
+.helpModelList .contBox li{background:url(/style/meilibo/images/helpLine.png) center bottom no-repeat;}
+
+.helpStarBox{text-align:center;}
+.helpStarBox span{display:inline-block;width:52px;font-size:14px;color:#666;margin:0 10px;}
+
+.helpBox{padding-bottom:10px;}
+.helpBox h2 b{float:left;width:28px;height:27px;margin-right:10px;}
+.helpBox h2 p{float:left;width:1160px;color:#414141;font-size:18px;}
+
+.helpBox a.link{color:#fb288e;font-size:14px;}
+.helpBox b.first{background-position:-41px -587px;width:16px;height:22px;vertical-align: middle;margin-left:15px;}
+.helpBox b.lover{background-position:0 -744px;width:21px;height:19px;vertical-align: middle;}
+.orgColor{color:#f79963;}
+.icon_rich_level_0 {
+    background-image: url(/style/meilibo/images/devel/wealth/0.png)
+}
+
+.icon_rich_level_1 {
+    background-image: url(/style/meilibo/images/devel/wealth/1.png)
+}
+
+.icon_rich_level_2 {
+    background-image: url(/style/meilibo/images/devel/wealth/2.png)
+}
+
+.icon_rich_level_3 {
+    background-image: url(/style/meilibo/images/devel/wealth/3.png)
+}
+
+.icon_rich_level_4 {
+    background-image: url(/style/meilibo/images/devel/wealth/4.png)
+}
+
+.icon_rich_level_5 {
+    background-image: url(/style/meilibo/images/devel/wealth/5.png)
+}
+
+.icon_rich_level_6 {
+    background-image: url(/style/meilibo/images/devel/wealth/6.png)
+}
+
+.icon_rich_level_7 {
+    background-image: url(/style/meilibo/images/devel/wealth/7.png)
+}
+
+.icon_rich_level_8 {
+    background-image: url(/style/meilibo/images/devel/wealth/8.gif)
+}
+
+.icon_rich_level_9 {
+    background-image: url(/style/meilibo/images/devel/wealth/9.gif)
+}
+
+.icon_rich_level_10 {
+    background-image: url(/style/meilibo/images/devel/wealth/10.gif)
+}
+
+.icon_rich_level_11 {
+    background-image: url(/style/meilibo/images/devel/wealth/11.gif)
+}
+
+.icon_rich_level_12 {
+    background-image: url(/style/meilibo/images/devel/wealth/12.gif)
+}
+
+.icon_rich_level_13 {
+    background-image: url(/style/meilibo/images/devel/wealth/13.gif)
+}
+
+.icon_rich_level_14 {
+    background-image: url(/style/meilibo/images/devel/wealth/14.gif)
+}
+
+.icon_rich_level_15 {
+    background-image: url(/style/meilibo/images/devel/wealth/15.gif)
+}
+
+.icon_rich_level_16 {
+    background-image: url(/style/meilibo/images/devel/wealth/16.gif)
+}
+
+.icon_rich_level_17 {
+    background-image: url(/style/meilibo/images/devel/wealth/17.gif)
+}
+
+.icon_rich_level_18 {
+    background-image: url(/style/meilibo/images/devel/wealth/18.gif)
+}
+
+.icon_rich_level_19 {
+    background-image: url(/style/meilibo/images/devel/wealth/19.gif)
+}
+
+.icon_rich_level_20 {
+    background-image: url(/style/meilibo/images/devel/wealth/20.gif)
+}
+
+.icon_rich_level_21 {
+    background-image: url(/style/meilibo/images/devel/wealth/21.gif)
+}
+
+.icon_rich_level_22 {
+    background-image: url(/style/meilibo/images/devel/wealth/22.gif)
+}
+
+.icon_rich_level_23 {
+    background-image: url(/style/meilibo/images/devel/wealth/23.gif)
+}
+
+.icon_rich_level_24 {
+    background-image: url(/style/meilibo/images/devel/wealth/24.gif)
+}
+
+.icon_rich_level_25 {
+    background-image: url(/style/meilibo/images/devel/wealth/25.gif)
+}
+
+.icon_rich_level_26 {
+    background-image: url(/style/meilibo/images/devel/wealth/26.gif)
+}
+
+.icon_rich_level_27 {
+    background-image: url(/style/meilibo/images/devel/wealth/27.gif)
+}
+
+.icon_rich_level_28 {
+    background-image: url(/style/meilibo/images/devel/wealth/28.gif)
+}
+
+.icon_rich_level_29 {
+    background-image: url(/style/meilibo/images/devel/wealth/29.gif)
+}
+</style>
+</head>
+<body>
+<include file="Public:header" />
+<div class="wrap activec clearfix">
+<div class="conL2">
+<div class="neiye_biaoti"><a href="/">首页</a> > 文章内容</div>
+<div class="neiye_neirong">
+    <div class="helpContWarp yahei">
+    <div class="helpBanner relative"><b class="helpIcon"></b><span>财富等级及特权</span><p class="poab">财富等级根据用户所消费的九币与九点的总量决定，消费的九币与九点总量越多，财富等级越高。财富等级共设有30个级别。</p></div>
+    <div class="helpBox">
+        <div class="helpModel1 clearfix">
+            <div class="helpModelList">
+                <div class="titleBox titleBox_bgblue"><span>等级图标</span><span>等级名称</span><span>累积送出九点</span></div>
+                <ul class="contBox">
+                    <li><span><em class="icon_rich_level icon_rich_level_0 star_shining"></em></span><span>布衣</span><span>0</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_1 star_shining"></em></span><span>1 富</span><span>1</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_2 star_shining"></em></span><span>2 富</span><span>1000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_3 star_shining"></em></span><span>3 富</span><span>5000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_4 star_shining"></em></span><span>4 富</span><span>10000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_5 star_shining"></em></span><span>5 富</span><span>20000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_6 star_shining"></em></span><span>6 富</span><span>40000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_7 star_shining"></em></span><span>7 富</span><span>60000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_8 star_shining"></em></span><span>8 富</span><span>80000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_9 star_shining"></em></span><span>9 富</span><span>100000</span></li>
+                </ul>
+            </div>
+            <div class="helpModelList helpModelList_c">
+                <div class="titleBox titleBox_bgyell"><span>等级图标</span><span>等级名称</span><span>累积送出九点</span></div>
+                <ul class="contBox">
+                    <li><span><em class="icon_rich_level icon_rich_level_10 star_shining"></em></span><span>10 富</span><span>200000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_11 star_shining"></em></span><span>男爵</span><span>400000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_12 star_shining"></em></span><span>子爵</span><span>600000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_13 star_shining"></em></span><span>伯爵</span><span>800000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_14 star_shining"></em></span><span>侯爵</span><span>1000000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_15 star_shining"></em></span><span>公爵</span><span>2000000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_16 star_shining"></em></span><span>郡公</span><span>4000000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_17 star_shining"></em></span><span>国公</span><span>6000000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_18 star_shining"></em></span><span>王爵</span><span>8000000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_19 star_shining"></em></span><span>藩王</span><span>10000000</span></li>
+                </ul>
+            </div>
+            <div class="helpModelList">
+                <div class="titleBox titleBox_bgred"><span>等级图标</span><span>等级名称</span><span>累积送出九点</span></div>
+                <ul class="contBox">
+                    <li><span><em class="icon_rich_level icon_rich_level_20 star_shining"></em></span><span>郡王</span><span>20000000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_21 star_shining"></em></span><span>亲王</span><span>40000000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_22 star_shining"></em></span><span>国王</span><span>60000000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_23 star_shining"></em></span><span>皇子</span><span>80000000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_24 star_shining"></em></span><span>太子</span><span>100000000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_25 star_shining"></em></span><span>皇帝</span><span>200000000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_26 star_shining"></em></span><span>大帝</span><span>400000000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_27 star_shining"></em></span><span>神</span><span>600000000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_28 star_shining"></em></span><span>天尊</span><span>800000000</span></li>
+                    <li><span><em class="icon_rich_level icon_rich_level_29 star_shining"></em></span><span>神皇</span><span>1000000000</span></li>
+                </ul>
+            </div>
+        </div>
+        <h2 class="clearfix padTB10"><b class="helpIcon helpIcon12"></b><p>特权介绍</p></h2>
+        <p class="helpTis4">1.  用户财富等级越高，在房间内发言特权越多。</p>
+        <div class="helpImgBox padTB10">
+            <img src="__PUBLIC__/meilibo/images/img20.png">
+        </div>
+        <p class="helpTis4 padTB10">2. 用户财富等级越高，在房间内观众区的排名越靠前。</p>
+        <p class="helpTis6 orgColor" style="padding-left:42px;">（用户排序=富豪等级+闪星等级+VIP权重）</p>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+<include file="Public:footer" />
+</body>
+</html>

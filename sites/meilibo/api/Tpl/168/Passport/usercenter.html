@@ -1,0 +1,343 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xn="http:///www.renren.com/2009/xnml">
+<head>
+<title>{$sitename}</title>
+<meta http-equiv="Pragma" contect="no-cache"/>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<!-- <link rel="stylesheet" href="__PUBLIC__/css/usercenter/joylogin100726.css" type="text/css" media="screen" /> -->
+<link rel="stylesheet" href="__PUBLIC__/meilibo/css/common.css" type="text/css" media="screen" />
+<script type="text/javascript" src="__PUBLIC__/meilibo/js/jquery-1.8.3.min.js"></script>
+<script language="javascript" src="__PUBLIC__/js/usercenter.js?32162655"></script>
+<script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+<script type="text/javascript">
+var HOST_URL = "<?php echo C('WEB_URL') ?>";
+document.domain = '{$domainroot}';
+document.onkeydown = function(){
+    if(window.event && window.event.keyCode == 13){
+        var type = $("#switch_type").val();
+        if(type == "0"){
+            login();
+        }else{
+            reg();
+        }
+    }
+}
+
+var cl=false;
+function code_login()
+{
+    if(cl!=true)
+    {
+        document.getElementById('img_authCode1').src='__APP__/Base/verify/v/'+Math.random();
+        cl=true;
+    }
+}
+var cr=false;
+function code_reg()
+{
+    if(cr!=true)
+    {
+        document.getElementById('img_authCode').src='__APP__/Base/verify/v/'+Math.random();
+        cr=true;
+    }
+}
+
+    var childWindow;
+    function toLogin()
+    {
+        childWindow = window.open("../../../Connect2.0/example/oauth/index.php","TencentLogin","width=450,height=320,menubar=0,scrollbars=1, resizable=1,status=1,titlebar=0,toolbar=0,location=1");
+    } 
+    
+    function closeChildWindow()
+    {
+        childWindow.close();
+    }
+    var timestamp = (new Date()).valueOf();
+    
+    $(function(){
+
+        $("#reg_email").val();
+    })
+    
+//imageCode_getImgage.htm
+</script>
+<style type="text/css">
+.thyh{display:block; }
+
+.thyh a{color:#004a99; line-height:22px;}
+
+.thyh a:hover{color:#004a99; line-height:22px;}
+
+.yzmhyh{float:left;width:60px;  }
+.yzmhyh:focus{
+    border: 1px solid #FF50A5;
+box-shadow: 0px 0px 5px 1px rgba(251, 40, 142, 0.25);}    
+
+.tzddl{padding-top:5px;}
+
+.njmlma2{width:50px;height:22px;  padding-left:5px; float:left;}
+
+.jmllogin1 .jmlbtn1 .jmllogin3 .jmlbtn1{height:28px;padding-top:0;}
+
+.jmllogin3 ul li span.jmlma1{width:59px;height:24px;padding:0px 0 0 4px;margin:0;background:none;}
+
+.jmllogin3 ul li span.jmlma1 input{width:57px;height:20px;border:1px solid #B4B4B4;margin:0;background:none repeat scroll 0 0 #FFFFFF;}
+
+.jmllogin3 ul li .jmlma2{top:3px;}
+
+.jmllogin3 ul li .thyh{line-height:18px;}
+ .thyh{line-height:18px; float:left; padding-left:5px;}
+.jmllogin3 ul li .thyh a{padding-left:5px;}
+
+.login_bodya{ width:600px; height:170px; float:left;padding-left: 40px; }
+ .jmltitle1 {
+ PADDING-LEFT: 24px; padding-top:20px; WIDTH: 388px; BACKGROUND: url(__PUBLIC__/images/usercenter/joylogin10072603.jpg) repeat-x 0px 20px;HEIGHT: 29px; margin-left:15px;}
+.jmpic{ padding:0 auto;}
+.jmltitle1 SPAN {
+    TEXT-ALIGN: center; LINE-HEIGHT: 29px; WIDTH: 69px; BACKGROUND: url(__PUBLIC__/images/usercenter/joylogin10072602-1.png) no-repeat -71px -247px; FLOAT: left; FONT-SIZE: 14px; CURSOR: pointer; MARGIN-RIGHT: 2px;}
+.jmltitle1 SPAN.cur {
+    BACKGROUND-POSITION: 0px -247px}
+.goodtip {
+    PADDING-BOTTOM: 0px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; PADDING-TOP: 13px}
+.jmlnana {
+    PADDING-BOTTOM: 0px; PADDING-LEFT: 24px; PADDING-RIGHT: 0px; PADDING-TOP: 10px}
+.jmlnana SPAN {
+    PADDING-RIGHT: 4px; FONT-WEIGHT: bold}
+.jmllive {
+    MARGIN: 10px auto 0px; PADDING-LEFT: 24px; WIDTH: 388px; BACKGROUND: url(__PUBLIC__/images/usercenter/joylogin10072603.jpg) repeat-x; HEIGHT: 29px}
+.jmllive SPAN.cur {
+    BACKGROUND-POSITION: 0px 0px}
+.jmllive SPAN EM {
+    PADDING-RIGHT: 3px; COLOR: #333; FONT-SIZE: 14px; FONT-WEIGHT: bold}
+.jmllogin1 UL {
+    PADDING-BOTTOM: 0px; WIDTH: 300px; PADDING-RIGHT: 0px; FLOAT: left; overflow:hidden;  PADDING-TOP: 5px}
+.jmllogin1 UL LI {
+    PADDING-BOTTOM: 10px; LINE-HEIGHT: 22px; HEIGHT: 22px}
+.jmllogin1 UL LI INPUT {
+    border:1px #bebebe solid; border-radius:15px; WIDTH: 230px;  HEIGHT: 32px; line-height:32px;}
+.jmllogin1 UL LI INPUT:focus{
+    border: 1px solid #FF50A5;
+box-shadow: 0px 0px 5px 1px rgba(251, 40, 142, 0.25);}    
+    
+.jmllogin1 UL LI LABEL {
+    TEXT-ALIGN: right; WIDTH: 50px; FLOAT: left; MARGIN-RIGHT: 9px}
+.jmllogin1 UL LI EM {
+    PADDING-LEFT: 9px}
+.jmllogin1 UL LI EM A {
+    COLOR: #004a99; TEXT-DECORATION: underline}
+.jmllogin1 UL LI EM A:hover {
+    COLOR: #004a99}
+.jmllogin1 UL LI.spe1 {
+    PADDING-BOTTOM: 0px; PADDING-LEFT: 60px; COLOR: #ff0101; _padding-left: 62px}
+.jmlbtn1 {
+    PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; WIDTH: 252px; PADDING-RIGHT: 0px; FLOAT: left; HEIGHT: 25px; PADDING-TOP: 10px; _height: 21px;  font: 12px/1.8 Tahoma,"\5FAE\8F6F\96C5\9ED1",Verdana,"\5B8B\4F53",Arial,sans-serif;}
+.jmllogin1 .jmlbtn1 INPUT {
+    MARGIN: 5px 5px 0px 0px; FLOAT: left}
+.jmllogin1 .jmlbtn2 {
+    PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; WIDTH: 250px; PADDING-RIGHT: 0px; FLOAT: left; HEIGHT: 37px; PADDING-TOP: 0px; _padding: 2px 0 0 112px}
+.jmllogin1 .jmlbtn2 INPUT {
+    margin-top:10px;
+    BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; WIDTH: 250px;  HEIGHT: 32px; FONT-SIZE: 14px; VERTICAL-ALIGN: middle; BORDER-TOP: 0px; CURSOR: pointer; FONT-WEIGHT: bold; MARGIN-RIGHT: 10px; BORDER-RIGHT: 0px; PADDING-TOP: 0px;  background: #FE4818;border-radius: 15px;border-bottom: 2px solid #A92502;font: 18px/1.4 Tahoma,"\5FAE\8F6F\96C5\9ED1",Verdana,"\5B8B\4F53",Arial,sans-serif;  line-height: 20px;}    .jmllogin1 .jmlbtn2 INPUT:hover {    margin-top:10px;    BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; WIDTH: 250px;  HEIGHT: 32px; FONT-SIZE: 14px; VERTICAL-ALIGN: middle; BORDER-TOP: 0px; CURSOR: pointer; FONT-WEIGHT: bold; MARGIN-RIGHT: 10px; BORDER-RIGHT: 0px; PADDING-TOP: 0px;  background: #E03306;border-radius: 15px;border-bottom: 2px solid #A92502;font: 18px/1.4 Tahoma,"\5FAE\8F6F\96C5\9ED1",Verdana,"\5B8B\4F53",Arial,sans-serif;  line-height: 20px;}  
+.jmllogin1 .jmlren1 {
+    PADDING-BOTTOM: 0px; LINE-HEIGHT: 20px; MARGIN: 0px auto; PADDING-LEFT: 30px; WIDTH: 415px; PADDING-RIGHT: 0px; HEIGHT: 29px; CLEAR: both; PADDING-TOP: 0px}
+.jmllogin1 .jmlren1 IMG {FLOAT: left; MARGIN-RIGHT: 5px}
+.jmllogin1 .jmlren1 SPAN {WIDTH: 145px; FLOAT: left}
+.jmllogin1 .jmlren1 A {COLOR: #004a99}
+.jmllogin1 .jmlren1 A:hover {COLOR: #004a99}
+
+
+</style>
+
+</head>
+
+<body onload="init();">
+<!-- 登录层 -->
+<div class="dialoger">
+    <div class="logins_box">
+      <div class="loginsTab">
+        <!-- <span class="on">登录</span>
+        <span>注册</span> -->
+        <a class="login_close" title="关闭" href="javascript:parent.UAC.closeUAC();"><em class="login_newIcon"></em></a>
+      </div>
+      <div class="login_b box clearfix">
+        <div class="login_rigt jmllogin1" id="div_login">
+          <div class="login_left">
+              <!-- <a class="wxlogin" href="#"></a> -->
+              <p>还没有 美丽播 账号？瞬间注册！</p>
+              <a href="javascript:;" class="login_zc" id="login_zc">注册美丽播账号</a>
+              <p>使用合作账号一键登录</p>
+              <a class="loginBtn QQlogin" href="/OAuth?type=qq" target="_blank"></a>
+              <a class="loginBtn WXlogin" href="javascript:void(0);" target="_blank"></a>
+          </div>
+          <div class="login_form impowerLogin">
+            <div class="li">
+              <input class="text_input user" type="text" onfocus="if(this.value=='用户名') {this.value='';}this.style.color='#555';" onblur="if(this.value=='') {this.value='用户名';this.style.color='rgb(173, 173, 173)';}" value="用户名" id="userName">
+              <span id="login_info" style="display:block;position:absolute;bottom:-16px;left:0;"></span>
+            </div>
+            <div class="li">
+              <input class="text_input password" type="password" onfocus="if(this.value=='密码') {this.value='';this.type='password';}this.style.color='#555';" onblur="if(this.value=='') {this.value='密码';this.style.color='rgb(173, 173, 173)';this.type='text';}" value="" placeholder="密码" id="password">
+            </div>
+            <div class="li radio">
+              <input class="checkbox_input" id="autoLogin" type="checkbox">
+              <span class="fl">记得我</span>
+              <a class="fr" href="/index.php/Passport/findBackPwdPage/" style="margin-right:62px;">忘记密码？</a>
+            </div>
+            <div class="li btn">
+              <input class="text_input" id="btn_login" type="submit" value="登录" onclick="login();">
+            </div>
+          </div>
+          <div class="login_form impowerBox" id="impowerBox" style="text-align:center;padding-left:0;width:330px; ">
+          </div>
+        </div>
+        <div class="login_rigt jmllogin3" id="div_reg" style="display:none;">
+          <div class="login_left">
+              <p>已经有美丽播账号：</p>
+              <a href="javascript:;" class="login_zc" id="login_dl">登录美丽播账号</a>
+              <p>使用合作账号一键登录</p>
+              <a class="loginBtn QQlogin" href="/OAuth?type=qq" target="_blank"></a>
+              <a class="loginBtn WXlogin" href="javascript:void(0);" target="_blank"></a>
+          </div>
+          <div class="login_form impowerReg">
+            <div class="li" id="li_userName">
+              <input class="text_input" type="text" id="reg_userName" onfocus="showRegInfo('name');" onblur="validateRegInfo('name');" placeholder="用户名" value="">
+              <input type="hidden" id="id_isExist" value="" />
+              <div class="jmlfalsebox">
+                <samp id="name_con01" class="jmlicon01" style="display:none">用户名格式不正确</samp>
+                <samp id="name_con02" class="jmlicon02" style="display:none">OK</samp>
+                <samp id="name_empty" class="jmlicon_empty" style="display:none"></samp> 
+                <div id="name_false" class="jmlfalse" style="display:none"> 
+                  <div class="jmlfalsecon">6~16个字符，包括数字、字母、下划线</div> 
+                </div>
+                <div id="name_false2" class="jmlfalse" style="display:none"> 
+                  <div class="jmlfalsecon">用户名已存在</div> 
+                </div>  
+              </div>
+            </div>
+            <div class="li" id="li_pwd">
+              <input class="text_input" id="reg_password" onfocus="showRegInfo('pwd');" onblur="validateRegInfo('pwd');" type="password" placeholder="密码">
+              <div class="jmlfalsebox">
+                <samp id="pwd_con01" class="jmlicon01" style="display:none">密码输入格式不正确</samp>
+                <samp id="pwd_con02" class="jmlicon02" style="display:none">OK</samp>
+                <samp id="pwd_empty" class="jmlicon_empty" style="display:none"></samp>
+                <div id="pwd_false" class="jmlfalse" style="display:none"> 
+                   <div class="jmlfalsecon">6-16个字符(字母、数字)区分大小写</div>
+                </div>  
+              </div>
+            </div>
+            <div class="li" id="li_pwd2">
+              <input class="text_input" id="reg_password2" onfocus="showRegInfo('pwd2');" onblur="validateRegInfo('pwd2');" type="password" placeholder="确认密码" value="">
+              <div class="jmlfalsebox">
+                <samp id="pwd2_con01" class="jmlicon01" style="display:none">两次密码不一致</samp>
+                <samp id="pwd2_con02" class="jmlicon02" style="display:none">OK</samp>
+                <samp id="pwd2_empty" class="jmlicon_empty" style="display:none"></samp>
+                <div id="pwd2_false" class="jmlfalse" style="display:none"> 
+                   <div class="jmlfalsecon">请再输入一遍密码</div>
+                </div>  
+              </div>
+            </div>
+            <div class="li" id="li_email">
+              <input class="text_input" type="text" id="reg_email" onfocus="showRegInfo('email');" onblur="validateRegInfo('email');" value="">
+              <input type="hidden" id="id_isExist2" value="" />
+              <div class="jmlfalsebox">
+                <samp id="email_con01" class="jmlicon01" style="display:none"></samp>
+                <samp id="email_con02" class="jmlicon02" style="display:none">OK</samp>
+                <samp id="email_empty" class="jmlicon_empty" style="display:none"></samp> 
+                <div id="email_false" class="jmlfalse" style="display:none"> 
+                  <div class="jmlfalsecon">请填写邮箱</div> 
+                </div>
+                <div id="email_false2" class="jmlfalse" style="display:none"> 
+                  <div class="jmlfalsecon">邮箱已存在</div> 
+                </div>  
+              </div>
+            </div>
+            <div class="li dynamic">
+              <input class="text_input" id="reg_validateCode" maxlength="4" onclick="javascript:code_reg()" onmouseover="javascript:code_reg()" onfocus="showRegInfo('code');javascript:code_reg()" onblur="validateRegInfo('code');" type="text" placeholder="验证码" style="padding:0;width:64px;text-align:center;">
+              <img src="__PUBLIC__/meilibo/images/verifyimg.png" id="img_authCode" width="96" height="36" />
+              <a class="reloadImg" href="javascrip:;" onclick="switchAuthCode();return false;">看不清换一张</a>
+            </div>
+            <div class="li radio">
+              <input class="checkbox_input" id="id_protocol"  type="checkbox" checked="checked">
+              <span class="fl"><a class="useragreement" href="#">同意《{$sitename}免责条款》</a></span>
+              <div id="div_protocol" class="jmlfalsebox jmlkuan" style="display:none;top:20px;"> 
+                <samp class="jmlicon01"></samp> 
+                <div class="jmlfalse"> 
+                    <div class="jmlfalsecon">请接受免费条款</div> 
+                </div>    
+            </div>
+            </div>
+            <div class="li btn">
+              <input class="text_input" id="btn_reg" onclick="reg();" type="submit" value="立即注册">
+            </div>
+          </div>
+          <div class="login_form impowerBox" id="impower_Box" style="text-align:center;padding-left:0;width:330px; ">
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $("#login_zc").on("click",function(){
+         $(this).parents("#div_login").hide();
+         $(".jmllogin3").show();
+         $("#div_reg .impowerReg").show();
+         $("#div_reg .impowerBox").hide();
+    })
+    $("#login_dl").on("click",function(){
+         $(this).parents("#div_reg").hide();
+         $(".jmllogin1").show();
+         $("#div_login .impowerLogin").show();
+         $("#div_login .impowerBox").hide();
+    })
+    //获取登录二维码
+    $("#div_reg .WXlogin").on("click",function(){
+      $("#div_reg .impowerReg").hide();
+      $("#div_reg .impowerBox").show();
+      var imgurl = HOST_URL+'/OpenAPI/V1/Auth/logincallback';
+      var callbackUrl = encodeURIComponent(imgurl).toString();
+      var timestamp = (new Date()).valueOf();
+      var state = timestamp+Math.floor(Math.random()*100);
+      var WEIXIN_OPEN_APPID = "<?php echo  C('WEIXIN_OPEN.APPID') ?>";
+      var obj = new WxLogin({
+          id: "impower_Box",
+          appid: WEIXIN_OPEN_APPID,
+          scope: "snsapi_login",
+          redirect_uri: callbackUrl,
+          state: state,
+          style: "",
+          href: ""
+      });
+    })
+    $("#div_login .WXlogin").on("click",function(){
+      $("#div_login .impowerLogin").hide();
+      $("#div_login .impowerBox").show();
+      var imgurl = HOST_URL+'/OpenAPI/V1/Auth/logincallback';
+      var callbackUrl = encodeURIComponent(imgurl).toString();
+      var timestamp = (new Date()).valueOf();
+      var state = timestamp+Math.floor(Math.random()*100);
+      var WEIXIN_OPEN_APPID = "<?php echo  C('WEIXIN_OPEN.APPID') ?>";
+      var obj = new WxLogin({
+          id: "impowerBox",
+          appid: WEIXIN_OPEN_APPID,
+          scope: "snsapi_login",
+          redirect_uri: callbackUrl,
+          state: state,
+          style: "",
+          href: ""
+      });
+    })
+
+ $(".dialoger").keydown(function(e){
+ var e = e || event,
+ keycode = e.which || e.keyCode;
+ if (keycode==13) {
+      $("#btn_login").trigger("click");
+      $("#btn_reg").trigger("click");
+ }
+});
+</script>
+</body>
+</html>

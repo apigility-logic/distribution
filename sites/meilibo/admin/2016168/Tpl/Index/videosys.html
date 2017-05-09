@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>美丽播 - 后台管理中心</title>
+<link href="__PUBLIC__/statics/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/statics/css/system.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/statics/css/table_form.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles1.css" title="styles1" media="screen" />
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles2.css" title="styles2" media="screen" />
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles3.css" title="styles3" media="screen" />
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles4.css" title="styles4" media="screen" />
+<script language="javascript" type="text/javascript" src="__PUBLIC__/statics/js/jquery-1.8.3.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/statics/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/statics/js/styleswitch.js"></script>
+<script type="text/javascript">
+	window.focus();
+	</script>
+</head>
+<body>
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+        <!-- <a href='javascript:;' class="on"><em>视频设置</em></a> -->
+        <span style="color:#000">如果设置的房间没有视频地址则默认拉流地址为映客流,房间号必填,其余可不填</span>
+	</div>
+</div>
+<style type="text/css">
+	html{_overflow-y:scroll}
+</style>
+
+	<div class="pad_10">
+
+	<div class="bk10"></div>
+	<div class="table-list">
+		<form action="__URL__/save_video" method="POST">
+	    <table width="100%" cellspacing="0" class="table table-bordered table-condensed table-striped table-hover">
+	        <thead>
+	            <tr>
+		            <th width="300">用户id</th>
+		            <th width="300">房间号</th>
+		            <th width="300">视频地址</th>
+					<th> 操作 </th> 
+	            </tr>
+	        </thead>
+			<tbody>
+				<volist name="videolist" id="vo">
+				<tr>
+					<td><input name='uid' type='text' value='{$vo["uid"]}' style="width:200px;height:25px" class='input-text-c'></td>
+					<td><input name='roomid' type='text' value='{$vo["roomid"]}' style="width:400px;height:25px" class='input-text-c'></td>
+					<td><input name='address' type='text' value='{$vo["address"]}' style="width:600px;height:25px" class='input-text-c'></td>
+					<td><input type="submit" class="btn btn-info btn-sm" name="dosubmit" id='rec' value="保存" />
+					<input data-id="{$vo['id']}" type="button" class="btn btn-info btn-sm" name="dosubmit" id='del' value="删除" /></td>
+				</tr>
+				</volist>
+			</tbody>
+	    </table>
+	    </form>
+	    <form action="__URL__/addvideo" method="POST">
+	    <table width="100%" cellspacing="0" class="table table-bordered table-condensed table-striped table-hover">
+	    <tbody>
+    		<tr>
+				<td style="width:453px"><input name='add_uid' type='text' value='' style="width:200px;height:25px" class='input-text-c'></td>
+				<td style="width:400px"><input name='add_roomid' type='text' value='' style="width:400px;height:25px" class='input-text-c'></td>
+				<td style="width:600px"><input name='add_videourl' type='text' value='' style="width:600px;height:25px" class='input-text-c'></td>
+				<td style="width:300px"><input type="submit" class="btn btn-info btn-sm" id="add" name="dosubmit" value="新建" /></td>
+			</tr>
+		</tbody>
+		</table>
+		</form>
+	    <div class="btn">
+		</div>  </div>
+	</div>
+	</div>
+
+<script language="JavaScript">
+<!--
+	window.top.$('#display_center_id').css('display','none');
+//-->
+
+$(document).on("click","#del",function () {
+	var url = '<?php echo __URL__?>';
+	 if(confirm("确定删除?")){
+	 	var id = $(this).attr('data-id');
+	 	$.ajax({
+          url:url+'/save_video',
+          type: 'post',
+          dataType: 'JSON', 
+          data:{'uid':id},
+          success: function(data) {
+            console.log(data);
+            location.reload();
+          },
+          error:function(e){
+            console.log(e);
+          }
+      });
+	 }
+  })
+</script>
+</body>
+</html>

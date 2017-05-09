@@ -1,0 +1,216 @@
+[ 2016-04-22T16:50:44+08:00 ] 101.204.216.90 /sign/Admin.php
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000311s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000373s ]
+INFO: [ view_parse ] --START--
+INFO: ParseTemplate Behavior ::run [ RunTime:0.007015s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.007089s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.000208s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.000190s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.000120s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.000262s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000891s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.000357s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000392s ]
+
+[ 2016-04-22T16:50:44+08:00 ] 101.204.216.90 /sign/Admin.php
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000288s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000348s ]
+INFO: [ view_parse ] --START--
+INFO: ParseTemplate Behavior ::run [ RunTime:0.004268s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.004311s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.000185s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.000185s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.000139s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.000234s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000846s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.000362s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000396s ]
+
+[ 2016-04-22T16:50:47+08:00 ] 101.204.216.90 /sign/Admin.php/MsgManage/index/team/%E6%97%A9%E7%8F%AD.html
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000454s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000519s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000346s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000385s ]
+
+[ 2016-04-22T16:50:47+08:00 ] 101.204.216.90 /sign/Admin.php/Login/index.html
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000447s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000509s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000276s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000314s ]
+INFO: [ view_parse ] --START--
+INFO: ParseTemplate Behavior ::run [ RunTime:0.005379s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005428s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.000210s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.000189s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.000117s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.000235s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000856s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.000376s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000412s ]
+
+[ 2016-04-22T16:50:47+08:00 ] 101.204.216.90 /sign/Admin.php/Login/verify.html
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000454s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000517s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000279s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000319s ]
+
+[ 2016-04-22T16:50:56+08:00 ] 101.204.216.90 /sign/Admin.php/Login/login.html
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000459s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000526s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000287s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000326s ]
+SQL: SHOW COLUMNS FROM `hx_admin` [ RunTime:0.000425s ]
+ERR: 1146:Table 'meilibo.hx_admin' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `hx_admin`
+SQL: SELECT * FROM `hx_admin` WHERE ( `name` = 'admin' ) LIMIT 1   [ RunTime:0.000103s ]
+ERR: 1146:Table 'meilibo.hx_admin' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `hx_admin` WHERE ( `name` = 'admin' ) LIMIT 1  
+INFO: [ view_parse ] --START--
+INFO: ParseTemplate Behavior ::run [ RunTime:0.019190s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.019237s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.000182s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.000195s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.000123s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.000257s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000862s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.000334s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000369s ]
+
+[ 2016-04-22T17:45:19+08:00 ] 101.204.216.90 /sign/Admin.php
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000288s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000349s ]
+INFO: [ view_parse ] --START--
+NOTIC: [2] file_put_contents(./Admin/Runtime/Cache/20eabf8d43f497715f3e1a7ec1a2f00f.php): failed to open stream: Permission denied /home/newchat/sign/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 122 行.
+ERR: 缓存文件写入失败！:./Admin/Runtime/Cache/20eabf8d43f497715f3e1a7ec1a2f00f.php
+
+[ 2016-04-22T17:50:09+08:00 ] 101.204.216.90 /sign/Admin.php
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000329s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000399s ]
+INFO: [ view_parse ] --START--
+NOTIC: [2] file_put_contents(./Admin/Runtime/Cache/20eabf8d43f497715f3e1a7ec1a2f00f.php): failed to open stream: Permission denied /home/newchat/sign/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 122 行.
+ERR: 缓存文件写入失败！:./Admin/Runtime/Cache/20eabf8d43f497715f3e1a7ec1a2f00f.php
+
+[ 2016-04-22T17:50:27+08:00 ] 101.204.216.90 /sign/Admin.php
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000326s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000388s ]
+INFO: [ view_parse ] --START--
+NOTIC: [2] file_put_contents(./Admin/Runtime/Cache/20eabf8d43f497715f3e1a7ec1a2f00f.php): failed to open stream: Permission denied /home/newchat/sign/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 122 行.
+ERR: 缓存文件写入失败！:./Admin/Runtime/Cache/20eabf8d43f497715f3e1a7ec1a2f00f.php
+
+[ 2016-04-22T17:51:40+08:00 ] 101.204.216.90 /sign/Admin.php
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000293s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000356s ]
+INFO: [ view_parse ] --START--
+INFO: ParseTemplate Behavior ::run [ RunTime:0.004615s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.004695s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.000250s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.000220s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.000128s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.000263s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000967s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.000408s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000443s ]
+
+[ 2016-04-22T17:51:40+08:00 ] 101.204.216.90 /sign/Admin.php
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000292s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000374s ]
+INFO: [ view_parse ] --START--
+INFO: ParseTemplate Behavior ::run [ RunTime:0.004626s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.004690s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.000231s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.000194s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.000122s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.000263s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000919s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.000349s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000385s ]
+
+[ 2016-04-22T17:51:42+08:00 ] 101.204.216.90 /sign/Admin.php/MsgManage/index/team/%E4%B8%AD%E7%8F%AD.html
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000447s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000511s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000310s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000349s ]
+
+[ 2016-04-22T17:51:42+08:00 ] 101.204.216.90 /sign/Admin.php/Login/index.html
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000711s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000791s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000436s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000482s ]
+INFO: [ view_parse ] --START--
+INFO: ParseTemplate Behavior ::run [ RunTime:0.004513s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.004568s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.000199s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.000192s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.000124s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.000235s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000875s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.000362s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000397s ]
+
+[ 2016-04-22T17:51:42+08:00 ] 101.204.216.90 /sign/Admin.php/Login/verify.html
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000465s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000534s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000321s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000360s ]
+
+[ 2016-04-22T18:03:13+08:00 ] 101.204.216.90 /sign/Admin.php/Login/login.html
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.000451s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000514s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000295s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000338s ]
+SQL: SHOW COLUMNS FROM `hx_admin` [ RunTime:0.000432s ]
+ERR: 1146:Table 'meilibo.hx_admin' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `hx_admin`
+SQL: SELECT * FROM `hx_admin` WHERE ( `name` = 'admin' ) LIMIT 1   [ RunTime:0.000103s ]
+ERR: 1146:Table 'meilibo.hx_admin' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `hx_admin` WHERE ( `name` = 'admin' ) LIMIT 1  
+INFO: [ view_parse ] --START--
+INFO: ParseTemplate Behavior ::run [ RunTime:0.004284s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.004329s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.000179s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.000192s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.000393s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.000284s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001182s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.000344s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000382s ]
+

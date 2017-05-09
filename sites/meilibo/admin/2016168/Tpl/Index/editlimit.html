@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>美丽播 - 后台管理中心</title>
+<link href="/style/statics/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="/style/statics/css/system.css" rel="stylesheet" type="text/css" />
+<link href="/style/statics/css/table_form.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/style/statics/css/style/styles1.css" title="styles1" media="screen" />
+<link rel="alternate stylesheet" type="text/css" href="/style/statics/css/style/styles2.css" title="styles2" media="screen" />
+<link rel="alternate stylesheet" type="text/css" href="/style/statics/css/style/styles3.css" title="styles3" media="screen" />
+<link rel="alternate stylesheet" type="text/css" href="/style/statics/css/style/styles4.css" title="styles4" media="screen" />
+<script language="javascript" type="text/javascript" src="/style/statics/js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="/style/statics/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="/style/statics/js/styleswitch.js"></script>
+<script language="javascript" type="text/javascript" src="/style/statics/js/formvalidator.js" charset="UTF-8"></script>
+<script type="text/javascript">
+	window.focus();
+</script>
+</head>
+<body>
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+        <a href='__URL__/actionlist/' ><em>权限组管理</em></a><span>|</span><a href='javascript:;' class="on"><em>添加权限组</em></a>    </div>
+</div>
+<style type="text/css">
+	html{_overflow-y:scroll}
+</style><script type="text/javascript">
+<!--
+$(function(){
+	$.formValidator.initConfig({autotip:true,formid:"myform",onerror:function(msg){}});
+	$("#name").formValidator({onshow:"请输入权限组名称",onfocus:"名称应该为2-30位之间"}).inputValidator({min:2,max:30,onerror:"权限组名应该为2-30位之间"});
+})
+//-->
+</script>
+<div class="pad_10">
+<div class="common-form">
+<form name="myform" action="__URL__/do_editlimit/" method="post" id="myform">
+<table width="100%" class="table_form contentWrap">
+<tr>
+<td width="80">权限组名称：</td> 
+<input type="hidden" name="id" value="{$_GET['id']}"/>
+<td><input type="text" name="name"  class="input-text" id="name" value="{$info['name']}"></input></td>
+</tr>
+<tr>
+<td>权限方法 (查看):</td> 
+<td>
+	<volist name="seeList" id="vo">
+		<?php
+			if(in_array($vo['id'],$limits)){
+		?>
+			<div style="margin:3px;float:left;">
+				<input type="checkbox" value="{$vo['id']}" name="limits[]" checked="checked" />{$vo['intro']}&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>
+		<?php
+			}else{
+		?>
+			<div style="margin:3px;float:left;">
+				<input type="checkbox" value="{$vo['id']}" name="limits[]" />{$vo['intro']}&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>
+		<?php
+			}
+		?>
+		</volist>
+	</volist>
+</td>
+</tr>
+<tr>
+<td>权限方法 (修改):</td> 
+<td>
+	<volist name="editList" id="vo">
+		<?php
+			if(in_array($vo['id'],$limits)){
+		?>
+			<div style="margin:3px;float:left;">
+				<input type="checkbox" value="{$vo['id']}" name="limits[]" checked="checked" />{$vo['intro']}&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>
+		<?php
+			}else{
+		?>
+			<div style="margin:3px;float:left;">
+				<input type="checkbox" value="{$vo['id']}" name="limits[]" />{$vo['intro']}&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>
+		<?php
+			}
+		?>
+	</volist>
+</td>
+</tr>
+<tr>
+<td>权限方法 (删除):</td> 
+<td>
+	<volist name="delList" id="vo">
+		<?php
+			if(in_array($vo['id'],$limits)){
+		?>
+			<div style="margin:3px;float:left;">
+				<input type="checkbox" value="{$vo['id']}" name="limits[]" checked="checked" />{$vo['intro']}&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>
+		<?php
+			}else{
+		?>
+			<div style="margin:3px;float:left;">
+				<input type="checkbox" value="{$vo['id']}" name="limits[]" />{$vo['intro']}&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>
+		<?php
+			}
+		?>
+	</volist>
+</td>
+</tr>
+</table>
+    <div class="bk15"></div>
+    <input name="dosubmit" type="submit" value="提交" class="btn btn-info btn-sm">
+</form>
+</div>
+</div>
+</body>
+</html>
+

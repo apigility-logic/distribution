@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus?">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <title>领取红包</title>
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/app/style/style.css">
+  <script src="__PUBLIC__/meilibo/js/jquery-1.8.3.min.js"></script>
+</head>
+ </head>
+ <body>
+   <div class="h_content">
+    <!--header-->
+    <header>
+      <dl class="h_header clearfix">
+        <dt class="fl"><img src="{$userinfo.head_url}" width="60" height="60"></dt> 
+        <!-- <dt class="fl"><img src="http://ob83ribqd.bkt.clouddn.com/img/headimg/000/00/14/87.png!120?a=147462444658" width="60" height="60"></dt> -->
+        <dd>
+          <p> 用户名 : {$userinfo.nickname}</p>
+          <p> ID : {$userinfo.id} </p>
+        </dd>
+      </dl>
+      <div class="h_Sta clearfix">
+        <a href="#" style="border-right:2px solid #eee"><b> {$userinfo.beanbalance} </b>我的余额</a> 
+        <form action="{:U('requestAPI')}" method="post" style="text-align: center;" >
+          <input type="text" name="cash" id="cash" style="margin:1px 0px;text-align: center;font-size: 14px;color: #999;width:60px" placeholder="输入金额" /><br>
+          <button type="submit" name="sub" id="sub" style="margin:1px 0px;text-align: center;font-size: 16px;color: #999;width:60px;background:none"  />提 现</button>
+          <input type="hidden" name="openid" id="openid" value="{$userinfo.wxopenid}"/><br>
+          
+        </form>
+      </div>
+    </header>
+  </div>
+ </body>
+</html>

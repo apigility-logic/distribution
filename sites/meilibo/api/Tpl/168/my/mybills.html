@@ -1,0 +1,153 @@
+<tagLib name="html" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>消费记录-我的账单-管理中心-{$sitename}</title>
+<link rel="stylesheet" type="text/css" href="/style/meilibo/css/common.css">
+<link rel="stylesheet" type="text/css" href="/style/meilibo/css/user.css">
+<link rel="stylesheet" type="text/css" href="/style/meilibo/css/inside.css">
+<script type="text/javascript" src="/style/meilibo/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/style/meilibo/js/common.js"></script>
+<script language="javascript" src="/style/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/style/meilibo/js/usercenter.js"></script>
+<script type="text/javascript" src="/style/meilibo/js/logon-2.0.js"></script>
+<script>
+    UAC.showUserInfo = function(data) {if(data.isLogin == "1"){window.location.reload();}}
+  </script>
+</head>
+<body style="background:url(/style/meilibo/images/mod0_v2.jpg) no-repeat top center;">
+<include file="Public:header" />
+<form name="giftFrm" id="giftFrm" method="get" action="/my/mybills/">
+<div class="u_header">
+  <div class="wrap">
+    <div class="uphoto">
+       <img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$userinfo['id']|md5|substr=0,3}/{$userinfo['id']}_big.jpg" width="207" height="207"/>
+       <p class="bj_photo"><a href="/my/center_headerpic/" onclick="renewshow()"><span class="bjIcon"></span>更换头像</a></p>
+    </div>
+    <div class="userData">
+      <div class="clearfix" id="vo">
+        <span class="u_nickname">{$userinfo['nickname']}</span>
+         <b class="starLV car{$userinfo['richlevelid']}"></b>
+        
+      </div>
+      <div class="level clearfix">
+        <span class="fl">秀币：{$userinfo['coinbalance']}</span>
+      </div>
+            <div class="level clearfix">
+        <span class="fl"><?php if (!empty($userinfo['bolevelname'])) { echo $userinfo['bolevelname']; }?></span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="u_tab">
+  <div class="wrap clearfix">
+    <div class="u_tab_left fl">
+      <a href="/my/center_editinfo/">个人设置<span class="arror"></span></a>
+      <a class="tabon" href="/my/mybills/">我的账单<span class="arror"></span></a>
+      <!-- <a href="/my/mytools/">我的道具<span class="arror"></span></a>
+      <a href="/my/mynumbers/">我的靓号<span class="arror"></span></a> -->
+      <a href="/my/mymanagers/">我的管理<span class="arror"></span></a>
+      <!-- <a href="/my/familyIJoin/">我的家族<span class="arror"></span></a> -->
+      <!-- <a href="/my/myfavor/">我的收藏<span class="arror"></span></a> -->
+      <a href="/my/mygods/">我的偶像<span class="arror"></span></a>
+      <a href="/my/myfans/">我的粉丝<span class="arror"></span></a>
+      <a href="/my/mylink/">我的推广链接<span class="arror"></span></a>
+    </div>
+    <div class="u_tab_right fr">
+      <a href="/{$_SESSION['roomnum']}">我的直播</a>
+      <a href="/my/charge/">充值</a>
+      <a href="/my/exchange/">兑换</a>
+      <a href="/my/settlement/">结算</a>
+    </div>
+  </div>
+</div>
+<script language="javascript">
+$(function(){
+   var sm = $('.utab a,.umyhelp a').setMyTab();
+ }
+)
+</script>
+        <div class="myaccount wrap">
+            <div class="account-l">
+                <a href="/my/giftcount/"  title="礼物统计">礼物统计</a>
+                <a href="/my/receivegift/"  title="我收到的礼物">我收到的礼物</a>
+                <a href="/my/sendgift/"  title="我送出的礼物">我送出的礼物</a>
+                <a href="/my/mybills/"  class="on" title="消费记录">消费记录</a>
+                <a href="/my/getpresent/"  title="获赠记录">获赠记录</a>
+                <a href="/my/myshowlist/"  title="直播详细">直播详细</a>
+            </div>
+            <div class="account-r">
+                <div class="recent">近期我有<strong>{$count}</strong>笔交易</div>
+                <div class="record">
+                        <?php
+                        if(!empty($_GET['begin'])){
+                            $begin = $_GET['begin'];
+                        }
+                        else{
+                            $begin = date('Y-m',time()).'-01';
+                        }
+                        if(!empty($_GET['end'])){
+                            $end = $_GET['end'];
+                        }
+                        else{
+                            $end = date('Y-m-d',time());
+                        }
+                        ?>
+                        <input type="text" name="begin" id="begint"  onfocus="WdatePicker({el:'begint'});" class="input-accout" value="{$begin}"/>
+                        <span onclick="WdatePicker({el:'begint'});"></span>
+                        <p class="line">--</p>
+                        <input type="text" name="end" id="endt"  onfocus="WdatePicker({el:'endt'});" class="input-accout"  value="{$end}"/>
+                        <span onclick="WdatePicker({el:'endt'});"></span>
+                        <input type="submit" name="sea-record" class="sea-record" value="搜 索"/>
+                </div>
+                <div class="recod-tpl">
+                    <table class="r-table">
+                        <tr>
+                            <th class="t1">消费时间</th>
+                            <th class="t2">消费行为</th>
+                            <th class="t3">物品 </th>
+                            <th class="t4">数量</th>
+                            <th>支付秀币</th>
+                        </tr>
+                        <volist name="consumes" id="vo">
+                        <tr>
+                            <td class="t1"><?php echo date('Y-m-d H:i:s',$vo['addtime']); ?></td>
+                            <td class="t2">{$vo['content']}</td>
+                            
+                                <td class="t3"><img src="{$vo['objecticon']}"/></td>
+                                                    
+                            <td class="t4">{$vo['giftcount']}</td>
+                            <td>{$vo['coin']}</td>
+                        </tr>                        
+                        </volist>            
+                    </table>
+                    
+                        <div class="page">
+                            {$page}
+                            <span>共<b>{$pagecount}</b>页</span> 
+                            <span class="get_page">到第<input class="pages_input" type="text" id="pageindex" name="p" value="1" size="2" maxlength="5"/>页</span>
+                            <input class="pages_btn" type="button" value="确定" onclick="btnScrollPage()"/>
+                          </div>                    
+                                          
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<include file="Public:footer" />
+<script language="javascript">
+//document.getElementById("begint").value = "2012-09-01";
+//document.getElementById("endt").value = "2012-09-08";
+function scrollPage(step){
+    document.getElementById("pageindex").value = step;
+     document.forms["giftFrm"].submit();
+ }
+function btnScrollPage(){
+     var curPage = document.getElementById("pageindex").value;
+     document.forms["giftFrm"].submit();
+} 
+</script>
+</body>
+</html>

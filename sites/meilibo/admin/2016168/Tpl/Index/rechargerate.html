@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>美丽播 - 后台管理中心</title>
+<link href="__PUBLIC__/statics/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/statics/css/system.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/statics/css/table_form.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles1.css" title="styles1" media="screen" />
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles2.css" title="styles2" media="screen" />
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles3.css" title="styles3" media="screen" />
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles4.css" title="styles4" media="screen" />	
+
+<script language="javascript" type="text/javascript" src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/statics/js/styleswitch.js"></script>
+
+</head>
+<body>
+	<div class="subnav">
+	    <div class="content-menu ib-a blue line-x">
+		    <a href='__URL__/statistics/' ><em>留存报表</em></a>
+		    <span>|</span>
+		    <a href='javascript:;' class="on"><em>充值报表</em></a>    
+	    </div>
+	</div>
+	<table width="100%" cellspacing="0" class="table table-bordered table-condensed table-striped table-hover">
+
+
+        <thead>
+	        <tr>
+				<th>日期</th>
+				<th>渠道号</th>
+				<th>注册人数</th>
+				<th>活跃人数</th>
+				<th>充值次数</th>
+				<th>充值人次</th>
+				<th>充值总额</th>
+				<th>充值率</th>
+				<th>ARPU</th>
+	        </tr>
+        </thead>
+        <tbody>
+			<volist name="rechargerates" id="rechargerate">
+				<tr>
+					<td>{$rechargerate.date}</td>
+					<td>{$rechargerate.channel}</td>
+					<td>{$rechargerate.todayReg}</td>
+					<td>{$rechargerate.activeUser}</td>
+					<td>{$rechargerate.chargeCount}</td>
+					<td>{$rechargerate.chargeUser}</td>
+					<td>{$rechargerate.rmb}</td>
+					<td>{$rechargerate.chargeRate}</td>
+					<td>{$rechargerate.ARPU}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+</body>
+</html>

@@ -1,0 +1,46 @@
+         <!--<div class="model modlist2" >
+             <ul class="sdes">
+                   <volist name='users' id='vo' key='k'>
+                <?php
+                $emceelevel = getEmceelevel($vo['earnbean']);
+                ?>
+                <li>
+                <a href="{$vo['curroomnum']}" title="{$vo['nickname']}" target="_blank">
+                <img src="{$vo['snap']}" onerror="this.src='__PUBLIC__/images/default.gif'" /></a>
+                 {$vo['live_state']}  
+                <cite><?php if($vo['virtualguest'] > 0){echo ($vo['online'] + $vo['virtualguest'] + $virtualcount);}else{echo $vo['online'];} ?>人观看</cite>
+                <div clawsss="text">
+                <p><span class="star star{$emceelevel[0]['levelid']}"></span>
+                <a href="{$vo['curroomnum']}" title="{$vo['nickname']}">{$vo['nickname']}</a></p>
+                <p>开播时间：<?php echo date('H:i:s',$vo['starttime']) ?></p>
+                </div>
+                </li>          
+                </volist>
+          </ul>
+          </div>-->
+
+    <ul>
+       <volist name='users' id='vo' key='k'>
+        <?php
+        $emceelevel = getEmceelevel($vo['earnbean']);
+        ?>
+        <li>
+            <div class="roomimg" >
+             <img src="__PUBLIC__/avatar/{$vo['id']|md5|substr=0,3}/{$vo['id']}.jpg" class="rimg" onerror="this.src='__PUBLIC__/images/default.gif'" alt="{$vo.nickname}" width="180" height="180" />
+             <!--<p class="roombq"><span class="roomtj">在线</span></p>-->
+             {$vo['live_state']}
+            </div>
+            <p class="opac"></p>
+            <a href="{$vo['curroomnum']}" title="{$vo['nickname']}" target="_blank" class="room1_int">
+              <b></b>
+              <span class="roomid">房间ID：{$vo['curroomnum']}</span>
+            </a>
+            <div class="room_pro">
+              <p><a href="{$vo['curroomnum']}" title="{$vo['nickname']}" target="_blank">{$vo['nickname']}</a></p>
+              <span class="plpeo">开播时间：<?php echo date('H:i:s',$vo['starttime']) ?></span>
+              <b class="hleve zlv{$emceelevel[0]['levelid']}"></b>
+            </div>
+        </li>
+         </volist>
+      </ul>
+

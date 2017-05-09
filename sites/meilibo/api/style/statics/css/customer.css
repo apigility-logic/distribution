@@ -1,0 +1,315 @@
+* {
+	border: none;
+	padding: 0px;
+	margin: 0px;
+	font-size: 14px;
+	font-family: '微软雅黑';
+	outline: none;
+}
+html,body{
+	width: 100%;
+	height: 100%;
+
+}
+input,button,select,textarea,a,img{outline:none; text-decoration:none;color:#333;}/*去掉超链接或按钮点击时出现的虚线框黄色边框*/
+
+::-webkit-scrollbar {
+
+    width: 5px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background:#f9f9f9 ; 
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+
+    background:#f9f9f9; 
+
+}
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+.cf{
+	clear: both;
+	text-align: center;
+	color: #aaa;
+	padding-top: 10px;
+	font-size:12px;
+}
+.active{
+	background: #fff;
+}
+.hide{
+
+}
+.mainbox{
+	width:1000px;
+	height:460px;
+	min-height:460px;
+	margin:0 auto; 
+	padding-top:30px;
+	background:#fff;
+}
+.chatbox{
+	width:100%;
+	height:100%;
+	border:1px solid #e2e2e2;
+	border-radius:15px;
+	box-shadow: 0 0 10px #ddd;
+	overflow:hidden;
+}
+.chat{
+	width:80%;
+	height:100%;
+	background: #fff;
+}
+.chat .username {background:#f9f9f9;height:35px;padding-left:10px;line-height:35px;font-size:14px;color:#adacac;}
+.chat_top{
+	width:100%;
+	min-height:230px;
+	/*min-width: 188px;*/
+	background: #fff;
+	overflow: auto;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+	-webkit-box-sizing:border-box; /* Safari */
+}
+.chat_top>div{
+	width:100%;
+	height: 100%;
+	/*min-width: 188px;*/
+	background: #fff;
+	padding: 10px;
+	overflow: auto;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+	-webkit-box-sizing:border-box; /* Safari */
+}
+.chat_top>div p{text-align:center;height:10px;margin-bottom:20px;}
+.chat_top>div p span{display:inline-block;margin: 0 auto;width:120px;background:#fff;color:#01a5a6;font-size:12px;cursor:pointer;}
+.chat_record{
+	width:100%;
+	height: 100%;
+	/*min-width: 188px;*/
+	background: #fff;
+	padding: 10px;
+	overflow: auto;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+	-webkit-box-sizing:border-box; /* Safari */
+	display: none;
+}
+.chat_title{
+	text-align:center;
+	border-bottom:1px solid #f3efef;
+	height:15px;
+	margin-bottom:30px;
+}
+.chat_title span{display:inline-block;width:150px;background:#fff;line-height:30px;color:#bfbfbf;}
+.chat_time{
+	border-bottom:1px solid #f3efef;
+	height:19px;
+	margin-bottom:20px;
+}
+.chat_time span{display:inline-block;background:#fff;width:180px;font-size:12px;}
+.chat_top_msg{
+	height:60px;
+	/*margin-top: 10px;*/
+}
+.chat_top_msg_box{
+	width: 80%;
+	padding:5px 0;
+}
+.chat_top_msg_name{
+	height: 25px;
+	line-height: 25px;
+	font-size: 12px;
+	margin: 0px 2px;
+	color:#8c8c8c;
+}
+.chat_top_msg_receive_content{
+	font-size: 12px;
+	padding: 5px;
+	color: #fff;
+	border-radius: 5px;
+	background: #48D1CC;
+	max-width: 80%;
+	min-height: 24px;
+	word-wrap:break-word; 
+	word-break:break-all; 
+	overflow: hidden;/*这个参数根据需要来绝对要不要*/ 
+
+}
+.chat_top_msg_receive_content img{
+	max-width: 100%;
+}
+.chat_top_msg_send_content{
+	font-size: 14px;
+	padding: 5px;
+	color:#8d8e8e;
+	border-radius: 5px;
+	background: #eee;
+	max-width: 80%;	
+	min-height: 24px;
+	word-wrap:break-word; 
+	word-break:break-all; 
+	overflow: hidden;/*这个参数根据需要来绝对要不要*/ 
+
+}
+.chat_top_msg_content_sign_left{
+	width: 0px;
+	height: 0px;
+	margin: 5px 0px 0px 2px;
+	border-width: 1px 8px 4px 0px;
+	border-style: solid;
+	border-color: transparent #48D1CC transparent transparent;
+	/*透明 灰 透明 透明 */
+	
+	position: relative;
+}
+.chat_top_msg_content_sign_right{
+	width: 0px;
+	height: 0px;
+	margin: 5px 2px 0px 0px;
+	border-width: 1px 0px 4px 8px;
+	border-style: solid;
+	border-color: transparent transparent transparent #eee;
+	/*透明 灰 透明 透明 */
+	
+	position: relative;
+}
+.chat_bottom{
+	width:100%;
+	height:165px;
+	padding: 5px;
+	-moz-box-shadow:0px -1px 3px rgb(232, 232, 232);
+	box-shadow:0px -1px 3px rgb(232, 232, 232);
+	background: #fff;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+	-webkit-box-sizing:border-box; /* Safari */
+}
+.chat_tool .clearpic{display: inline-block;width:20px;height:20px;cursor: pointer;}
+.chat_tool .clearpic img{width: 20px;}
+.chatmsgBtn{padding-top:6px;}
+.chatmsgBtn > button{background: #01a5a6;}
+.chat_bottom textarea{
+	width:100%;
+	height:90px;
+	border: 1px solid rgb(230 ,230 ,230 );
+	border-radius: 5px;
+	margin-top: 5px;
+	padding: 5px;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+	-webkit-box-sizing:border-box; /* Safari */
+}
+.chat_bottom button{
+	margin: 0px 5px;
+}
+.msg_person{
+	width: 20%;
+	height: 100%;
+	border-left:1px solid #e2e2e2;
+	background:rgb(249, 249, 249);
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+	-webkit-box-sizing:border-box; /* Safari */
+}
+.msg_person_title{
+	width: 100%;
+	height:35px;
+	text-align: center;
+	line-height: 35px;
+	font-size: 18px;
+	margin-bottom: 1px;
+	border-bottom: 1px solid #e2e2e2;
+}
+.msg_person_list{
+	height:40px;
+	padding: 5px;
+	margin-bottom: 1px;
+	box-sizing:content-box;
+	cursor:default;
+}
+.msg_person_list:hover{
+	background: #FFFAFA;
+}
+.msg_person_list_avatar img{
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+}
+.msg_person_list_nickname{
+	height: 40px;
+	line-height: 40px;
+	margin-left: 5px;
+	font-size: 14px; 
+	white-space:nowrap; 
+	overflow:hidden; 
+	text-overflow:ellipsis;
+	color:#b1aeae;
+}
+.msg_person_list_sign{
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background: #FF7F00;
+	color: #fff;
+	line-height: 20px;
+	text-align: center;
+	margin-top: 13px;
+	font-size: 10px;
+}
+
+.btn{
+	display: inline-block;
+    padding: 2px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.btn-info{
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+}
+.btn-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+.audio_msg{
+	height:24px;
+}
+.audio_msg_text{
+	width: 30px;
+	text-align: center;
+}

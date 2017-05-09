@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>微信扫码支付</title>
+</head>
+<body>
+	<img src="http://paysdk.weixin.qq.com/example/qrcode.php?data={$imgurl}"  width='200'height='200'>
+	<script type="text/javascript" src="/style/meilibo/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="/style/meilibo/js/Pulse.js"></script>
+	<script type="text/javascript">
+	//调用微信JS api 支付
+	$(function(){
+	   Pulse.create({
+		param: [[10000, 10000], [70000, 3000], [150000, 5000], [600000, 7000], [1800000, 10000]],
+		delay: false,
+		start: true,
+		stop: true,
+		pulse: function() {
+	            
+	        var orderno = "{$orderno}";
+	        orderno = orderno.substring( orderno.indexOf("_")+1);
+	        $.ajax({
+	            url:'{:U("my/weixinCallback")}',
+	            type: 'post',
+	            data:{orderno:orderno},
+	            dataType: 'json',
+	            cache: false,
+	            success: function(data) {
+	                if ($.trim(data) === '1') {
+	                	alert("付款成功，即将跳转...")
+	                }
+	            }
+	        });
+	        }
+	        });
+	})
+	</script>
+</body>
+</html>

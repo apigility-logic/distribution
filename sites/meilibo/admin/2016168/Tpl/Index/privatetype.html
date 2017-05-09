@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=7" />
+    <title>美丽播 - 后台管理中心</title>
+    <link href="__PUBLIC__/statics/css/reset.css" rel="stylesheet" type="text/css" />
+    <link href="__PUBLIC__/statics/css/system.css" rel="stylesheet" type="text/css" />
+    <link href="__PUBLIC__/statics/css/table_form.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles1.css" title="styles1" media="screen" />
+    <link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles2.css" title="styles2" media="screen" />
+    <link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles3.css" title="styles3" media="screen" />
+    <link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles4.css" title="styles4" media="screen" />
+    <script language="javascript" type="text/javascript" src="__PUBLIC__/statics/js/jquery.min.js"></script>
+    <script language="javascript" type="text/javascript" src="__PUBLIC__/statics/js/admin_common.js"></script>
+    <script language="javascript" type="text/javascript" src="__PUBLIC__/statics/js/styleswitch.js"></script>
+    <script type="text/javascript">
+        window.focus();
+    </script>
+</head>
+<body>
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+        <a href='javascript:;' class="on"><em>管理私密类型</em></a><span>|</span><!-- <a href='__URL__/add_display'  ><em>添加私密类型</em></a> -->
+    </div>
+</div>
+<style type="text/css">
+    html{_overflow-y:scroll}
+</style>
+
+    <div class="pad_10">
+        <div class="bk10"></div>
+        <div class="table-list">
+            <table width="100%" cellspacing="0" class="table table-bordered table-condensed table-striped table-hover">
+                <thead>
+                <tr>
+                    <th width="30">ID</th>
+                    <th >私密类型</th>
+                    <!-- <th >管理操作</th> -->
+                </tr>
+                </thead>
+                <tbody>
+                <volist name="privates" id="vo">
+                    <tr>
+                        <td align='center'>{$vo['id']}</td>
+                        <td align='center'> {$vo['name']}  </td>
+<!--                         <td align='center' >
+                             <a href="__URL__/private_update?u_id={$vo['id']}">修改</a> |
+                             <a href="javascript:if(confirm('确定要删除该类型吗？'))window.location='__URL__/private_del?d_id={$vo.id}'">删除</a>
+                        </td> -->
+                    </tr>
+
+                </volist>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</body>
+<script language="JavaScript">
+    <!--
+    window.top.$('#display_center_id').css('display','none');
+
+    //-->
+</script>
+</html>

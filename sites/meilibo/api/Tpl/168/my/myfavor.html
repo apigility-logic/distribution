@@ -1,0 +1,156 @@
+<tagLib name="html" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>我的收藏-管理中心-{$sitename}</title>
+<link rel="stylesheet" type="text/css" href="/style/meilibo/css/common.css">
+<link rel="stylesheet" type="text/css" href="/style/meilibo/css/user.css">
+<link rel="stylesheet" type="text/css" href="/style/meilibo/css/inside.css">
+<script language="javascript" src="/style/js/jquery.js"></script>
+<script language="javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/style/meilibo/js/usercenter.js"></script>
+<script type="text/javascript" src="/style/meilibo/js/logon-2.0.js"></script>
+<script>
+    UAC.showUserInfo = function(data) {if(data.isLogin == "1"){window.location.reload();}}
+  </script>
+<script>
+function batchDel()
+{
+    var ids = document.getElementsByName("id");
+    var idstr = "";
+    
+    for(var i=0; i< ids.length; i++)
+    {
+        if(ids[i].checked == true)
+        {
+            idstr = idstr+ids[i].value+",";
+        }
+    }
+    
+    if(idstr == "")
+    {
+        alert("请选择要删除的收藏！");
+        return false;
+    }
+    else
+    {
+        idstr = idstr.substring(0,idstr.length-1);
+        //alert(idstr);
+        document.bookmarkForm.action = "/my/delfavor/fid/"+idstr+"/";
+        document.bookmarkForm.submit();
+    }
+}
+
+function selectAll()
+{
+    var checkboxAll = document.getElementById("all");
+    var ids = document.getElementsByName("id");
+
+    if(checkboxAll.checked == true)
+    {
+        for(var i=0; i< ids.length; i++)
+        {
+            ids[i].checked = true;
+        }
+    }
+    else if(checkboxAll.checked == false)
+    {
+        for(var i=0; i< ids.length; i++)
+        {
+            ids[i].checked = false;
+        }
+    }
+}
+</script>
+</head>
+<body style="background:url(/style/meilibo/images/mod0_v2.jpg) no-repeat top center;">
+<include file="Public:header" />
+<div class="u_header">
+  <div class="wrap">
+    <div class="uphoto">
+       <img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$userinfo['id']|md5|substr=0,3}/{$userinfo['id']}_big.jpg" width="207" height="207"/>
+       <p class="bj_photo"><a href="/my/center_headerpic/"><span class="bjIcon"></span>更换头像</a></p>
+    </div>
+    <div class="userData">
+      <div class="clearfix" id="vo">
+        <span class="u_nickname">{$userinfo['nickname']}</span>
+        
+        <b class="starLV car{$vo.emceelevel}"></b>
+        
+      </div>
+      <div class="level clearfix">
+        <span class="fl">秀币：{$userinfo['coinbalance']}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="u_tab">
+  <div class="wrap clearfix">
+    <div class="u_tab_left fl">
+      <a href="/my/center_editinfo/">个人设置<span class="arror"></span></a>
+      <a href="/my/mybills/">我的账单<span class="arror"></span></a>
+      <a href="/my/mytools/">我的道具<span class="arror"></span></a>
+      <a href="/my/mynumbers/">我的靓号<span class="arror"></span></a>
+      <a href="/my/mymanagers/">我的管理<span class="arror"></span></a>
+      <!-- <a class="tabon" href="/my/myfavor/">我的收藏<span class="arror"></span></a> -->
+      <a href="/my/mygods/">我的偶像<span class="arror"></span></a>
+      <a href="/my/myfans/">我的粉丝<span class="arror"></span></a>
+      <a href="/my/mylink/">我的推广链接<span class="arror"></span></a>
+    </div>
+    <div class="u_tab_right fr">
+      <a href="/{$_SESSION['roomnum']}">我的直播</a>
+      <a href="/my/charge/">充值</a>
+      <a href="/my/exchange/">兑换</a>
+      <a href="/my/settlement/">结算</a>
+    </div>
+  </div>
+</div>
+<div class="wrap">
+  <div class="usercenter">
+<script language="javascript">
+$(function(){
+   var sm = $('.utab a,.umyhelp a').setMyTab();
+ }
+)
+</script>
+    <form id="bookmarkForm" name="bookmarkForm" method="post">
+    <div class="usercenter_con">
+      <div class="collect_top"> <span>我一共收藏了<strong>{$favors|count}</strong>个房间</span>
+        <label>
+        <input id="all" name="all" type="checkbox" onclick="selectAll();"/>
+        全选</label>
+        | <a href="#" onclick="batchDel();">删除</a> </div>
+      <div class="collect_list">
+        <volist name="favors" id="vo">
+        <dl>
+          <dt>
+            <input name="id" type="checkbox" value="{$vo['id']}" />
+          </dt>
+          <volist name="vo['voo']" id="sub">
+          <?php
+          if($sub['broadcasting'] == 'y'){
+                $usersnap = $sub['snap'];
+          }
+          else{
+                $usersnap = /style.'/images/default.gif';
+                $iconclass = 'nolive';
+          }
+          $emceelevel = getEmceelevel($sub['earnbean']);
+          ?>
+             <dd class="img {$iconclass}"><cite>{$sub['online']}</cite> <em></em> <a href="/{$sub['curroomnum']}" target="_blank"><img src="{$usersnap}" /></a> </dd>
+          
+          <dd class="tt"><span class="star star{$emceelevel[0]['levelid']}"></span><a href="/{$sub['curroomnum']}" title="{$sub['snap']}" target="_blank">{$sub['nickname']}</a></dd>
+          <dd class="links"><a href="/{$sub['curroomnum']}" target="_blank">进入房间</a> | <a href="/my/delfavor/fid/{$vo['id']}">删除</a></dd>
+          </volist>
+        </dl>
+        </volist>
+        <div class="clear"></div>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+<include file="Public:footer" />
+</body>
+</html>

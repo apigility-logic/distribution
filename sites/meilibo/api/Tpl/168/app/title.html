@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html><head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta content="telephone=no" name="format-detection">
+    <title>封号系统</title>
+    <style type="text/css">
+        *{margin: 0;padding:0;font-family: "微软雅黑";}
+        body{background-color: #F5F5F9;}
+        .title{
+            border-top: solid 1px #F3F3F3;
+            border-bottom: solid 1px #F3F3F3;
+            line-height: 49px;
+            color: #8D8D90;
+            font-size: 1.1em;
+            letter-spacing: 2px;
+            padding-left: 12px;
+        }
+        .test{
+            width: 98%;
+            height: 50px;
+            border: none;
+            outline: none;
+            padding-left: 2%;
+            font-size: 1.2em;
+        }
+        #btm{  background-color: #F5F5F9;
+            width: 100%;
+            height: 62px; }
+        button{background-color: #AAA8A8;
+            color: #fff;
+            font-family: "微软雅黑";
+            font-size: 1.2em;
+            letter-spacing: 1px;
+            width: 92%;
+            height: 47px;
+            border-radius: 30px;
+            outline: none;
+            border: 0;
+            margin-top: 15px;
+            margin-left: 4%;}
+        .rule{  width: 96%;
+            color: #555555;
+            font-size: 1em;
+            height: 100px;
+            line-height: 33px;
+            margin-left: 4%;
+           margin-top: 13px;}
+        .btm,.btm2{
+            width: 100%;
+            height: 47px;
+            border-top: solid 1px #F3F3F3;
+            border-bottom: solid 1px #F3F3F3;
+            line-height: 38px;
+            color: #373737;
+            font-size: 1.1em;
+            font-weight: 600;
+            letter-spacing: 2px;
+            background-color: #fff;
+        }
+        .btm2{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+        .chat{float: left;    width: 20px;
+            margin: 2.7% 2% 0 4%;}
+        .yj{float: left;}
+        a{text-decoration:none;color:#000;}
+        .jiantou{float: right;
+            width: 9px;
+            margin-right:5%;
+           margin-top: 4%;}
+        ul{background-color: #fff;}
+        li{
+            border-bottom: solid 1px #F3F3F3;
+            list-style-type: none;
+            margin-left: 12px;
+            line-height: 46px;
+            font-size: 1em;
+            color: #444;
+        }
+        .p{color:rgb(255, 89, 165);font-size: 1rem;padding: 12px;position: absolute;bottom:44px;left:0;}
+        #main{width: 100%;overflow: auto;}
+        p{font-size: 0.8em;line-height: 16px;}
+        </style>
+    <script src="__PUBLIC__/meilibo/js/jquery-1.8.3.min.js"></script>
+
+</head>
+<body>
+<div id="main">
+    <div class="title">请输入用户ID</div>
+    <input type="text" class="test" id="uid" oninput="test()">
+    <div id="btm">
+        <button disabled="" id="submit">点击查询</button>
+    </div>
+    <div class="rule"></div>
+    <a href="block#box1"><div class="btm">
+        <img src="__PUBLIC__/app/images/help/user.jpg" class="chat">
+        <div class="yj">封号规则</div>
+        <img src="__PUBLIC__/app/images/help/r_left.jpg" class="jiantou" style="margin-top: 4%;">
+    </div></a>
+    <ul>
+        <a href="block#box2"><li>常见违规-吸烟<img src="__PUBLIC__/app/images/help/r_left.jpg" class="jiantou"></li></a>
+        <a href="block#box3"><li>常见违规-涉黄<img src="__PUBLIC__/app/images/help/r_left.jpg" class="jiantou"></li></a>
+        <a href="block#box4"><li>常见违规-封面头像违规<img src="__PUBLIC__/app/images/help/r_left.jpg" class="jiantou"></li></a>
+    </ul>
+</div>
+
+<div class="p">你可能还需要</div>
+<a href=""><div class="btm2">
+    <img src="__PUBLIC__/app/images/help/tt.jpg" class="chat">
+    <div class="yj">客服</div>
+    <img src="__PUBLIC__/app/images/help/r_left.jpg" class="jiantou" style="margin-top: 4%;">
+</div></a>
+
+
+<script>
+    $("#uid").val("");
+   if($("#main").height()>=$(window).height()-$(".btm2").height()-$(".p").height()){
+       $("#main").css({"height":$(window).height()-$(".btm2").height()-$(".p").height()-16+"px"});
+   }
+   function all_disabled(val) {
+        $('input').each(function() {
+            $(this).attr('disabled', val);
+        });
+        $('button').each(function() {
+            $(this).attr('disabled', val);
+        });
+    }
+    function test(){
+        if($(".test").val()==""){
+            $("button").css({"background":"#AAA8A8"});
+            $("button").attr("disabled","true");
+        }else{
+            $("button").css({"background":"rgb(255, 89, 165)"});
+            $("button").removeAttr("disabled");
+        }
+    }
+
+    function show_result(str) {
+        $('.rule').html(str);
+    }
+    $(document).ready(function() {
+        $('#submit').on('click', function() {
+            var uid = $('#uid').val();
+            if (uid == '') {
+                alert('请输入星魔秀号');
+                return;
+            }
+            $('#submit').html('正在查询...');
+            all_disabled(true);
+            $.ajax( {    
+                type: "post",
+                url: "__URL__/blockSearch/",
+                dataType: "json",
+                data:{    
+                    uid: uid
+                },        
+                cache:false,        
+                success:function(result) {    
+                    if (result.status == 1) {
+                        var data = result.data;
+                        for(var i = 0;i < data.length;i++){
+                            var str = '<p>查询星魔秀号：'+result.uid+'</p>';
+                            str += '<p>昵称：'+result.nickname+'</p>';
+                            str += '<p>封号时间：'+data[i].bantime+'</p>';
+                            str += '<p>封号时长：预计'+data[i].time+'天</p>';
+                            str += '<p>预计解封：'+data[i].banduration+'</p>';
+                        }
+                        show_result(str);               
+                    }else{
+                        show_result(result.errormsg);
+                    }
+                    all_disabled(false);
+                    $('#submit').html('点击查询');
+                },     
+                error : function() {    
+                    alert('网络异常，请重试'); 
+                    $('#submit').html('点击查询');
+                    all_disabled(false);
+                }    
+            }); 
+        })
+    })
+
+
+</script></body></html>

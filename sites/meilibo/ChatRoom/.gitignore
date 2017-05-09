@@ -1,0 +1,10 @@
+logs
+.buildpath
+.project
+.settings
+.idea
+workerman.log
+Config/Db.php
+Config/Mem.php
+Config/Site.php
+/nbproject/private/

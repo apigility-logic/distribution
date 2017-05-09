@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="en">
+<head>     
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta name="renderer" content="webkit">    
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>美丽播直播-{$userinfo['nickname']}的直播间</title>
+	<link rel="stylesheet" href="__PUBLIC__/meilibo/vzboostyle/css/pcstyle.css">
+	<link rel="stylesheet" href="__PUBLIC__/meilibo/vzboostyle/css/font-awesome.min.css">
+
+	<link href="__PUBLIC__/meilibo/vzboostyle/css/video-js.css" rel="stylesheet">
+    <script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/meilibo/vzboostyle/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/meilibo/vzboostyle/js/queue.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/meilibo/vzboostyle/js/template.js"></script>
+    <script type="text/javascript">
+        var HOST_URL = "<?php echo C('WEB_URL') ?>";
+        var currentUrl = "<?php echo $currenturl?>";
+        var mode = 3;//代表电脑直播、手机直播 电脑观看直播
+        var isGuard = "<?php  echo $is_guard ? 'true': 'false';?>";
+        var public='__PUBLIC__/meilibo/dist/';
+        var IMG_PATH='__PUBLIC__';
+        var fly="";
+        
+        <?php if (!empty($selfinfo)&&$selfinfo['id']!=825) { ?>
+            var User = JSON.parse('<?php print(json_encode($selfinfo)); ?>');
+            console.log(User);
+            User.isLogin = true;
+            var to_uid = {$selfinfo.id};
+            <?php if (!empty($token)) { ?>
+            	User.token = '{$token}';
+            	User.avatar="/style/avatar/<?php echo substr(md5($selfinfo['id']),0,3);?>/<?php echo $selfinfo['id'].'_middle.jpg'?>";
+            <?php }else{ ?> 
+            	User.token = null;
+            <?php }?>
+        <?php }elseif(!empty($selfinfo)&&$selfinfo['id']==825) { ?>
+        	var User = JSON.parse('<?php print(json_encode($selfinfo)); ?>');
+        	User.isLogin = false;
+        <?php }else{ ?> 
+            var User = '';
+            User.isLogin = false;
+            //User.imgpath = '/style/avatar/0/0_big.jpg';
+        <?php }?>
+        <?php if (!empty($userinfo)) { ?>
+            var Anchor = JSON.parse( '<?php print(json_encode($userinfo)); ?>')
+            var to_uid = {$userinfo.id};
+            var room_id = {$userinfo.curroomnum};
+        <?php }else{ ?> 
+            var Anchor = null;
+        <?php }?>
+    	
+    </script>
+</head>
+ <body class="live-skin">
+<div class="page-container">
+    <div class="page-window">
+     	<div class="operate-content clearfix">
+			<div class="notify-box left">
+				<div class="go-msg-bord-box left">
+					<a class="clearfix" href="/">
+						<i class="change-btn go-msg-bord"></i>
+				        <p class="msg-bord-tip notify-tip">首页</p>
+					</a>
+				</div>
+				<div class="go-msg-bord-box left">
+					<a class="clearfix" href="javascript:;">
+						<i class="change-btn go-msg-bord go-dress"></i>
+				        <p class="msg-bord-tip notify-tip">拉流地址</p>
+					</a>
+				</div>
+				<div class="go-live-box left">
+					<a class="clearfix" class="my_playlive" href="javascript:;">
+						<i class="change-btn go-live current"></i>
+					    <p class="live-tip">直播</p>
+					</a>
+				</div>
+			</div>        
+			<div class="account-box right">
+				<div class="goDownloads">
+			        <a href="javascript:;" class="godownapp" target="_blank">下载APP</a>
+			        <div class="mm-downloads-wrap hide">
+			            <h4 class="mm-download-title">下载美丽播APP</h4>
+			            <div class="mm-download-container forandroid"><img src="/OpenAPI/V1/User/qrcode?url=demo.meilibo.net"alt="扫描二维码"></div>
+			            <div class="mm-download-container forios hide"><img src="/OpenAPI/V1/User/qrcode?url=demo.meilibo.net" alt="扫描二维码"></div>
+			            <div class="mm-btn-group">
+				            <div  class="mm-mac-icon left android"></div>
+				            &nbsp;&nbsp;|&nbsp;
+				            <div  class="mm-android-icon right ios"></div>
+			        	</div>
+				    </div>
+			    </div>
+                <if condition="$token eq ''">
+                    <span class="noname-login left">登录</span>
+                <else />
+					<div class="account-box-childern clearfix "> 
+
+                        <div class="goPay">
+                            <img class="goToPay" src="/style/images/iWantPay.png">
+                            <p class="iWantPay">充值</p>
+                        </div>
+                        <img src="/style/avatar/<?php echo substr(md5($selfinfo['id']),0,3);?>/<?php echo $selfinfo['id'].'_middle.jpg'?>" onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" class="avatar oneself" alt="" data-id="{$selfinfo->id}">
+                        <div class="account-info-box hide">
+                            <div class="account-pro">
+                                <img src="/style/avatar/<?php echo substr(md5($selfinfo['id']),0,3);?>/<?php echo $selfinfo['id'].'_middle.jpg'?>" onerror="javascript:this.src='/style/avatar/0/0_big.jpg'"  class="avatar" alt="Litte.浩" >
+                                <p class="username">{$selfinfo['nickname']}</p>
+                                <p class="account-momoid">余额：<span>{$selfinfo['coinbalance']}</span></p>
+                            </div>
+                            <ul class="account-list">
+                                <li class="account-item oneself-profile" data-id="387496450" data-idtype="momoid">个人资料</li>
+                                <li class="account-item exit-btn" onclick="javascript:UAC.logout('');">退出登录</li>
+                            </ul>
+                        </div>
+                    </div>
+                </if>
+			</div>
+		</div>
+		<div class="live-container main-content">
+			<div class="live-page-window">
+				<!--左侧信息盒子-->
+				<div class="information-box left">
+					<div class="informationContent">
+						<div class="roomListContainer">
+							<div class="roomList  noLive">
+								<img class="liveShowIcon" src="__PUBLIC__/meilibo/vzboostyle/img/hotLive.png" alt="">
+								<span class="liveShow">热门直播</span>
+								<span class="myAnchor hide">我的主播</span>
+								<div class="recommend-live-list-box recommend-nolive-list-box">
+								  <div class="recommend-live-tab">
+									<ul id="liveShow" class="liveRoomLists liveRoomList clearfix liveShow-list noLiveRoomList "></ul>
+									<button class="liveButton hide">加载更多</button>
+								  </div>
+								  <div class="recommend-live-tab hide">
+									<ul id="liveRoomLists" class="liveRoomLists liveAnchorList clearfix anchor-liveShow-list noLiveRoomList">
+									</ul>
+								  </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--右侧直播间盒子-->
+				<div class="liveRoom-box right">
+					<!--直播间-->
+					<div class="liveRoomContainer">
+                                                    <?php if($userinfo['orientation'] == v) {?>
+						<div class="liveRoomContent mobile-video">
+                                                    <?php }else{ ?>
+                                                    <div class="liveRoomContent">
+                                                    <?php }?>
+							<div class="playerHeader">
+								<!--播主信息-->
+								<div class="anchor">
+									<div class="anchorMessage" data-stid="380327321" data-roomname="{$userinfo['nickname']}" data-anchorname="{$userinfo['nickname']}" data-mtoken="ccf8c9e832e267e5281ff0e21dfd9b73">
+									    <div class="anchorInfo">
+									        <img class="anchorIcon"  src="/style/avatar/{$userinfo['id']|md5|substr=0,3}/{$userinfo['id']}_middle.jpg" onerror="javascript:this.src='/style/avatar/0/0_big.jpg'"    alt="">
+									        <div class="anchorMsg">
+									            <p class="anchorName">{$userinfo['nickname']}</p>
+									            <div class="fans">
+									            	<?php if($attr_state == 0) {?>
+									                <div class="focus nofocus starVal"><span class="focusBtn noFod">关注</span></div>
+									                <?php }else{ ?>
+													<div class="focus starVal"><span class="focusBtn fod">已关注</span></div>
+									                <?php }?>
+									                <div class="starVal">
+									                    <div class="starIcon"><img class="starImg" src="__PUBLIC__/meilibo/vzboostyle/img/star.png" alt="">星光</div>
+									                    <strong class="starNum star">{$userinfo['beanorignal']}</strong>
+									                </div>
+									                <div class="starVal">
+									                    <div class="starIcon">粉丝</div>
+									                    <strong class="starNum fllow">{$followers_cnt}</strong>
+									                </div>
+									            </div>
+									        </div>
+									        <div class="share right">
+									            <p class="goShare">
+									                 分享
+									                 <i class="fa fa-angle-down"></i>
+									            </p>
+									            <div class="shareContainer" id="shareContainer">    
+									            	<div class="copeUrl">
+                                                        <p class="liveUrl">直播间地址：</p>
+                                                        <div class="urlWrap clearfix">
+                                                            <p class="urlDetail" id="copy_value">
+                                                            <?php echo C('WEB_URL') ?>/pc?roomnum={$roomnum}
+                                                            </p>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+									        </div>
+									    </div>
+									</div>
+								</div>
+							</div>
+							  
+							<div id="private_alert"></div>
+                            <!--礼物队列-->
+                            <div class="giftShowqueue"></div>
+                            <div class="giftBigshow"></div>
+						</div>
+					</div>
+					<!--粉丝贡献-->
+					<div class="attraction clearfix">
+						<div class="attractionContent">
+							<!-- 排行榜-->
+							<div class="fansAttraction">
+								<div class="tab_header">
+									<ul class="clearfix">
+                                        <li class="tab-starCharts" style="width:33.3%;"><a href="javascript:;" class="on">排行榜</a></li>
+                                        <li class="tab-onlineUser" style="width:33.3%;"><a href="javascript:;">在线用户</a></li>
+                                        <li class="tab-manger" style="width:33.3%;"><a href="javascript:;">管理员列表</a></li>
+                                    </ul>
+								</div>
+								<div class="tab_content_container">
+									<div class="tab_content starCharts current">
+										<ul class="rankingList">
+                                        <volist name="zongxing" id="vo" key="k">
+                                        <li class="rankingItem rank1" data-id="{$vo['id']}">
+                                            <img class="fansIcon" src="/style/avatar/{$vo['id']|md5|substr=0,3}/{$vo['id']}_middle.jpg"onerror="javascript:this.src='/style/avatar/0/0_big.jpg'">
+                                            <div class="contributionMsg">
+                                                <p class="contributionTitle">{$vo['nickname']}</p>
+                                                <p class="contributionVal">{$vo['gongxian']}<img class="rankStarImg" src="__PUBLIC__/meilibo/vzboostyle/img/star.png" alt=""></p>
+                                            </div>
+                                            <if condition="$k elt 3">
+                                            <img class="ranking" src="__PUBLIC__/meilibo/vzboostyle/img/rank{$k}.png" alt="">
+                                            <else/>
+                                            </if>
+                                        </li>
+                                        </volist>
+										</ul>                                   
+									</div>
+									<div class="tab_content onlineUsers">
+										<ul class="userList layfolkList"></ul>
+									</div>
+									<div class="tab_content onlineUsers manager">
+										<ul class="userList managerlist" id="managerlist"></ul>
+									</div>
+								</div>
+
+							</div>
+							<!--礼物-->
+							<div class="gift-box-wrap">
+								<ul id="giftBox" class="gift-box clearfix"></ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+</div>
+<div class="private_box_chat">
+  	<div class="chatMiniRoot">
+  	 	<p class="fold_cont">
+  	 		<span class="fold_icon W_fl" data-target="minichat"></span>
+  	 		<em class="fold_font">私信聊天</em>
+  	 		<span class="wchat_btn"><em class="wchat_icon"></em></span>
+  	 	</p>
+  	</div>
+  	<div class="webim_chat_window hide">
+  		<div class="WB_webim_page fl">
+  			<div node-type="_search" class="webim_serch">
+	  			<span class="WB_search_s">
+		  			<input type="text" maxlength="20" placeholder="查找联系人" class="W_input">
+		  			<span class="pos"></span>
+	  			</span>
+  			</div>
+  			<div class="webim_contacts_mod webim_serch_mod hide">
+  				<div class="webim_group_title  clearfix">
+  					<span class="group_title_cont">联系人</span>
+  				</div>
+  				<ul class="webim_contacts_list"></ul>
+  			</div>
+  			<div class="webim_contacts_mod webim_contacts_man">
+  				<ul class="webim_contacts_list" id="webim_contacts_list">
+  					<li class="contacts SW_fun_bg active clearfix" data-id="0001" data-name='美丽播' data-img='/style/meilibo/jmechat/images/pic2.jpg'>
+  						<img class="userimg fl" src="__PUBLIC__/meilibo/jmechat/images/meilibopic.jpg" width="30" height="30"/>
+  						<p class="name fl W_autocut">美丽播</p>
+  						<span class="W_new_count fr hide">1</span>
+  						<!-- <a class="ficon_close S_ficon fr " href="javascript:;">X</a> -->
+  					</li>
+  				</ul>
+  			</div>
+  		</div>
+  		<div class="private_dialogue_box fl">
+  			<div class="chat_head clearfix">
+  				<h3 class="chat_title fl W_autocut">美丽播</h3>
+  				<button class="ficon_close">X</button>
+  			</div>
+  			<div class="private_dialogue_body">
+  				<div class="private_dialogue_cont">
+<!--   					<div class="private_dialogue_cont_list" id="private1" data-id="0001">
+  						<div class="WB_empty">还没收到私信哦</div>
+  					</div> -->
+  				    <div class="private_dialogue_cont_list" id="private2" data-id="0001">
+	  					<!-- <p class="private_dialogue_more">
+	  						<a href="javascript:void(0)" class="S_link1">查看更多消息</a>
+	  					</p>
+	  					<fieldset class="private_dialogue_prompt"><legend class="prompt_font">7月09日22:00</legend></fieldset> -->
+	  					<div class="msg_bubble_list  bubble_l">
+	  						<div class="bubble_mod clearfix"> 
+	  							<div class="bubble_user"><img src="/style/meilibo/jmechat/images/meilibopic.jpg" width="30" height="30"></div>
+	  							<p class="bubble_name W_autocut">美丽播</p>
+	  							<div class="bubble_box SW_fun">
+	  								<div class="bubble_cont">
+	  									<div class="bubble_arrow"><div class="W_arrow_bor  W_arrow_bor_l"><i></i><em></em></div></div>
+	  									<div class="bubble_main clearfix">
+	  										<div class="cont"><p class="page">欢迎来到美丽播</p></div>
+	  									</div>
+	  								</div>
+	  							</div>
+	  						</div>
+	  					</div>
+	  					<!-- <div class="msg_bubble_list bubble_r ">
+	  						<div class="bubble_mod clearfix">
+	  							<div class="bubble_user"><img src="__PUBLIC__/meilibo/jmechat/images/pic1.jpg" width="30" height="30"></div>
+	  							<p class="bubble_name W_autocut">晴天LXF</p>
+	  							<div class="bubble_box SW_fun">
+	  								<div class="bubble_cont">
+	  									<div class="bubble_arrow"><div class="W_arrow_bor W_arrow_bor_l"><i></i><em></em></div></div>
+	  									<div class="bubble_main clearfix">
+	  										<div class="cont"><p class="page">hi,小芳好久不见</p></div>
+	  									</div>
+	  								</div>
+	  							</div>
+	  						</div>
+	  					</div> -->
+  				    </div>
+  				</div>
+  				<div class="sendbox_mod clearfix">
+  					<div class="sendbox_mod_l fl">
+  						<div class="sendbox_area">
+  							<input type="text" class="W_input" placeholder="按回车发送私信">
+  						</div>
+  					</div>
+  					<div class="sendbox_mod_r fl">
+  						<button class="sendbutton">发送</button>
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+</div>
+<div class="layer true hide">
+	<span class="closeLayer"></span>
+	<div class="layer-window-content live-layer">
+		<div id="layer-box" class="layer-box">	
+		</div>
+	</div>
+</div>
+<script id="pushAddress" type="text/html">
+	<div class="pushaddress">
+		<h3>拉流地址</h3>
+		<div><span>RTMP:</span><input id="code1" class="code" value="(*rtmp*)" readonly><button class="button1">复制</button></div>
+		<div><span>HLS:</span><input id="code2" class="code" value="(*hls*)" readonly><button class="button2">复制</button></div>
+		<div><span>FLV:</span><input id="code3" class="code" value="(*flv*)" readonly><button class="button3">复制</button></div>
+	</div>
+</script>
+<!--登录提醒-->
+<script id="loginremind" type="text/html">
+   <div class="payToolTip toolTip fadeInDown animated clearfix">
+       <p class="toolTipTitle">您还未登录</p>
+       <p class="prompt">微信登录之后观看更精彩直播</p>
+       <p class="btn cancel">取消</p>
+       <p class="btn right noname-login" >登录</p>
+   </div>
+</script>
+<!--登录提醒-->
+<script id="outroom" type="text/html">
+   <div class="payToolTip toolTip fadeInDown animated outroom clearfix">
+       <p class="toolTipTitle">(*content*)</p>
+   </div>
+</script>
+<!--礼物列表-->
+<script id="giftlist" type="text/html">
+	(*each giftlist as value key*)
+		    <li class="giftItem left"  data-giftid="(*value.id*)" data-giftname="(*value.giftname*)" data-giftvalue="(*value.needcoin*)" data-giftimg="(*DEMO*)(*value.gifticon*)">
+			<img class="giftIcon" src="(*DEMO*)(*value.gifticon*)">
+			<p class="giftValue">(*value.giftname*)</p>
+		</li>
+        (*/each*)
+</script>
+<!--发送礼物-->
+<script id="giftToolTip" type="text/html">
+	<div class="giftToolTip toolTip fadeInDown animated clearfix">
+        <div class="giftToolTipContent">
+        	<p class="toolTipTitle">
+                本次送礼物<input id="giftn" class="giftn" type="text" value="1"/>个
+            </p>
+            <p class="toolTipTitle">
+                消费为<input type="text" class="consume" value="(*giftvalue*)" readonly/>秀币
+            </p>
+            <p class="btn cancel">取消</p>
+            <p class="btn sure right">确认</p>
+        </div>
+    </div>
+</script>
+<!--个人资料-->
+<script id="profile-box" type="text/html">
+	<div class="profile-box layer-content fadeInDown animated">
+		<div class="background-content">
+				<img class="bg-img" src="__PUBLIC__/meilibo/vzboostyle/nbg-avatar/album/avtarbg.jpg">
+			<div class="main-info-content ">
+				<img src="(*data.avatar*)" onerror="this.src=\'/style/avatar/0/0_big.jpg\'" alt="">
+				<p class="profile-name">(*data.nickname*)</p>
+				<p class="constellation">(*data.city*)</p>
+				<p class="profile-info">
+					<span class="info gender male">
+	                   	(*if data.sex == 1*)
+	                    <i class="icon-male"></i>
+	                    (*else*)
+	                    <i class="icon-fomale"></i>
+	                    (*/if*)
+	                    <span class="age"></span></span>
+					<span class="info vip vip0"><img src="__PUBLIC__/meilibo/vzboostyle/img/charmLevel/m_lv_(*data.emceelevel*)@2x.png" width="40" height="17"></span>
+				</p>
+			</div>
+		</div>
+		 
+		<div class="profiles-tab profiles-tab-user">
+			<div class="tab_header">
+				<ul class="clearfix">
+					<li><a href="javascript:;" class="on">个人资料</a></li>
+				</ul>
+			</div>
+			<div class="profile-detials-content tab_content_container">
+				<div class="tab_content">
+					<ul class="profiles-list">
+						<li class="profile-item"><span class="momoid item-title">I D</span><span class="item-value">(*data.id*)</span></li>
+						<li class="profile-item"><span class="momoid item-title">秀币</span><span class="item-value totalvalu">(*data.coinbalance*)</span></li>
+						<li class="profile-item"><span class="single-sign item-title">个人签名</span><span class="item-value more-clamp">
+						(*if data.intro == null*)
+						空空如也~~下载APP更新个人资料吧~
+						(*else*)
+						(*data.intro*)
+						(*/if*)
+						</span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+<!--余额不足-->
+<script id="payToolTip" type="text/html">
+	<div class="payToolTip toolTip fadeInDown animated clearfix">
+        <p class="toolTipTitle">
+            当前余额不足
+        </p>
+        <p class="prompt">
+            你的I D是 : <span class="momoid">{$selfinfo['id']}</span>
+        </p>
+
+        <p class="btn cancel">取消</p>
+        <a class="btn sure right" href="#" target="_blank">去充值</a>
+    </div>
+</script>
+<!--等级不够提示-->
+<script id='Nograde'  type="text/html">
+	<div class="Nograde">
+	  <p class="_gift">你的等级不够你可以通过<span>给主播送礼物</span>提升等级</p>
+	  <p class="_giftp2">礼物越大等级提升越快,达到等级后就能和主播聊天了</p>
+	</div>
+</script>
+<!--密码提示-->
+<script id="passWORD" type="text/html">
+	<div class="pas">
+	  <p class="pas1">对不起，你输入的密码错误</p>	 
+	</div>
+</script>
+<!--用户信息-->
+<script id ="profileContent" type="text/html">
+	<div class="profileContent fadeInDown animated">
+		<img class="profileIcon" onerror="this.src='/style/avatar/0/0_big.jpg'" src="(*avatar*)" alt="">
+		<p class="profileName">(*nickname*)</p>
+		<p class="profileMsgIcon">
+		    (*if sex ==0*)
+            <img class="sexIcon" src="__PUBLIC__/meilibo/vzboostyle/img/sex-male.png">
+            (*else*)
+            <img class="sexIcon" src="__PUBLIC__/meilibo/vzboostyle/img/sex-female.png">
+            (*/if*)
+            <img class="fortunelevel level level1" src="__PUBLIC__/meilibo/vzboostyle/img/fortuneLevel/c_lv_(*level*)@2x.png" data-fortune="1">
+        </p>
+        (*if hasPermission*)
+		<div class="profile-operation">
+			(*if isAnchor*)
+				(*if isAdmin*)
+				<button class="adminbtn" data-type="removeAdminer" data-id="(*id*)" data-name="(*nickname*)">取消管理员</button>
+				(*else*)
+				<button class="adminbtn" data-type="adminer" data-id="(*id*)" data-name="(*nickname*)">设为管理员</button>
+				(*/if*)
+			(*/if*)
+			<button class="adminbtn"  data-type="disableMsg" data-id="(*id*)" data-name="(*nickname*)">禁言</button>
+			<button class="adminbtn" data-type="addKicked" data-id="(*id*)" data-name="(*nickname*)">踢人</button>
+		</div>
+		(*else*)
+		<div class="profile-operation">
+			<button class="privateChat" data-avatar="(*avatar*)" data-id="(*id*)" data-name="(*nickname*)">私信</button>
+		</div>
+		(*/if*)
+        (*if intro*)
+        <div class="fos noFod">(*intro*)</div>
+        (*else*)
+		<div class="fos noFod">这家伙很懒，什么都没有留下</div>
+		(*/if*)
+		
+	</div>
+</script>
+<!--充值-->
+<script id="payment" type="text/html">
+	<div class="profile-box layer-content fadeInDown animated payment">
+		<div class="profiles-tab profiles-tab-user">
+			<div class="tab_header">
+				<ul class="clearfix">
+					<li><a href="javascript:;" class="on">在线充值</a></li>
+				</ul>
+			</div>
+			<div class="profile-detials-content tab_content_container">
+				<div class="tab_content">
+					<ul class="profiles-list">
+						<li class="profile-item"><span class="momoid item-title">账户余额</span><span class="item-value">
+						(*balance*)</span></li>
+						<li class="profile-item"><span class="single-sign item-title">支付方式</span><span class="radio-button active"><i class="icon icon-weix"></i></span></li>
+						<li class="profile-item"><span class="single-sign item-title">充值金额</span><span class="amount-wrapper"><input type="text" class="form-control" id="inputmoney" name="inputmoney" placeholder="充值金额(金额不低于0.01元)" data-bv-field="inputmoney"><span class="unit">元</span></span></li>
+						<li class="profile-item" style="padding-top:30px;"><span class="paymentbtn">立即充值</span></li>
+					</ul>
+				</div>
+			</div>
+			<div class="profile-detials-content tab_content_container pay-wxin hide">
+				<div class="tab_content">
+					<ul class="profiles-list ">
+					    <li class="wxin-tit">微信扫码支付</li>
+					    <li class="wxin-ewm"><img src="(*img*)" width="200" height="200"></li>
+					    <li class="w-tip">打开微信手机客户端扫一扫</li>
+					    <li>
+					    	<table class="wxin-table" width="394" border="0" cellpadding="0" cellspacing="1" bgcolor="#dfdfdf">
+	                          <tbody>
+	                            <tr>
+	                              <td width="125" height="44" bgcolor="#fbfbfb">交易金额</td>
+	                              <td width="266" height="44" bgcolor="#ffffff"><font color="#ff7700"><strong>(*pay*)元</strong></font></td>
+	                            </tr>
+	                            <tr>
+	                              <td width="125" height="44" bgcolor="#fbfbfb">支付方式</td>
+	                              <td width="266" height="44" bgcolor="#ffffff"><font color="#ff7700"><strong>微信支付</strong></font></td>
+	                            </tr>
+	                          </tbody>
+	                        </table>
+					    </li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+<!--我的关注主播-->
+<script id="getMyAnchorlist" type="text/html">
+	(*each list as value key*)
+	<a href="/pc?roomnum=(*value.curroomnum*)" class="">
+	<li class="userItem roomDetail anchorItem clearfix">
+		<img class="userIcon" src="(*value.avatar*)">
+		<div class="userMsg">
+			<p class="userName" style="color:#312f2f;font-size:14px;">(*value.nickname*)</p>
+			(*if value.intro*)
+			<p class="userDesc" style="color:#CBCBCB">(*value.intro*)</p>
+			(*else*)
+			<p class="userDesc" style="color:#CBCBCB">这家伙很懒，什么都没有留下</p>
+			(*/if*)
+		</div>
+		(*if value.broadcasting == 'y'*)
+		<div class="anchorLive">正在直播</div>
+	(*/if*)	
+	</li>
+	</a>
+	(*/each*)
+</script>
+
+<!--登陆-->
+<script id="loginUser" type="text/html">
+    <div class="profile-box layer-content fadeInDown animated payment impowerBox">
+    	<div class="waiting panelContent" id="ewimg"></div>
+    </div>
+</script>
+
+<!--loading-->
+<script id="loading" type="text/html">
+	<div class="spinner">
+		<div class="spinner-container container1">
+			<div class="circle1"></div>
+			<div class="circle2"></div>
+			<div class="circle3"></div>
+			<div class="circle4"></div>
+		</div>
+		<div class="spinner-container container2">
+			<div class="circle1"></div>
+			<div class="circle2"></div>
+			<div class="circle3"></div>
+			<div class="circle4"></div>
+		</div>
+		<div class="spinner-container container3">
+			<div class="circle1"></div>
+			<div class="circle2"></div>
+			<div class="circle3"></div>
+			<div class="circle4"></div>
+		</div>
+	</div>
+</script>
+
+<!--私密播-->
+<script id="private" type="text/html">
+	<div class="playerContainerBox left">
+		<div class="playerContainer clearfix">
+            <?php if($userinfo['orientation'] == v) {?>
+			<div class="playerContent mobile-device" >
+            <?php }else{?>
+            <div class="playerContent" >
+            <?php }?> 
+            <?php if($userinfo['broadcasting'] == n) {?>
+            <img class="cover" src="/style/avatar/<?php echo substr(md5($userinfo['id']),0,3);?>/<?php echo $userinfo['id'].'_middle.jpg'?>" onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" alt="">
+            <div class="goStroll">播主不在,去看看其他直播</div>
+            <?php }else{?>
+            <?php if($currenturl =='1333979551'){?>
+            <video id="example_video_1" class="video-js" controls preload="auto"  autoplay="autoplay"  data-setup="{}">
+                <source src="{$stem}" type="video/flv">
+
+            </video>
+        	<?php }else{?>
+        	<video id="example_video_1" class="video-js" controls preload="auto"  autoplay="autoplay"  data-setup="{}">
+            	<source src="{$stem}"  type="rtmp/flv">
+            </video>
+            <?php }?>
+            <p class="onWatch"></p>
+            <?php }?> 
+			<!--<img src="__PUBLIC__/meilibo/vzboostyle/img/video.png">-->
+			<!--弹幕-->
+			<div class="chat_barrage_box"></div>
+			</div>
+		</div>
+		<div class="playerErrorShadow">Error</div>
+	</div>
+	<div class="live-chat-box clearfix">
+		<div class="chat-box-inner clearfix">
+			<p class="scrollBtn onScroll"><span class="toggle-btn-top">滚屏</span></p>
+			<div class="chat-msg-box"  id="upchat_hall">
+            	<ul class="live-msg-list  clearfix" id="chat_hall"></ul>
+            </div>
+		</div>
+	</div>
+	<div class="live-edit-box">
+		<div class="live-edit-box-inner">
+            <span id="liveNewMsgTips" class="live-new-msg-tips hide">底部有新消息</span>
+            <div class="editAreaWrap">
+                <p class="barrageBtn">
+		            <label class="setting-toggle">
+		                <img class="toggle-btn-top" src="__PUBLIC__/meilibo/vzboostyle/img/barrageT.png" alt="">
+		                <span class="barrageText">弹</span>
+		            </label>
+		        </p>
+                <input class="editArea in_tx"   id="message" placeholder="快和大家一起聊天吧" onKeyDown="" name="msg">
+            </div>
+            <span class="sendBtn sub" id="chat">发送</span>
+            <button class="say fly"  type="button" value="飞屏"></button>
+        </div>
+    </div>
+</script>
+<script id="shimibo" type="text/html">
+	<div class="private_box">
+  	    <div class="private_div1">
+  	    	<div class="_div1_h2">
+  	    		<h2>她正在私密直播哦</h2>
+  	    	</div>
+  	    	<div class="_div1_tou">
+  	    		<div class="_tou">
+  	    			<img src="/style/avatar/{$userinfo['id']|md5|substr=0,3}/{$userinfo['id']}_middle.jpg" onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" alt="" />
+  	    		</div>
+  	    		<div class="_ming">
+  	    			<p>{$userinfo['nickname']}</p>
+  	    		</div>
+  	    	</div>
+  	    	
+  	    	(*if ptid==2*)
+  	    	<div class="_gou"> 	    		
+  	    			<p>购买门票可观看直播</p>
+  	    	     </div>
+  	    	     (*else if ptid==3*)
+  	    	     <div class="_gou" > 	    		
+  	    			<p style="color: #fadd3d;">等级限制</p>
+  	    		</div>
+  	    		(*else ptid==1*)
+  	    		<div class="_gou"> 	    		
+  	    			<p style="margin-top: 40px;">密码观看直播</p>
+  	    	     </div>
+  	    		(*/if*)
+  	    	<div class="_men">
+  	    		(*if ptid==1*)
+  	    		<div class="shuruu">
+  	    			 密码:<input type="password" class="shuru" placeholder="请输入密码进房" />
+  	    		</div>
+  	    	 (*else if ptid==2*)
+  	    		<p class="_menp1">门票:<span id="men">(*prerequisite*)</span></p>
+  	    		<p class="_menp2">您的当前余额:<span>(*mymoley*)</span></p>	    		
+  	    		(*else if ptid==3*) 	    		
+  	    		<p class="_menp1">入场等级:<span>(*prerequisite*)</span></p>
+  	    		<p class="_menp2">您的当前等级:<span style="font-size: 26px;">(*level*)</span></p>
+  	    		(*/if*)	
+  	    	</div>
+  	    	(*if ptid==2*)
+  	    		<div class="_run" id="Ticket">
+  	    			<p>购票入场</p>
+  	    		</div>
+  	    	     (*else if ptid==3*)
+  	    	     <div class="_run" id="Grade">
+  	    			<p>等级入场</p>
+  	    		</div>
+  	    		(* else if ptid==1*)
+  	    		<div class="_run" id="PASSword">
+  	    			<p>快速进入</p>
+  	    		</div>
+  	    	(*/if*) 	    	
+  	    </div>
+  	</div>
+</script>
+ <script type="text/javascript" src="__PUBLIC__/meilibo/jmechat/js/jmessage-sdk-web.2.2.0.min.js"></script>
+ <script type="text/javascript" src="__PUBLIC__/meilibo/vzboostyle/js/jquery.md5.js"></script>
+ <script type="text/javascript" src="/style/js/logon-2.0.js"></script>
+ <script type="text/javascript" src="__PUBLIC__/meilibo/jmechat/js/jScrollPane.js"></script>
+ 
+ <script type="text/javascript" src="__PUBLIC__/meilibo/vzboostyle/js/ajax.js"></script>
+ <script type="text/javascript" src="__PUBLIC__/meilibo/vzboostyle/js/fn.js"></script>
+ <script type="text/javascript" src="__PUBLIC__/meilibo/vzboostyle/js/ws.js"></script>
+ <script type="text/javascript" src="__PUBLIC__/meilibo/vzboostyle/js/main.js"></script>
+ 
+ <script type="text/javascript" src="__PUBLIC__/meilibo/vzboostyle/js/Pulse.js"></script>
+ 
+ <script language="javascript" src="__PUBLIC__/js/usercenter.js?32162655"></script>
+<script type="text/javascript" src="__PUBLIC__/meilibo/jmechat/js/private.js"></script>
+ <script type="text/javascript">
+
+$(function(){
+	// var myPlayer = videojs('example_video_1',{
+ //            "preload": "none",
+ //            "techOrder": ["flash"],
+ //            "autoplay": true
+ //        });
+ //        if(myPlayer.pause){
+ //            myPlayer.play();
+ //        }
+	if(User.isLogin){
+        $(".roomList .myAnchor").removeClass("hide");
+    }else{
+        $(".roomList .myAnchor").addClass("hide");
+    }
+  setTimeout(function(){ 
+      $.get("/Show/show_headerInfo/t/"+Math.random(),function(data){
+        $('.head_login').html(data);});
+  }, 1000);
+  $('.android').mouseover(function(){
+  	$('.forios').addClass("hide");
+  	$('.forandroid').removeClass("hide");
+  })
+  $('.android').mouseout(function(){
+  	$('.forios').removeClass("hide");
+  	$('.forandroid').addClass("hide");
+  })
+});
+//获取登录二维码
+$(document).on("click", ".noname-login", function () {
+    $(".layer").removeClass("hide");
+    var data = {};
+    var html = template('loginUser', data);
+    var imgurl = HOST_URL+'/OpenAPI/V1/Auth/logincallback/url/'+currentUrl;
+    var callbackUrl = encodeURIComponent(imgurl).toString();
+    document.getElementById('layer-box').innerHTML = html;
+    var timestamp = (new Date()).valueOf();
+    var state = timestamp+Math.floor(Math.random()*100);
+    var WEIXIN_OPEN_APPID = "<?php echo  C('WEIXIN_OPEN.APPID') ?>";
+    var obj = new WxLogin({
+        id: "ewimg",
+        appid: WEIXIN_OPEN_APPID,
+        scope: "snsapi_login",
+        redirect_uri: callbackUrl,
+        state: state,
+        style: "",
+        href: ""
+    });
+})
+</script>
+ </body>
+</html>

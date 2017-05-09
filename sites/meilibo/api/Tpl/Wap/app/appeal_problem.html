@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="telephone=no" name="format-detection">
+    <title>申诉问题</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/app/style/style.css">
+    <script src="__PUBLIC__/meilibo/js/jquery-1.8.3.min.js"></script>
+</head>
+<body class="help-and-feedback">
+<div class="ul">
+    <div class="top1">申诉问题</div>
+    <ul>
+        <a href="appeal#box1" class="aa1"><li>怎么申诉？<img src="__PUBLIC__/app/images/help/r_left.jpg" class="jiantou"></li></a>
+        <a href="appeal#box2" class="aa2"><li>什么时间可以申诉？<img src="__PUBLIC__/app/images/help/r_left.jpg" class="jiantou"></li></a>
+        <a href="appeal#box3" class="aa3"><li>没封号怎么显示封号啊？<img src="__PUBLIC__/app/images/help/r_left.jpg" class="jiantou"></li></a>
+        <a href="appeal#box4" class="aa4"><li>可不可以使用小映的照片做头像？<img src="__PUBLIC__/app/images/help/r_left.jpg" class="jiantou"></li></a>
+        <a href="appeal#box5" class="aa5"><li>16岁以下可不可以直播？<img src="__PUBLIC__/app/images/help/r_left.jpg" class="jiantou"></li></a>
+        <a href="appeal#box6" class="aa6"><li>我是成年人,为什么封号显示未成年人直播？<img src="__PUBLIC__/app/images/help/r_left.jpg" class="jiantou"></li></a>
+        <a href="appeal#box7" class="aa6"><li>为什么提示您的账户因传播非法内容被封禁？<img src="__PUBLIC__/app/images/help/r_left.jpg" class="jiantou"></li></a>
+        <a href="appeal#box8" class="aa6"><li>为什么私信提示因涉黄被封号了？<img src="__PUBLIC__/app/images/help/r_left.jpg" class="jiantou"></li></a>
+        <a href="appeal#box9" class="aa6"><li>为什么私信提示因涉及枪支弹药被封号了？<img src="__PUBLIC__/app/images/help/r_left.jpg" class="jiantou"></li></a>
+        <a href="appeal#box10" class="aa6"><li>为什么私信提示因吸烟被封号了？<img src="__PUBLIC__/app/images/help/r_left.jpg" class="jiantou"></li></a>
+    </ul>
+    <div class="service"><a onclick="openSystemCustomer()">联系在线客服</a></div>
+</body>
+</html>
+<script>
+    function openSystemCustomer() {
+        <?php
+    if(isset($_SERVER["HTTP_USER_AGENT"]) && strpos(strtolower($_SERVER["HTTP_USER_AGENT"]),"iphone")) {
+                echo "window.webkit.messageHandlers.myapp.postMessage('openSystemCustomer');";
+            } else {
+                echo "myapp.openSystemCustomer();";
+            }
+        ?>
+    }
+
+    $(function(){
+        if($(document).height()==$(window).height()){
+            $(".service").css({"position":"absolute","left":"0","bottom":"0"});
+        }else{
+            $(".service").css({"position":"relative"});
+        }
+
+    })
+</script>

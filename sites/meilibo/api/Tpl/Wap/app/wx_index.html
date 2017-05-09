@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/weixin/css/weixin.css">
+  <script type="text/javascript" src="__PUBLIC__/meilibo/dist/js/jquery-1.10.1.min.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/meilibo/dist/js/template.js"></script> 
+  <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+  <script type="text/javascript">
+    var User = {$userinfo.islogin} ? {:json_encode($userinfo)} : {$userinfo.islogin};
+    console.log(User);
+  </script>
+  <title>微信直播</title>
+ </head>
+ <body>
+  <header class="header clearfix">
+      <if condition=" $userinfo.islogin eq 'true' " >
+          <div id = "headerinfo"class="headerinfo fl clearfix">
+            <img src="{$userinfo.avatar}">
+          <span>{$userinfo.nickname}</span>
+          <small><img src="/style/meilibo/dist/images/level/public_icon_vip{$userinfo.level}@2x.png"></small>
+          </div>
+      <else />
+          <a href="{:U('share_login')}?current_room=hall" class="login" >登录</a>
+      </if>
+        <div class="rd-wrap">
+          <a href="http://demo.meilibo.net/">下载直播APP</a>
+        </div>
+  </header>
+  <section class="videoMainBox clearfix">
+
+   <!--关注列表-->
+   <div id="carelist" class="carelist hide"></div>
+   <!--关注列表-->
+    <div class="scrollbox">
+       <!--主播列表-->
+       <div id="videolist" class="videolist clearfix"></div>
+       <!--主播列表-->
+    </div>
+  </section>
+  <footer class="footernav">
+    <span class="iconfont icon-guanzhu careBtn"></span>
+    <span class="iconfont icon-home active homeBtn"></span>
+    <span class="iconfont icon-geren userBtn" onclick="linkProfile()"></span>
+  </footer>
+
+<!--请登录微信-->
+<section id="weui_dialog_alert" class="weui_dialog_alert" style="display:none;">
+    <div class="weui_dialog">
+        <img class="weui_dialog_hd" onclick="closedialog();" src="__PUBLIC__/meilibo/dist/images/user_close.png">
+        <div class="weui_dialog_bd" id="weui_dialog_content">请先登录</div>
+        <div class="weui_dialog_ft">
+            <a id="closedialog" href="{:U('share_login')}?current_room=hall" class="weui_btn_dialog">确定</a>
+        </div>
+    </div>
+</section>
+<!--请登录微信-->
+
+  <script id="videobox" type="text/html">
+  (*each list as value k*)
+    <div class="videobox">
+      <if condition=" $userinfo.islogin eq 'true' " >
+       <a href="/app/share?current_room=(*value.curroomnum*)&uid=(*id*)&token=(*token*)">
+       <else/>
+       <a href="/app/share?current_room=(*value.curroomnum*)">
+      </if>
+        <figure><img src="(*value.avatar*)"><span>直播</span></figure>
+        <div class="userinfo clearfix">
+          <div class="username">(*value.nickname*)</div>
+          <div class="online">(*value.online*)</div>
+        </div>
+       </a>
+    </div>
+  (*/each*)
+  </script>
+  
+  <script id="carebox" type="text/html">
+  (*if list.length==0*)
+    <div class="nullist" style="width:100%;margin:0;text-align:center;font-size:18px;color:#b3b2b2;margin-top:30px;"><img src="__PUBLIC__/meilibo/weixin/images/noLive.png" width="90%"><p>现在还没有直播</p></div>
+  (*else*)
+  (*each list as value k*)
+    <div class="videobox">
+       <if condition=" $userinfo.islogin eq 'true' " >
+       <a href="/app/share?current_room=(*value.curroomnum*)&uid=(*id*)&token=(*token*)">
+       <else/>
+       <a href="/app/share?current_room=(*value.curroomnum*)">
+      </if>
+        <figure><img src="(*value.avatar*)"><span>直播</span></figure>
+        <div class="userinfo clearfix">
+          <div class="username">(*value.nickname*)</div>
+          <div class="online">(*value.onlinenum*)</div>
+        </div>
+       </a>
+    </div>
+  (*/each*)
+  (*/if*)
+  </script>
+  <script type="text/javascript">
+     
+      function linkProfile(){
+        if(User){
+          window.location.href="{:U('share_profile')}?uid={$userinfo.id}&token={$userinfo.token}"
+        }else{
+          $("#weui_dialog_alert").show();
+          return;
+        }
+      }
+
+    //关闭提示框
+    function closedialog(){
+        $('#weui_dialog_alert').css('display', 'none');
+    }
+    $(function(){
+      if(User){
+          $(".login").addClass("hide");
+          $(".headerinfo").removeClass("hide");
+          $.ajax({    
+                type:"POST",
+                url:'/OpenAPI/V1/User/followees',
+                dataType:'json',
+                cache:false,
+                data:{
+                    uid:User.id,
+                    token:User.token,
+                },
+                success:function(res){
+                  console.log(res);   
+                  var data={
+                    list:res.data.list,
+                    token:User.token
+                  }              
+                  var html = template('carebox', data);
+                  document.getElementById('carelist').innerHTML = html
+                }
+          })
+      }
+
+    onlineList();
+    function onlineList(){
+        $.ajax({
+            type: "GET",
+            url: '/OpenAPI/V1/anchor/getAnchorListTest',
+            data:{
+                token:"4ea4341004e3a4cfff1126d59be2cb04"
+            },
+            dataType: "json",
+            beforeSend:function(){
+              $("#videolist").html("<img src='/style/meilibo/weixin/images/loading.gif'>")
+            },
+            success:function(res){
+              console.log(res);
+              var data={
+                  list:res.data.list,
+                  token:User.token,
+                  id:User.id,
+              }
+              var html = template('videobox', data);
+              document.getElementById('videolist').innerHTML = html;
+            }
+          })
+    }
+          
+      $(".footernav span").on("touchend",function(){
+        var _index=$(this).index();
+        if(_index==0&&!User){
+           $("#weui_dialog_alert").show();
+           return;
+        }
+        if(_index==2&&!User){
+          return;
+        }
+        $(this).addClass("active").siblings().removeClass("active");
+        
+        $(".videoMainBox > div").eq(_index).removeClass("hide").siblings().addClass("hide");
+      })
+      
+    })
+  </script>
+ </body>
+</html>

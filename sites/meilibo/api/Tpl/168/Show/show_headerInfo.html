@@ -1,0 +1,71 @@
+<?php
+if(empty($_SESSION['uid'])  || $_SESSION['uid'] < 0){
+?>
+<a class="login_dd hlg_btn" href="javascript:;" onclick="javascript:UAC.openUAC(0); return false;">  登录
+</a>
+<!-- <a class="login_zc hlg_btn" href="javascript:;"  onclick="javascript:UAC.openUAC(1); return false;">注册</a> -->
+<?php
+}
+else{
+?>
+    <!--管理中心 end-->
+    <!--消息 begin-->
+    <ul class="user_info clearfix">
+       <li class="user_img relative">
+         <a href="/my/center_editinfo/"><img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$userinfo['id']|md5|substr=0,3}/{$userinfo['id']}_middle.jpg" width="41" height="41" /></a>
+         <p class="poab state_pop"><span class="state_on"></span></p>
+       </li>
+       <li class="uesrname" title="{$userinfo['nickname']}">
+         <a href="/my/center_editinfo/"><b class="text_hidden headName" id="user_info_nickname">{$userinfo['nickname']}</b></a>
+       </li>
+       <li class="userMoveOper">
+         <b class="loginIcon moveArrow"></b>
+         <div class="userSetupBox poab">
+           <div class="userSetupInfo">
+             <a href="/my/center_editinfo/" target="_blank"><img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$userinfo['id']|md5|substr=0,3}/{$userinfo['id']}_middle.jpg" width="86" height="86" /></a>
+             <em id="user_personal_id" style="display:none">ID:{$userinfo['id']}</em>
+             <p class="infoName" id="user_info_id"><span>{$userinfo['nickname']}</span><span class="item_line"></span><a class="red" href="/my/userbalance/">{$userinfo['coinbalance']}</a><a class="acz" href="/my/charge/" target="_blank">充值</a></p>
+             <div class="infoOper">
+               <a href="/my/center_headerpic/" target="_blank">上传头像</a>
+               <span class="item_line"></span>
+               <a href="/my/center_editinfo/" target="_blank">修改昵称</a>
+               <span class="item_line" target="_blank"></span>
+               <a href="/my/center_updatepwd/" target="_blank">修改密码</a>
+             </div>
+           </div>
+           <div class="userSetup">
+             <a href="/{$_SESSION['roomnum']}" target="_blank">
+               <b class="loginIcon userSetIcon1"></b>
+               <em>我的直播</em>
+             </a>
+             <a href="/my/center_editinfo/" target="_blank">
+               <b class="loginIcon userSetIcon2"></b>
+               <em>个人主页</em>
+             </a>
+             <!-- <a href="/my/mytools/" target="_blank">
+               <b class="loginIcon userSetIcon3"></b>
+               <em>我的道具</em>
+             </a> -->
+             <!-- <a href="/my/mygods/" target="_blank">
+               <b class="loginIcon userSetIcon4"></b>
+               <em>我的偶像</em>
+             </a> -->
+             <a href="/my/mybills/" target="_blank">
+               <b class="loginIcon userSetIcon5"></b>
+               <em>我的账单</em>
+             </a>
+             <a href="/my/charge/" target="_blank">
+               <b class="loginIcon userSetIcon6"></b>
+               <em>充值中心</em>
+             </a>
+             <a href="javascript:;" onclick="javascript:UAC.logout(''); return false;" title="退出登录">
+               <b class="loginIcon userSetIcon7"></b>
+               <em>退出登录</em>
+             </a>
+           </div>
+         </div>
+       </li>
+    </ul>
+<?php
+}
+?>

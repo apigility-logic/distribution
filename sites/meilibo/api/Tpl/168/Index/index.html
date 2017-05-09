@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <meta property="qc:admins" content="53340432657655141276654" />
+  <meta http-equiv="X-UA-Compatible"content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="__PUBLIC__/meilibo/images/favicon.ico" rel="shortcut icon">
+  <title>{$sitename}</title>
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/common.css">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/index.css">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/user.css">
+  <script type="text/javascript" src="__PUBLIC__/meilibo/js/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/meilibo/js/jquery.SuperSlide.2.1.1.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/meilibo/js/blocksit.min.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/meilibo/js/common.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/meilibo/js/wishing.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/meilibo/js/logon-2.0.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/meilibo/js/jquery.cookie.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/meilibo/js/usercenter.js"></script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?fbce53d722ff228942b6c72429043051";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+  <script>
+    UAC.showUserInfo = function(data) {if(data.isLogin == "1"){window.location.reload();}}
+  </script>
+  <script type="text/javascript">
+      var datalist;
+      var gsid;
+      var num = 0;
+      var more_s;
+      function getcon_init(sid)
+      {
+        
+        $.cookie("csid2015",sid,
+        {
+          path:"/",
+        })
+        
+        var setmap1;
+        setmap1 = $.cookie("setmap1");
+
+        var order;
+        order = $.cookie("order2015");
+        var province = $.cookie("province");
+        gsid = sid;
+
+        $("#conlist").html("<br /><br /><br />加载中...")
+        $(function()
+        {
+          $.get("__URL__/listbobo2",{sid:sid,setmap1:setmap1,order:order},function(data,t){
+            $("#conlist").html(data);
+            })
+      });
+      }
+      function getcon(sid)
+      {
+
+        getcon_init(sid);
+        //存cooike
+        $.cookie("csid2015",sid,
+        {
+          path:"/",
+        })
+        
+        var setmap1;
+        setmap1 = $.cookie("setmap1");
+        
+        var order;
+        order = $.cookie("order2015");
+        
+        var selectpro;
+
+        selectpro = $.cookie("province");
+        if(sid!=gsid)
+        {
+          num = 0;
+          $("#conlist").html("");
+        }
+          gsid = sid;
+
+          $(".hroom li").hover(function(){
+           $(this).find(".opac").css({"height":"180px"});
+         },function(){
+           $(this).find(".opac").css({"height":"22px"});
+         })  
+          //$("#conlist").html("<br /><br /><br />加载中...")
+          $(function()
+          {
+    
+            $.get("__URL__/listbobo2",{sid:sid,num:num,order:order,setmap1:setmap1},function(data,t){
+              //$("#conlist").html(data);
+              datalist = data;
+              })
+        });
+          
+      }
+      
+      $(function(){
+      //获取分类列表
+          $(window).scroll(function(){
+              // 当滚动到最底部以上50像素时， 加载新内容
+            if ($(document).height() - $(this).scrollTop() - $(this).height()<50){
+            }
+          });
+        //}
+        
+        //window resize
+        var currentWidth = 1100;
+        $(window).resize(function() {
+          var winWidth = $(window).width();
+          var conWidth;
+          if(winWidth < 660) {
+            conWidth = 440;
+            col = 2
+          } else if(winWidth < 880) {
+            conWidth = 660;
+            col = 3
+          } else if(winWidth < 1100) {
+            conWidth = 880;
+            col = 4;
+          } else {
+            conWidth = 1100;
+            col = 5;
+          }
+          
+        });
+      });
+      
+      function e_selectpro()
+      {
+        var t =  $(this).text();
+        $.cookie("province",t,
+        {
+          path:"/",
+        })
+        num = 0;
+        getcon_init($.cookie("csid2015"))
+
+        getcon($.cookie("csid2015"));
+      }
+  </script>
+ </head>
+ <body>
+<include file="Public:header" />
+
+<!--banner-->
+<div class="banner">
+  <div class="flexslider" id="scroImg">
+      <ul class="slides">
+      		<volist name='rollpics' id='vo' key='k'>
+				    <li><img src="{$vo.picpath}"/></li>
+          </volist>
+      </ul>
+  </div>
+</div>
+<!--banner-->
+
+<!--content-->
+<div class="h_live wrap clearfix">
+  <div class="h_live_left fl">
+    <!--推荐主播-->
+    <h2 class="h_title htitle01"><span>Recommended anchor</span></h2>
+    <div class="liveplay clearfix">
+      <div class="hroom room_1">
+        <ul class="clearfix">
+         <foreach name="recommend" item="vo" key="k">
+            <li>
+              <span class="roomimg" ><img src="__PUBLIC__/avatar/{$vo['id']|md5|substr=0,3}/{$vo['id']}.jpg" class="rimg" onerror="this.src='__PUBLIC__/images/default.gif'" alt="美女" width="180" height="180" /></span>
+              <p class="opac"></p>
+              <a href="/{$vo['curroomnum']}" class="room1_int">
+                <b></b>
+                <span class="roomid">房间ID号：{$vo['curroomnum']}</span>
+                <p class="mvname"><span class="nam">{$vo.nickname}</span><span class="plpeo">
+                  <?php echo $vo['online']; ?>
+                </span></p>
+              </a>
+            </li>
+          </foreach>
+        </ul>
+      </div>
+    </div>
+    <!--推荐主播-->
+
+    <!--热门主播-->
+    <div class="hroom room_2 clearfix">
+      <h2 class="h_title">热门<b class="wide_title_color">主</b>播<span class="mfont">Popular anchor</span></h2>
+     <ul class="clearfix">
+          <volist  name="hot_anchor" id="vo" key="k">
+            <li>
+                <div class="roomimg" >
+                 <img class="rimg" src="__PUBLIC__/avatar/{$vo['id']|md5|substr=0,3}/{$vo['id']}.jpg" alt="美女" width="180" height="180" />
+                 {$vo['live_state']}
+                </div>
+                <p class="opac"></p>
+                <a href="/{$vo['curroomnum']}" class="room1_int">
+                  <b></b>
+                  <span class="roomid">房间ID：{$vo['curroomnum']}</span>
+                </a>
+                <div class="room_pro">
+                  <p><a href="#">{$vo.nickname}</a></p>
+                  <span class="plpeo"><?php echo $vo['online']; ?>人观看</span>
+                  <b class="hleve zlv{$vo.emceelevel}"></b>
+                </div>
+            </li>
+          </volist>
+        </ul>
+    </div>
+    <!--热门主播-->
+    <!--热门家族-->
+    <!-- <div class="hroom room_2 clearfix">
+      <h2 class="h_title">热门<b class="wide_title_color">家</b>族<span class="mfont">Popular family</span></h2>
+      <ul>
+          <li>
+              <div class="roomimg" >
+               <img class="rimg" src="__PUBLIC__/meilibo/images/fam1.jpg" alt="南宫世家" width="180" height="180" />
+              </div>
+              <p class="opac"></p>
+              <a href="/family/jiazu_desc" class="room1_int" target="_blank">
+                <b></b>
+              </a>
+              <div class="room_pro">
+                <p><a href="/family/jiazu_desc" target="_blank" data-keyfrom="familyroom">南宫世家</a></p>
+                <span class="plpeo">主播：321</span>
+                <span class="plpeo plpeos">成员：3223</span>
+              </div>
+          </li>
+          <li>
+              <div class="roomimg" >
+               <img class="rimg" src="__PUBLIC__/meilibo/images/fam2.jpg" alt="音梦源" width="180" height="180" />
+              </div>
+              <p class="opac"></p>
+              <a href="/family/jiazu_desc" class="room1_int" target="_blank">
+                <b></b>
+              </a>
+              <div class="room_pro">
+                <p><a href="/family/jiazu_desc" target="_blank" data-keyfrom="familyroom">音梦源</a></p>
+                <span class="plpeo">主播：321</span>
+                <span class="plpeo plpeos">成员：3223</span>
+              </div>
+          </li>
+          <li>
+              <div class="roomimg" >
+               <img class="rimg" src="__PUBLIC__/meilibo/images/fam3.jpg" alt="丿至尊丶帝王丨" width="180" height="180" />
+              </div>
+              <p class="opac"></p>
+              <a href="/family/jiazu_desc" class="room1_int" target="_blank">
+                <b></b>
+              </a>
+              <div class="room_pro">
+                <p><a href="/family/jiazu_desc" target="_blank" data-keyfrom="familyroom">丿至尊丶帝王丨</a></p>
+                <span class="plpeo">主播：321</span>
+                <span class="plpeo plpeos">成员：3223</span>
+              </div>
+          </li>
+          <li>
+              <div class="roomimg" >
+               <img class="rimg" src="__PUBLIC__/meilibo/images/fam4.jpg" alt="乐世家族" width="180" height="180" />
+              </div>
+              <p class="opac"></p>
+              <a href="/family/jiazu_desc" class="room1_int" target="_blank">
+                <b></b>
+              </a>
+              <div class="room_pro">
+                <p><a href="/family/jiazu_desc" target="_blank" data-keyfrom="familyroom">乐世家族</a></p>
+                <span class="plpeo">主播：321</span>
+                <span class="plpeo plpeos">成员：3223</span>
+              </div>
+          </li>
+          <li>
+              <div class="roomimg" >
+               <img class="rimg" src="__PUBLIC__/meilibo/images/fam5.jpg" alt="【简单★美】" width="180" height="180" />
+              </div>
+              <p class="opac"></p>
+              <a href="/family/jiazu_desc" class="room1_int" target="_blank">
+                <b></b>
+              </a>
+              <div class="room_pro">
+                <p><a href="/family/jiazu_desc" target="_blank" data-keyfrom="familyroom">【简单★美】</a></p>
+                <span class="plpeo">主播：321</span>
+                <span class="plpeo plpeos">成员：3223</span>
+              </div>
+          </li>
+      </ul>
+    </div> -->
+    <!--热门家族-->
+
+    <!--主播广场-->
+    <div class="hroom room_2 square clearfix">
+      <div class="hot_room">
+        <h2 class="h_title fl">主播<b class="wide_title_color">广</b>场<span class="mfont">Anchor square</span></h2>
+        <div class="hot_room_tab fl">
+          <span class="on" id="item0" onclick="getcon(0)">新人秀场</span>
+          <volist name="usersorts" id="vo">
+            <volist name="vo.voo" id="vo2">
+              <span id="item{$vo2.id}" onclick="getcon({$vo2.id})">{$vo2.sortname}</span>
+              </volist>
+          </volist>
+        </div>
+      </div>
+      <script>
+        getcon(0)
+      </script>
+      <div class="hot-anchor-tabWrapper">
+        <div id="conlist" style="clear: both;"></div>
+      </div>
+    </div>
+    <!--主播广场-->
+  </div>
+  <div class="h_live_right fr">
+    <div class="sign_view">
+      <a href="/index.php/my/sign_view/" target="_blank">申请入驻</a>
+    </div>
+    <div class="flexs_ewm"></div>
+    <div class="information_wai">
+      <ul class="information_nav">
+        <li>
+        公告
+         <div class="information_nav_bg">
+            <span class="chang">公告</span>
+          </div>
+        </li>
+      </ul>
+      <ul class="information_con">
+        <li>
+         <volist name="announce" id="vo">
+          <a href="__APP__/Activity/huodonginfo/info/{$vo.id}" title="{$vo.title}" target="_blank">{$vo.title}</a>
+         </volist>
+        </li>
+      </ul>
+    </div>
+    <!--登陆-->
+    <div class="interaction">
+      <a href="javascript:;" class="loginbtn" onclick="javascript:UAC.openUAC(0); return false;">立即登录</a>
+      <div class="loginpath clearfix">
+        <a class="qqlogin" href="/OAuth?type=qq" target="_blank">QQ登录</a>
+        <a class="wblogin" href="/OAuth?type=sina" target="_blank">微博登录</a>
+      </div>
+      <p class="loginB">没有账号<a href="javascript:;" onclick="javascript:UAC.openUAC(1); return false;">请注册</a></p>
+    </div>
+    <!--登陆-->
+    <!--明星榜-->
+    <div class="Star_list mx_list">
+      <h2 class="indexAhoTitle"><b class="wide_title_color">明星</b>榜</h2>
+      <ul class="Star_list_nav clearfix">
+        <li data-period="1">日</li>
+        <li data-period="2">周</li>
+        <li class="back" data-period="3">月</li>
+        <li class="back on" data-period="0">超级</li>
+      </ul>
+      <ul class="star_nav_con">
+        <li class="none">
+          <foreach name="emceeRank_day1" item="day4" key='k'>
+            <if condition="$k eq 0">
+              <div class="first_star div">
+                <span class="span_img span_img1"></span>
+                <span class="img_pic_first">
+                  <a href="/{$day4['userinfo']['curroomnum']}">
+                    <img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$day4['userinfo']['id']|md5|substr=0,3}/{$day4['userinfo']['id']}_middle.jpg" width="54" height="54" />
+                  </a>
+                </span>
+                <span class="first_color1">
+                  <a href="/{$day4['userinfo']['curroomnum']}">{$day4['userinfo']['nickname']}</a>
+                </span>
+                <b class="star_leve first_leve hleve zlv{$day4['emceelevel'][0]['levelid']}"></b>
+              </div>
+              <else/>
+                <div class="div">
+                <span class="span_img span_img<?php echo $k+1;?>"></span>
+                <span class="img_pic">
+                  <a href="/{$day4['userinfo']['curroomnum']}"><img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$day4['userinfo']['id']|md5|substr=0,3}/{$day4['userinfo']['id']}_middle.jpg" width="36" height="36" /></a>
+                </span>
+                <span class="first_color<?php echo $k+1;?>">
+                  <a href="/{$day4['userinfo']['curroomnum']}">{$day4['userinfo']['nickname']}</a>
+                </span>
+                <b class="star_leve  hleve zlv{$day4['emceelevel'][0]['levelid']}"></b>
+              </div>
+            </if>
+          </foreach>
+        </li>
+        <li  class="none">
+         <foreach name="emceeRank_week1" item="week4" key='k'>
+          <if condition="$k eq 0">
+            <div class="first_star div">
+              <span class="span_img span_img1"></span>
+              <span class="img_pic_first">
+                <a href="/{$week4['userinfo']['curroomnum']}"><img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$week4['userinfo']['id']|md5|substr=0,3}/{$week4['userinfo']['id']}_middle.jpg" width="54" height="54" /></a>
+              </span>
+              <span class="first_color1">
+                <a href="/{$week4['userinfo']['curroomnum']}">{$week4['userinfo']['nickname']}</a>
+              </span>
+              <b class="star_leve  hleve zlv{$week4['emceelevel'][0]['levelid']}"></b>
+            </div>
+            <else/>
+             <div class="div">
+              <span class="span_img span_img<?php echo $k+1;?>"></span>
+              <span class="img_pic">
+                <a href="/{$week4['userinfo']['curroomnum']}"><img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$week4['userinfo']['id']|md5|substr=0,3}/{$week4['userinfo']['id']}_middle.jpg" width="36" height="36" /></a>
+              </span>
+              <span class="first_color2">
+                <a href="/{$week4['userinfo']['curroomnum']}">{$week4['userinfo']['nickname']}</a>
+              </span>
+              <b class="star_leve  hleve zlv{$week4['emceelevel'][0]['levelid']}"></b>
+            </div>
+          </if>
+         </foreach>
+        </li>
+        <li class="none">
+          <foreach name="emceeRank_month1" item="month" key='k'>
+            <if condition="$k eq 0">
+              <div class="first_star div">
+                <span class="span_img span_img1"></span>
+                <span class="img_pic_first">
+                  <a href="/{$month['userinfo']['curroomnum']}"><img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$month['userinfo']['id']|md5|substr=0,3}/{$month['userinfo']['id']}_middle.jpg" width="54" height="54" /></a>
+                </span>
+                <span class="first_color1">
+                  <a href="/{$month['userinfo']['curroomnum']}">{$month['userinfo']['nickname']}</a>
+                </span>
+                <b class="star_leve first_leve hleve zlv{$month['emceelevel'][0]['levelid']}"></b>
+              </div>
+              <else/>
+                <div class="div">
+                <span class="span_img span_img<?php echo $k+1;?>"></span>
+                <span class="img_pic">
+                  <a href="/{$month['userinfo']['curroomnum']}"><img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$month['userinfo']['id']|md5|substr=0,3}/{$month['userinfo']['id']}_middle.jpg" width="36" height="36" /></a>
+                </span>
+                <span class="first_color2">
+                  <a href="/{$month['userinfo']['curroomnum']}">{$month['userinfo']['nickname']}</a>
+                </span>
+                <b class="star_leve  hleve zlv{$month['emceelevel'][0]['levelid']}"></b>
+              </div>
+            </if>
+          </foreach>
+        </li>
+        <li>
+          <foreach name="emceeRank_all1" item="all" key='k'>
+            <if condition="$k eq 0">
+              <div class="first_star div">
+                <span class="span_img span_img1"></span>
+                <span class="img_pic_first">
+                  <a href="/{$all['userinfo']['curroomnum']}"><img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$all['userinfo']['id']|md5|substr=0,3}/{$all['userinfo']['id']}_middle.jpg" width="54" height="54" /></a>
+                </span>
+                <span class="first_color1">
+                  <a href="/{$all['userinfo']['curroomnum']}">{$all['userinfo']['nickname']}</a>
+                </span>
+                <b class="star_leve first_leve hleve zlv{$all['emceelevel'][0]['levelid']}"></b>
+              </div>
+              <else/>
+              <div class="div">
+                <span class="span_img span_img<?php echo $k+1;?>"></span>
+                <span class="img_pic">
+                  <a href="/{$all['userinfo']['curroomnum']}"><img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$all['userinfo']['id']|md5|substr=0,3}/{$all['userinfo']['id']}_middle.jpg" width="36" height="36" /></a>
+                </span>
+                <span class="first_color2">
+                  <a href="/{$all['userinfo']['curroomnum']}">{$all['userinfo']['nickname']}</a>
+                </span>
+                <b class="star_leve  hleve zlv{$all['emceelevel'][0]['levelid']}"></b>
+              </div>
+            </if>
+          </foreach>
+        </li>
+      </ul>
+    </div>
+    <!--明星榜-->
+    <!--富豪榜-->
+    <div class="Star_list rich_list">
+      <h2 class="indexAhoTitle"><b class="wide_title_color">富豪</b>榜</h2>
+      <ul class="Star_list_nav clearfix">
+        <li data-period="1">日</li>
+        <li data-period="2">周</li>
+        <li class="back" data-period="3">月</li>
+        <li class="back on" data-period="0">超级</li>
+      </ul>
+      <ul class="star_nav_con">
+        <li class="none">
+          <foreach name="richRank_day1" item="day4" key='k'>
+           <if condition="$k eq 0">
+            <div class="first_star div">
+              <span class="span_img span_img1"></span>
+              <span class="img_pic_first">
+                <a href="{$day4['userinfo']['curroomnum']}"><img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$day4['userinfo']['id']|md5|substr=0,3}/{$day4['userinfo']['id']}_middle.jpg" width="54" height="54" /></a>
+              </span>
+              <span class="first_color1">
+                <a href="{$day4['userinfo']['curroomnum']}">{$day4['userinfo']['nickname']}</a>
+              </span>
+              <b class="star_leve first_leve hleve car{$day4['richlevel'][0]['levelid']}"></b>
+            </div>
+            <else/>
+             <div class="div">
+              <span class="span_img span_img<?php echo $k+1;?>"></span>
+              <span class="img_pic">
+                <a href="{$day4['userinfo']['curroomnum']}"><img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$day4['userinfo']['id']|md5|substr=0,3}/{$day4['userinfo']['id']}_middle.jpg" width="36" height="36" /></a>
+              </span>
+              <span class="first_color2">
+                <a href="{$day4['userinfo']['curroomnum']}">{$day4['userinfo']['nickname']}</a>
+              </span>
+              <b class="star_leve  hleve car{$day4['richlevel'][0]['levelid']}"></b>
+            </div>
+           </if>
+          </foreach>
+        </li>
+        <li  class="none">
+          <foreach name="richRank_week1" item="week4" key='k'>
+            <if condition="$k eq 0">
+              <div class="first_star div">
+                <span class="span_img span_img1"></span>
+                <span class="img_pic_first">
+                  <a href="{$week4['userinfo']['curroomnum']}"><img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$week4['userinfo']['id']|md5|substr=0,3}/{$week4['userinfo']['id']}_middle.jpg" width="54" height="54" /></a>
+                </span>
+                <span class="first_color1">
+                  <a href="{$week4['userinfo']['curroomnum']}">{$week4['userinfo']['nickname']}</a>
+                </span>
+                <b class="star_leve first_leve hleve car{$week4['richlevel'][0]['levelid']}"></b>
+              </div>
+              <else/>
+              <div class="div">
+                <span class="span_img span_img<?php echo $k+1;?>"></span>
+                <span class="img_pic">
+                  <a href="{$week4['userinfo']['curroomnum']}"><img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$week4['userinfo']['id']}/{$week4['userinfo']['id']}_middle.jpg" width="36" height="36" /></a>
+                </span>
+                <span class="first_color2">
+                  <a href="{$week4['userinfo']['curroomnum']}">{$week4['userinfo']['nickname']}</a>
+                </span>
+                <b class="star_leve  hleve car{$week4['richlevel'][0]['levelid']}"></b>
+              </div>  
+            </if>
+          </foreach>
+        </li>
+        <li class="none">
+          <foreach name="richRank_month1" item="month4" key='k'>
+            <if condition="$k eq 0">
+              <div class="first_star div">
+                <span class="span_img span_img1"></span>
+                <span class="img_pic_first">
+                  <a href="{$month4['userinfo']['curroomnum']}"><img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$month4['userinfo']['id']|md5|substr=0,3}/{$month4['userinfo']['id']}_middle.jpg" width="54" height="54" /></a>
+                </span>
+                <span class="first_color1">
+                  <a href="{$month4['userinfo']['curroomnum']}">{$month4['userinfo']['nickname']}</a>
+                </span>
+                <b class="star_leve first_leve hleve car{$month4['richlevel'][0]['levelid']}"></b>
+              </div>
+              <else/>
+              <div class="div">
+                <span class="span_img span_img<?php echo $k+1;?>"></span>
+                <span class="img_pic">
+                  <a href="{$month4['userinfo']['curroomnum']}"><img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$month4['userinfo']['id']}/{$month4['userinfo']['id']}_middle.jpg" width="36" height="36" /></a>
+                </span>
+                <span class="first_color2">
+                  <a href="{$month4['userinfo']['curroomnum']}">{$month4['userinfo']['nickname']}</a>
+                </span>
+                <b class="star_leve  hleve car{$month4['richlevel'][0]['levelid']}"></b>
+              </div>
+            </if>
+          </foreach>
+        </li>
+        <li>
+          <foreach name="richRank_all1" item="all4" key='k'>
+            <if condition="$k eq 0">
+              <div class="first_star div">
+                <span class="span_img span_img1"></span>
+                <span class="img_pic_first">
+                  <a href="{$all4['userinfo']['curroomnum']}"><img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$all4['userinfo']['id']|md5|substr=0,3}/{$all4['userinfo']['id']}_middle.jpg" width="54" height="54" /></a>
+                </span>
+                <span class="first_color1">
+                  <a href="{$all4['userinfo']['curroomnum']}">{$all4['userinfo']['nickname']}</a>
+                </span>
+                <b class="star_leve first_leve hleve car{$all4['richlevel'][0]['levelid']}"></b>
+              </div>
+              <else/>
+              <div class="div">
+                <span class="span_img span_img<?php echo $k+1;?>"></span>
+                <span class="img_pic">
+                  <a href="{$all4['userinfo']['curroomnum']}"><img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$all4['userinfo']['id']|md5|substr=0,3}/{$all4['userinfo']['id']}_middle.jpg" width="36" height="36" /></a>
+                </span>
+                <span class="first_color2">
+                  <a href="{$all4['userinfo']['curroomnum']}">{$all4['userinfo']['nickname']}</a>
+                </span>
+                <b class="star_leve hleve car{$all4['richlevel'][0]['levelid']}"></b>
+              </div>
+            </if>
+          </foreach>
+        </li>
+      </ul>
+    </div>
+    <!--富豪榜-->
+
+    <!--在线客服-->
+    <div class="online_customer_wai">
+      <div class="online">
+        <span class="online_top">在线客服</span>
+        <span class="online_bottom"></span>
+      </div>
+      <div class="online_customer">
+        <div class="online_customer_top">
+          <ul>
+            <li>产品咨询：<a href="http://wpa.qq.com/msgrd?v=3&uin=1391383184&site=qq&menu=yes" target="_blank"><img src="__PUBLIC__/meilibo/images/button_11.gif"/></a></li>
+            <li>售后服务：<a href="http://wpa.qq.com/msgrd?v=3&uin=3266290690&site=qq&menu=yes" target="_blank"><img src="__PUBLIC__/meilibo/images/button_11.gif"/></a></li>
+            <li>技术咨询：<a href="http://wpa.qq.com/msgrd?v=3&uin=318097084&site=qq&menu=yes" target="_blank"><img src="__PUBLIC__/meilibo/images/button_11.gif"/></a></li>
+            <li>技术问题：400-926-2660</li>
+          </ul>
+        </div>
+        <div class="online_customer_bottom"></div>
+      </div>
+      <div class="online_customer_triangle"></div>
+    </div>
+    <!--在线客服-->
+  </div>
+</div>
+<!--content-->
+
+<!--footer-->
+<include file="Public:footer" />
+<!--footer-->
+ <script src="__PUBLIC__/meilibo/js/jquery.flexslider-min.js"></script>
+ <script type="text/javascript">
+   $(function(){
+         $('#scroImg').flexslider({
+            animation: "slide",
+            direction:"horizontal",
+            slideshowSpeed:5000,
+            easing:"swing",
+            slideshow: true,
+            pauseOnHover: false,
+            prevText: "",
+            nextText: ""
+        });
+
+         jQuery(".h_live .slideBox").slide({mainCell:".bd ul",autoPlay:true,interTime:5000});
+         jQuery(".new_beauty .slideBox2").slide({mainCell:".bd2 ul",autoPlay:true,effect:"leftLoop",interTime:3000});
+       
+         
+   })
+   $(function(){    
+
+    $(".hot_room_tab span").click(function(){
+      $(this).addClass("on").siblings().removeClass("on");
+    })
+
+    var starlist=function(startab,starli,starcon){
+        startab.click(function(){
+        var _index=$(this).index();
+        var _index2=$(this).index()+1;
+        $(this).addClass("on").siblings().removeClass("on");
+        starli.eq(_index).removeClass("back");
+        starli.eq(_index2).siblings().addClass("back");
+        starli.eq(_index2-1).siblings().addClass("back");
+        starli.eq(_index+1).removeClass("back");
+        starli.eq(0).removeClass("back");
+        starcon.find("li").eq(_index).fadeIn().siblings().hide();
+        if(_index==0){
+          starcon.css({"border-top-left-radius":"0px"});
+        }else{
+          starcon.css({"border-top-left-radius":"8px"});
+        }
+      })
+    }
+    starlist($(".mx_list .Star_list_nav li"),$(".mx_list .Star_list_nav li"),$(".mx_list .star_nav_con"));
+    starlist($(".rich_list .Star_list_nav li"),$(".rich_list .Star_list_nav li"),$(".rich_list .star_nav_con"));
+
+    $(".head_login .hlg_btn").click(function(){
+      var _index=$(this).index();
+      $(".loginsTab span").eq(_index).addClass("on").siblings().removeClass("on");
+    })
+
+    $(".login_close").click(function(){
+      $(".dialoger").addClass("none");
+      $(".logins_box").addClass("none");
+    })
+
+   })
+ </script>
+ <script type="text/javascript">
+   function setorder(order)
+  {
+    //alert("aa");
+    $.cookie("order2015",order,
+    {
+      path:"/",
+    });
+
+    $("#conlist").html("");
+    getcon_init($.cookie("csid2015"))
+    num = 0;
+    getcon($.cookie("csid2015"));
+  }
+  
+  function setmap1(map)
+  {
+    $.cookie("setmap1",map,
+    {
+      path:"/",
+    });
+    $("#conlist").html("");
+    getcon_init($.cookie("csid2015"))
+    num = 0;
+    
+    getcon($.cookie("csid2015"));
+  }
+    
+  
+  function setmap2(map)
+  {
+    getcon_init($.cookie("csid2015"))
+    $.cookie("setmap",map,
+    {
+      path:"/",
+    })
+  }
+ </script>
+ </body>
+</html>
+

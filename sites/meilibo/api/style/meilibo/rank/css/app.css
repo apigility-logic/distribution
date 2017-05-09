@@ -1,0 +1,98 @@
+/*
+ *这是单独为hello mui准备的个性化css，可以覆盖标准mui的css定义；
+ * 在实际项目开发时，建议为App单独写一个css文件，从而实现项目的自定义皮肤功能；
+ * 
+ * */
+ html,body{width:100%;height:100%;background:#fff;overflow:hidden;}
+ .none{display:none;}
+ .mui-content,.mui-slider{
+height:100%;
+background:#fff;
+ }
+.mui-plus.mui-android header.mui-bar{
+	display: none;
+}
+.mui-plus.mui-android .mui-bar-nav~.mui-content{
+	padding: 0;
+}
+.mui-slider-group{
+height:calc(100% - 40px);
+height:-webkit-calc(100% - 40px);
+height:-moz-calc(100% - 40px);
+height:-o-calc(100% - 40px);
+padding-bottom: 10px;
+}
+.mui-scroll-wrapper{background:#fff;}
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{color:#feba00;}
+.mui-slider-indicator.mui-segmented-control{background:#fff;}
+.mui-segmented-control.mui-segmented-control-inverted~.mui-slider-progress-bar{background:#feba00;}
+.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item{border:0;}
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item{color:#a1bab6;}
+.mui-segmented-control .mui-control-item{line-height:50px;}
+.mui-segmented-control{font-size:18px;}
+.mui-table-view li:nth-child(1){height:80px;background:#eeeff3;}
+.mui-slider .mui-slider-group .mui-slider-item .user1 img{width:60px;margin-right:6px;vertical-align: middle;}
+.mui-table-view li:nth-child(1) > div{float: left;width:33%;height:100%;text-align:center;line-height:80px;font-size:18px;color:#a1bfbd;}
+.mui-table-view li:nth-child(1) > div.user3 i{display:block;width:100%;height:100%;background: url(../images/charm-heart~iphone@2x.png) no-repeat  center;background-size:26px;}
+.gamerank .mui-table-view li:nth-child(1) > div.user3 i{background: url(../images/home-gold~iphone@2x.png) no-repeat  center;background-size:26px;}
+.mui-table-view li:nth-child(2){height:210px;border-bottom:1px solid #eee;}
+.mui-table-view li:nth-child(2) > div{width:33%;display:inline-block;text-align:center;}
+.mui-table-view li:nth-child(2) > div:nth-child(2),.mui-table-view li:nth-child(2) > div:nth-child(3){margin-top:20px;}
+.mui-table-view li:nth-child(2) > div:nth-child(2){float: left;}
+.mui-table-view li:nth-child(2) > div:nth-child(3){float: right;}
+.mui-slider .mui-slider-group .mui-slider-item .user_pic{position:relative;height:110px;}
+.mui-slider .mui-slider-group .mui-slider-item .user_pic .bg{position:absolute;top:0;left:50%;margin-left:-50px;height:110px;display:inline-block;width:100px;height:120px;}
+.mui-slider .mui-slider-group .mui-slider-item .username{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.mui-table-view li:nth-child(2) > div:nth-child(2) .bg{background:url(../images/topthree-1~iphone@2x.png) no-repeat center;background-size:90%;}
+.mui-table-view li:nth-child(2) > div:nth-child(1) .bg{background:url(../images/topthree-0~iphone@2x.png) no-repeat center;background-size:90%;}
+.mui-table-view li:nth-child(2) > div:nth-child(3) .bg{background:url(../images/topthree-2~iphone@2x.png) no-repeat center;background-size:90%;}
+.mui-slider .mui-slider-group .mui-slider-item .user_pic img{width:60px;height:60px;border-radius:50%;margin-top:37px;}
+.mui-table-view li.rank_li .addkey{display:inline-block;padding-right:20px;color:#ffba21;background:url(../images/rank-key~iphone@2x.png) no-repeat right center;background-size:16px;}
+.mui-table-view li.rank_li .usernum{height:25px;padding-left:20px;line-height:25px;color:#eb439a;background:url(../images/charm-heart~iphone@2x.png) no-repeat 20% center;background-size:25px;}
+.gamerank .mui-table-view li.rank_li .usernum{color:#a3a3a5;background:url(../images/home-gold~iphone@2x.png) no-repeat 20% center;background-size:18px;}
+.mui-table-view li.rank_li.list{height:70px;border-bottom:1px solid #eee;}
+.mui-table-view li.rank_li.list > div{height:100%;float:left;text-align:center;}
+.mui-table-view li.rank_li.list > div img{width:50px;height:50px;margin-right:10px;border-radius:50%;vertical-align:middle;}
+.mui-table-view li.rank_li.list > div.left{width:25%;}
+.mui-table-view li.rank_li.list > div.center{width:50%;text-align:left;line-height:70px;font-size:14px;color:#757575;}
+.mui-table-view li.rank_li.list > div.right{width:25%;text-align:left;line-height:70px;font-size:14px;color:#757575;}
+.mui-table-view li.rank_li .num{margin-top:15px;color:#737373;font-size:14px;}
+.mui-table-view li.rank_li.rank_center .num{display:inline-block;line-height:70px;margin-top:0;}
+#item2mobile .mui-table-view li:nth-child(2){height:185px;}
+
+.person_info{position:fixed;top:0;left:0;z-index:2;width:100%;height:100%;background:rgba(0,0,0,0.5);}
+.info_box{position:fixed;top:50%;left:10%;margin-top:-150px;width:80%;height:300px;color:#555;background:#f2f2f2;border-radius:0 0 5px 5px;}
+.info_box > div{padding:0 15px;font-size:16px;line-height:30px;}
+.radius{position:absolute;top:-25px;left:0;z-index:-1;width:100%;height:50px;background:#f2f2f2;border-radius:50%;}
+.info_box > div.info_avtar{width:90px;height:90px;padding:0;margin:0 auto;margin-top:-60px;border-radius:50%;border:5px solid #fff;}
+.info_avtar img{width:100%;height:80px;border-radius:50%;}
+.newlvl{display:inline-block;width:77px;height:35px;background:url(../images/newLvl-6~iphone.png) no-repeat center;background-size:100%;}
+.info_name{height:30px;color:#000;text-align:center;}
+.info_box > div span{color:#000;}
+.info_box > div i{margin-left:30px;color:#fff;line-height:35px;text-align:center;}
+.info_04{height:60px;}
+.info_05 a{color:#14bdf4;margin-right:50px;}
+.info_05 b{color:#f24098;font-weight:normal;}
+.info_06{width:100%;height:60px;background:#fff;text-align:center;border-radius:0 0 5px 5px;}
+.info_06 button{width:80px;height:35px;border:0;color:#fff;border-radius:5px;margin:15px;}
+.info_06 button.private{background:#fdaa2a;}
+.info_06 button.attention{background:#4ac38e;}
+.info_06 button.attention.bgcolor{background:#b1b5b3;}
+.info_box > div.info_line{position:absolute;bottom:-30px;left:49%;width:1px;padding:0;background:#fff;height:25px;}
+.info_box > div.info_line img{position:absolute;bottom:-40px;left:-18px;width:40px;}
+
+.mui-table-view > div{text-align:center;padding-top:46%;color:#9a9a98;line-height: 40px;}
+.mui-slider .mui-slider-group .mui-slider-item .mui-table-view > div img{display:block;width:100px;margin:0 auto;border-radius:50%;}
+
+
+
+
+
+
+
+
+
+
+
+
+

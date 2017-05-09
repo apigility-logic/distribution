@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="__PUBLIC__/meilibo/images/favicon.ico" rel="shortcut icon">
+<title>活动详情-活动中心-{$sitename}</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/common.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/inside.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/user.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/index.css">
+<script type="text/javascript" src="__PUBLIC__/meilibo/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/meilibo/js/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript" src="__PUBLIC__/meilibo/js/blocksit.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/meilibo/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/meilibo/js/wishing.js"></script>
+<script type="text/javascript" src="__PUBLIC__/meilibo/js/logon-2.0.js"></script>
+<script type="text/javascript" src="__PUBLIC__/meilibo/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="__PUBLIC__/meilibo/js/usercenter.js"></script>
+<script>
+UAC.showUserInfo = function(data) {if(data.isLogin == "1"){window.location.reload();}}
+</script>
+</head>
+<body>
+<include file="Public:header" />
+<div class="wrap activec clearfix">
+<div class="conL2">
+<div class="neiye_biaoti"><a href="/">首页</a> > 文章内容</div>
+<div class="neiye_neirong">
+    <div class="lev_bg">111</div>
+</div>
+</div>
+</div>
+
+<include file="Public:footer" />
+<script type="text/javascript">
+
+ var starlist=function(startab,starli,starcon){
+        startab.click(function(){
+        var _index=$(this).index();
+        var _index2=$(this).index()+1;
+        $(this).addClass("on").siblings().removeClass("on");
+        starli.eq(_index).removeClass("back");
+        starli.eq(_index2).siblings().addClass("back");
+        starli.eq(_index2-1).siblings().addClass("back");
+        starli.eq(_index+1).removeClass("back");
+        starli.eq(0).removeClass("back");
+        starcon.find("li").eq(_index).fadeIn().siblings().hide();
+        if(_index==0){
+          starcon.css({"border-top-left-radius":"0px"});
+        }else{
+          starcon.css({"border-top-left-radius":"8px"});
+        }
+      })
+    }
+    starlist($(".mx_list .Star_list_nav li"),$(".mx_list .Star_list_nav li"),$(".mx_list .star_nav_con"));
+    starlist($(".rich_list .Star_list_nav li"),$(".rich_list .Star_list_nav li"),$(".rich_list .star_nav_con"));
+</script>
+</body>
+</html>

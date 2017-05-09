@@ -1,0 +1,642 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=7" />
+	<title>美丽播 - 后台管理中心</title>
+	<link href="__PUBLIC__/statics/css/reset.css" rel="stylesheet" type="text/css" />
+	<link href="__PUBLIC__/statics/css/system.css" rel="stylesheet" type="text/css" />
+	<link href="__PUBLIC__/statics/css/table_form.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles1.css" title="styles1" media="screen" />
+	<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles2.css" title="styles2" media="screen" />
+	<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles3.css" title="styles3" media="screen" />
+	<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/statics/css/style/styles4.css" title="styles4" media="screen" />
+	<script language="javascript" type="text/javascript" src="__PUBLIC__/statics/js/jquery.min.js"></script>
+	<script language="javascript" type="text/javascript" src="__PUBLIC__/statics/js/admin_common.js"></script>
+	<script language="javascript" type="text/javascript" src="__PUBLIC__/statics/js/styleswitch.js"></script>
+	<script language="javascript" type="text/javascript" src="__PUBLIC__/statics/js/formvalidator.js" charset="UTF-8"></script>
+	<script language="javascript" type="text/javascript" src="__PUBLIC__/statics/js/formvalidatorregex.js" charset="UTF-8"></script>
+	<script type="text/javascript">
+		window.focus();
+
+	</script>
+</head>
+<style type="text/css">
+	.robot_switch{
+	display: inline-block;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	background-color:#FF0000;
+	text-decoration: none;
+	font: 14px/100% Arial, Helvetica, sans-serif;
+	padding: .5em 2em .55em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	border-radius: .5em;
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	}
+
+	
+</style>
+
+<body>
+	<style type="text/css">
+		html {
+			_overflow-y: scroll
+     }
+
+	</style>
+			
+<script type="text/javascript">
+  var keyname={
+		url : '__URL__'
+	}
+</script>
+	<script type="text/javascript">
+		$(function() {
+				SwapTab('setting', 'on', '', 7, 1);
+				$.formValidator.initConfig({
+					formid: "myform",
+					autotip: true,
+					onerror: function(msg, obj) {
+						window.top.art.dialog({
+							content: msg,
+							lock: true,
+							width: '200',
+							height: '50'
+						}, function() {
+							this.close();
+							$(obj).focus();
+						})
+					}
+				});
+				$("#sitelogo").formValidator({
+					onshow: "请输入网站LOGO路径",
+					onfocus: "请输入网站LOGO路径",
+					oncorrect: "输入正确"
+				}).inputValidator({
+					min: 1,
+					onerror: "请输入网站LOGO路径"
+				});
+				$("#sitename").formValidator({
+					onshow: "请输入网站名称",
+					onfocus: "请输入网站名称",
+					oncorrect: "输入正确"
+				}).inputValidator({
+					min: 1,
+					onerror: "请输入网站名称"
+				});
+
+
+			})
+	</script>
+	<form action="__URL__/save_syspara/" method="post" id="myform">
+		<input type="hidden" name="id" value="1"></input>
+		<div class="pad-10">
+			<div class="col-tab">
+				<ul class="tabBut cu-li">
+					<li id="tab_setting_1"  onclick="SwapTab('setting','on','',8,1);"   class="on" >关键字过滤</li>
+				<!-- 	<li id="tab_setting_2"  onclick="SwapTab('setting','on','',8,2);">基本配置</li>
+					<li id="tab_setting_3"  onclick="SwapTab('setting','on','',8,3);">SEO相关设置</li>
+					<li id="tab_setting_4"  onclick="SwapTab('setting','on','',8,4);">注册相关</li> -->
+					<li id="tab_setting_5"  onclick="SwapTab('setting','on','',8,5);">直播相关</li>
+					<li id="tab_setting_6"  onclick="SwapTab('setting','on','',8,6);">机器人相关</li>
+					<li id="tab_setting_7"  onclick="SwapTab('setting','on','',8,7);">文明直播提示语</li>
+
+					<li id="tab_setting_8"  onclick="SwapTab('setting','on','',8,8);">推广设置</li>
+				</ul>
+
+
+				<div id="div_setting_8" class="contentList pad-10">
+
+					<table width="100%" class="table_form">
+						<tr>
+							<th width="120">用户填入推荐人奖励</th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="recommendation_user" id="recommendation_user" maxlength="5" size="2" value="{$siteconfig['recommendation_user']}" /> 虚拟币
+							</td>
+						</tr>
+
+						<tr>
+							<th width="120">推荐人奖励</th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="recommendation_user_reward" id="recommendation_user_reward" maxlength="5" size="2" value="{$siteconfig['recommendation_user_reward']}" /> 可提现虚拟币
+							</td>
+						</tr>
+
+						<tr>
+							<th width="120">推荐人消费提成</th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="recommendation_commission" id="recommendation_commission" maxlength="2" size="1" value="{$siteconfig['recommendation_commission']}" /> %
+							</td>
+						</tr>
+					</table>
+				</div>
+
+				<div id="div_setting_2" class="contentList pad-10">
+
+					<table width="100%" class="table_form">
+						<tr>
+							<th width="120">关闭站点</th>
+							<td class="y-bg">
+								<input name="siteclosed" value="y" type="radio" <if condition="$siteconfig['siteclosed'] eq 'y'">checked</if>> 是&nbsp;&nbsp;&nbsp;&nbsp;
+								<input name="siteclosed" value="n" type="radio" <if condition="$siteconfig['siteclosed'] eq 'n'">checked</if>> 否&nbsp;&nbsp;&nbsp;&nbsp;<font color="gray">管理员可访问前台及后台</font></td>
+						</tr>
+						<tr>
+							<th width="120">关站提示</th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="closereason" id="closereason" size="50" value="{$siteconfig['closereason']}" />&nbsp;&nbsp;&nbsp;&nbsp;<font color="gray">关闭站点前台访问提示</font></td>
+						</tr>
+						<tr>
+							<th width="120">网站LOGO路径</th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="sitelogo" id="sitelogo" size="50" value="{$siteconfig['sitelogo']}" />
+							</td>
+						</tr>
+						<tr>
+							<th width="120">网站名称</th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="sitename" id="sitename" size="50" value="{$siteconfig['sitename']}" />
+							</td>
+						</tr>
+						<tr>
+							<th width="120">网站标题</th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="sitetitle" id="sitetitle" size="50" value="{$siteconfig['sitetitle']}" />
+							</td>
+						</tr>
+						<tr>
+							<th width="120">网站URL</th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="siteurl" id="siteurl" size="50" value="{$siteconfig['siteurl']}" />
+							</td>
+						</tr>
+						<tr>
+							<th width="120">网站域名根</th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="domainroot" id="domainroot" size="50" value="{$siteconfig['domainroot']}" />
+							</td>
+						</tr>
+						<tr>
+							<th width="120">APK版本号</th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="apkversion" id="apkversion" size="50" value="{$siteconfig['apkversion']}" />
+							</td>
+						</tr>
+						<tr>
+							<th width="120">APK更新下载地址</th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="apkaddress" id="apkaddress" size="50" value="{$siteconfig['apkaddress']}" />
+								&nbsp;&nbsp;&nbsp;&nbsp;<font color="gray">请填写完整地址</font></td>
+							</td>
+						</tr>
+						<tr>
+							<th width="120">IPA版本号</th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="ipaversion" id="ipaversion" size="50" value="{$siteconfig['ipaversion']}" />
+							</td>
+						</tr>
+						<tr>
+							<th width="120">IOS商品ID</th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="ios_goods" id="ios_goods" size="50" value="{$siteconfig['ios_goods']}" />
+								&nbsp;&nbsp;&nbsp;&nbsp;<font color="gray">不同商品的ID请使用@符号分隔开，如：com.meilibo.mars1@com.meilibo.mars2</font></td>
+							</td>
+						</tr>
+						<tr>
+							<th width="120">页脚版权信息</th>
+							<td class="y-bg">
+								<textarea name="footinfo" id="footinfo" style="height: 60px;width:310px;; visibility:inherit">{$siteconfig['footinfo']}</textarea>&nbsp;&nbsp;&nbsp;&nbsp;<font color="gray">页脚版权信息,支持HTML</font></td>
+						</tr>
+					</table>
+				</div>
+				<div id="div_setting_3" class="contentList pad-10">
+					<table width="100%" class="table_form">
+						<tr>
+							<th width="120">网站标题后缀</th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="titleattach" id="titleattach" size="50" value="{$siteconfig['titleattach']}" />
+							</td>
+						</tr>
+						<tr>
+							<th width="120">META关键字</th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="metakeyword" id="metakeyword" size="50" value="{$siteconfig['metakeyword']}" />
+							</td>
+						</tr>
+						<tr>
+							<th width="120">META描述</th>
+							<td class="y-bg">
+								<textarea name="metadesp" id="metadesp" style="height: 60px;width:310px;; visibility:inherit">{$siteconfig['metadesp']}</textarea>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div id="div_setting_4" class="contentList pad-10">
+					<table width="100%" class="table_form">
+						<tr>
+							<th width="120">开放注册</th>
+							<td class="y-bg">
+								<input name="openreg" value="y" type="radio" <if condition="$siteconfig['openreg'] eq 'y'">checked</if>> 是&nbsp;&nbsp;&nbsp;&nbsp;
+								<input name="openreg" value="n" type="radio" <if condition="$siteconfig['openreg'] eq 'n'">checked</if>> 否</td>
+						</tr>
+						<tr>
+							<th width="120">注册默认审核</th>
+							<td class="y-bg">
+								<input name="regaudit" value="y" type="radio" <if condition="$siteconfig['regaudit'] eq 'y'">checked</if>> 是&nbsp;&nbsp;&nbsp;&nbsp;
+								<input name="regaudit" value="n" type="radio" <if condition="$siteconfig['regaudit'] eq 'n'">checked</if>> 否</td>
+						</tr>
+						<tr>
+							<th width="120">禁止注册用户名</th>
+							<td class="y-bg">
+								<textarea name="denyusername" id="denyusername" style="height: 60px;width:310px;; visibility:inherit">{$siteconfig['denyusername']}</textarea>&nbsp;&nbsp;&nbsp;&nbsp;<font color="gray">多个用户名以逗号‘,’分隔</font></td>
+						</tr>
+						<tr>
+							<th width="120">UC访问地址</th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="ucurl" id="ucurl" size="50" value="{$siteconfig['ucurl']}" />
+							</td>
+						</tr>
+						<tr>
+							<th width="120">SMS短信验证用户名</th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="smsid" id="smsid" size="50" value="{$siteconfig['smsid']}" />
+							</td>
+						</tr>
+						<tr>
+							<th width="120">SMS短信验证密码</th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="smskey" id="smskey" size="50" value="{$siteconfig['smskey']}" />
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div id="div_setting_5" class="contentList pad-10">
+					<table width="100%" class="table_form">
+						<tr>
+							<th width="120">默认直播权限 </th>
+							<td class="y-bg">
+								<input name="canlive" value="y" type="radio" <if condition="$siteconfig['canlive'] eq 'y'">checked</if>> 有&nbsp;&nbsp;&nbsp;&nbsp;
+								<input name="canlive" value="n" type="radio" <if condition="$siteconfig['canlive'] eq 'n'">checked</if>> 无 
+							</td>
+						</tr>
+						<tr>
+							<th width="120">直播是否需要签约 </th>
+							<td class="y-bg">
+								<input name="sign_verification" value="1" type="radio" <if condition="$siteconfig['sign_verification'] eq '1'">checked</if>> 是&nbsp;&nbsp;&nbsp;&nbsp;
+								<input name="sign_verification" value="0" type="radio" <if condition="$siteconfig['sign_verification'] eq '0'">checked</if>> 否 
+							</td>
+						</tr>
+						<tr>
+							<th width="120">直播关闭时间段 </th>
+							<td class="y-bg">
+								<link rel="stylesheet" type="text/css" href="__PUBLIC__/statics/js/calendar/jscal2.css"/> 
+					            <link rel="stylesheet" type="text/css" href="__PUBLIC__/statics/js/calendar/border-radius.css"/> 
+					            <link rel="stylesheet" type="text/css" href="__PUBLIC__/statics/js/calendar/win2k.css"/> 
+					            <script type="text/javascript" src="__PUBLIC__/statics/js/calendar/calendar.js"></script> 
+					            <script type="text/javascript" src="__PUBLIC__/statics/js/calendar/lang/en.js"></script><input type="text" name="room_stop_time" id="room_stop_time" value="{$siteconfig['room_stop_time'] |date='Y-m-d H:m',###}" /> - &nbsp;<script type="text/javascript"> 
+								
+					            Calendar.setup({
+					            weekNumbers: false,
+					            inputField : "room_stop_time",
+					            trigger    : "room_stop_time",
+					            dateFormat: "%Y-%m-%d %H:%m",
+					            showTime: false,
+					            minuteStep: 1,
+					            onSelect   : function() {this.hide();}
+					            });
+					        </script>- &nbsp;<input type="text" name="room_start_time" id="room_start_time" value="{$siteconfig['room_start_time'] |date='Y-m-d H:m',###}" />&nbsp;<script type="text/javascript"> 
+					            Calendar.setup({
+					            weekNumbers: false,
+					            inputField : "room_start_time",
+					            trigger    : "room_start_time",
+					            dateFormat: "%Y-%m-%d %H:%m",
+					            showTime: false,
+					            minuteStep: 1,
+					            onSelect   : function() {this.hide();}
+					            });
+					        </script>
+							</td>
+						</tr>
+						<tr>
+							<th width="120">人民币与虚拟币比例 </th>
+							<td class="y-bg">1:
+								<input type="text" class="input-text" name="ratio" id="ratio" size="5" value="{$siteconfig['ratio']}" /> 修改比例时请确保当前主播及代理的各项款项已结清</td>
+						</tr>
+						<tr>
+							<th width="120">CDN地址 </th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="cdn" id="cdn" value="{$siteconfig['cdn']}"> </td>
+						</tr>
+						<tr>
+							<th width="120">cdn拉流地址 </th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="cdnl" id="cdnl" value="{$siteconfig['cdnl']}">主播视频流拉流 </td>
+						</tr>
+						<tr>
+							<th width="120">fps </th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="fps" id="fps" size="5" value="{$siteconfig['fps']}"> </td>
+						</tr>
+						<tr>
+							<th width="120">最大比特率 </th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="zddk" id="zddk" size="5" value="{$siteconfig['zddk']}"> </td>
+						</tr>
+						<tr>
+							<th width="120">品质 </th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="pz" id="pz" size="20" value="{$siteconfig['pz']}"> </td>
+						</tr>
+						<tr>
+							<th width="120">关键帧间隔 </th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="zjg" id="zjg" size="20" value="{$siteconfig['zjg']}"> </td>
+						</tr>
+						<tr>
+							<th width="120">分辨率宽度 </th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="height" id="height" size="20" value="{$siteconfig['height']}"> </td>
+						</tr>
+						<tr>
+							<th width="120">分辨率高度 </th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="width" id="width" size="20" value="{$siteconfig['width']}"> </td>
+						</tr>
+
+					</table>
+				</div>
+
+				<div id="div_setting_6" class="contentList pad-10">
+						<span style="height:12px; color:#008080; font-size:12px;"> 温馨提示：机器人数量下限~上限为初始化直播随机数量，直播房间数量无上限！ </span>
+						
+					<table width="100%" class="table_form">
+						<tr>
+							<th width="150">机器人数量</th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="robot_max" id="robot_max" size="50" value="{$siteconfig['robot_max']}" />
+							</td>
+						</tr>
+						<!-- <tr>
+							<th width="150">机器人初始化数量下限</th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="robot_min" id="robot_min" size="50" value="{$siteconfig['robot_min']}" />
+							</td>
+						</tr>
+						<tr>
+							<th width="150">机器人房间动态变化上限</th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="robot_change_max" id="robot_change_max" size="50" value="{$siteconfig['robot_change_max']}" />
+							</td>
+						</tr>
+						<tr>
+							<th width="150">机器人房间动态变化下限</th>
+							<td class="y-bg">
+								<input type="text" class="input-text" name="robot_change_min" id="robot_change_min" size="50" value="{$siteconfig['robot_change_min']}" />
+							</td>
+						</tr> -->
+					    <tr>
+							<th width="150">是否放出机器人开关</th>
+							<td class="y-bg">
+
+							<if condition="$siteconfig['robot_switch'] eq 1 ">
+                               <input type="button"   name="robot_switch" onclick="changeValue(this)" class="robot_switch" size="20" value="关闭" />&nbsp;&nbsp;&nbsp;
+								
+								<span style="color:#008080; font-size:12px;"> (默认1为开启,0为关闭)</span>
+
+							<else />
+							  <input type="button"   name="robot_switch" onclick="changeValue(this)" class="robot_switch " style="background-color: #20b2aa;" size="20" value="开启" />&nbsp;&nbsp;&nbsp;
+
+								<span style="color:#008080; font-size:12px;"> (默认1为开启,0为关闭)</span>
+
+                              
+							</if>
+								
+							</td>
+						</tr>
+					</table>
+				</div>
+
+
+<div id="div_setting_7" class="contentList pad-10 ">
+	<span style="height:12px; color:#008080; font-size:12px;"> 温馨提示：请修改你想要的直播提示语句信息！ </span>
+      	<table width="100%" class="table_form">
+						<tr>
+							<th width="150">直播提示语信息：</th>
+							<td class="y-bg">
+			<textarea name="live_prompt" id="live_prompt"  style="height: 60px;width:350px;; visibility:inherit">{$siteconfig['live_prompt']}</textarea>
+							</td>
+						</tr>
+				</table>
+       </div>
+				<div class="bk15"></div>
+				<input  name="dosubmit" id ="dosubmit" type="submit" value="提交" class="btn btn-info btn-sm">
+				</form>
+
+
+
+<div id="div_setting_1" class="contentList pad_10" >
+
+      <div class="content-menu ib-a blue line-x"> 
+		    <table width="60%" class="table_form">
+				<tr>
+
+		         <th style="width:90px;"><a class="add fb"  id="all_keyword" href="__URL__/listsyspara/?key=id"><em>所有关键字</em></a><span>|</span></th> 
+                 <th style="width:90px;"><a class="add fb" id="add_keyword" ><em>添加关键字</em></a><span>|</span> </th>
+                   <th style="width:360px;"> 
+
+					   <form id="search_form"   action="__URL__/show_keyword" method="POST" > 
+			  请输入需要搜索的关键字：<input type="text" id="search_keyword" name="keyword_search" class="input-text"/>
+			    <button  id="search" type="submit" name="search" class="btn btn-info btn-sm" >搜索</button > 
+		               </form> </th>
+					  
+				  </tr>
+		   </table>
+      </div> 
+
+	    <div class="contentList pad-10" id="hidden_keyword" style="display:none; height:120px;">
+<span style="height:12px; color:#008080; font-size:12px;"> 温馨提示：请在下面添加你想过滤掉的关键字，如需添加多个，请在英文状态下以逗号(,)隔开！</span>
+     <form action="__URL__/add_keyword" method="POST" style="height:80px;">
+      	<table width="60%" class="table_form">
+						<tr>
+							<th width="80">添加关键字：</th>
+							<td class="y-bg" style="width:450px;">
+			<textarea name="add_keyword"  style="height: 70px;width:350px;; visibility:inherit"></textarea>&nbsp;&nbsp;&nbsp;
+			      <input type="submit" name="add" class="btn btn-info btn-sm"  value="提交"/> 
+							</td>
+							
+			
+						</tr>
+				</table>
+     </form>
+		</div>
+        <div class="table-list"  id="select_keyword" >
+            <table width="100%" cellspacing="0" class="table table-bordered table-condensed table-striped table-hover">
+                <thead height="16">
+                <tr>
+                    <th width="30">ID</th>
+                    <th >关键字</th>
+                    <th >管理操作</th>
+                </tr>
+                </thead>
+                <tbody>
+			
+					<volist name="select_data" id="vo">
+                       <tr height="16">
+                          <td align='center'>{$vo['id']}</td>
+                          <td align='center'>{$vo['key_word']}</td>
+                          <td align='center' >
+                             <a href="__URL__/delete_key/?del={$vo['id']}">删除</a>
+                          </td>
+                       </tr>
+					</volist>
+                </tbody>
+            </table>
+        </div>
+
+		<div id="pages" style="width:50%;">{$page}</div>
+
+    </div>
+
+			</div>
+		</div>
+	
+</body>
+<script type="text/javascript">
+     
+    function changeValue(obj)
+{
+    if(obj.value=="关闭")
+    {
+       obj.value="开启";
+       $('.robot_switch').css('background-color','#20b2aa');
+		window.location.href=keyname.url+'/robot_option?options=0';
+    }
+   else
+   {
+        obj.value="关闭";
+        $('.robot_switch').css('background-color','#FF0000');
+	   window.location.href=keyname.url+'/robot_option?options=1';
+   }
+}
+
+
+     jQuery(document).ready(function(){
+
+		 $('all_keyword').attr('class','on');
+		 $('#add_keyword').click(function(){
+			 $('#hidden_keyword').show();  
+			 $('#add_keyword').attr('class','on');
+			  $('#all_keyword').attr('class','');
+			 });
+        $('#all_keyword').click(function(){
+			 $('#hidden_keyword').hide();
+			  $('#all_keyword').attr('class','on');
+			   $('#add_keyword').attr('class','');
+			 });
+                 
+
+          
+          //    $('#robot_switch_open').click(function(){
+        	 // $('#robot_switch').css('background-color','#FF0000');
+        	 // $('#robot_switch').attr('value','开启');
+        	 //          });
+        	
+        	 //  $('#robot_switch_close').click(function(){
+        			     
+        	 //               $('#robot_switch_close').attr('value','已关闭');
+        		//      });    
+        		            
+
+                //   $('#search').click(function(){
+				// 	  $('select_keyword').hide();
+				// 	  $('show_keyword').show();
+				//    	// var formdata = new FormData($( "#search_form" )[0]); 
+				// 	 var formdata=$('#search_keyword').val();
+                //      var $url=keyname.url ;
+				// 	$.ajax({
+				// 			url: $url +'/show_keyword' ,
+				// 			type: 'post',
+				// 			data: {form_key:formdata},
+				// 			error: function(){
+				// 				// alert('数据请求失败！');
+				// 			},
+				// 			success:function(dd){
+				// 				var duck=JSON.parse(dd);
+				// 					 consolse.log(duck);
+								
+				// 				if(duck.status==false){alert('数据返回失败');};
+				// 				if(duck.data==null&&duck.status!=0){alert('很抱歉没有查询到与您输入相关的关键字@');};
+				// 				var ajax_data=duck.data;
+				// 				var htmls=" ";
+								 
+				// 				for(var i=0;i<=ajax_data.length;i++){
+				// 					//console.log(ajax_data[i]);
+				// 					htmls+="<tr height='16'><td align='center'>"+ajax_data.id+"</td><td align='center'>"+ajax_data.key_word+"</td> <td align='center' > <a href='javascript:;'>删除</a></td></tr>";
+                //                      //console.log(duck.data[i]);
+				// 				}
+				// 				   $('#replace_ajax').html(htmls);
+								
+				// 			}
+				// 	});	  
+		  		// });
+
+	 });
+
+
+	function SwapTab(name, cls_show, cls_hide, cnt, cur) {
+		for (i = 1; i <= cnt + 1; i++) {
+			if (cur == 1 && i == 1) {
+				$('#dosubmit').hide();
+				$('#div_' + name + '_' + i).hide();
+				$('#div_' + name + '_' + 1).show();
+				$('#tab_' + name + '_' + i).attr('class', cls_show);
+				$(".bk15").hide();
+				console.log("here1 _" +i)
+			} else {
+				if (i == cur) {
+					$('#div_' + name + '_' + i).show();
+					$('#tab_' + name + '_' + i).attr('class', cls_show);
+					console.log("here2 _" +i)
+				} else {
+					$('#div_' + name + '_' + i).hide();
+					$('#tab_' + name + '_' + i).attr('class', cls_hide);
+
+					console.log("here3 _" +i)
+				}
+			}
+
+			if(cur > 1) {
+				$(".bk15").show();
+				$('#dosubmit').show();
+			}
+		}
+	}
+
+	function showsmtp(obj, hiddenid) {
+		hiddenid = hiddenid ? hiddenid : 'smtpcfg';
+		var status = $(obj).val();
+		if (status == 1) $("#" + hiddenid).show();
+		else $("#" + hiddenid).hide();
+	}
+
+	function test_mail() {
+		var mail_type = $('input[checkbox=mail_type][checked]').val();
+		$.post('?m=admin&c=setting&a=public_test_mail&mail_to=' + $('#mail_to').val(), {
+			mail_type: mail_type,
+			mail_server: $('#mail_server').val(),
+			mail_port: $('#mail_port').val(),
+			mail_user: $('#mail_user').val(),
+			mail_password: $('#mail_password').val(),
+			mail_auth: $('#mail_auth').val(),
+			mail_auth: $('#mail_auth').val(),
+			mail_from: $('#mail_from').val()
+		}, function(data) {
+			alert(data);
+		});
+	}
+</script>
+
+</html>

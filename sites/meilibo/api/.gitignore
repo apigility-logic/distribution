@@ -1,0 +1,9 @@
+.idea/
+Runtime/*
+OpenAPI/Runtime/*
+OpenAPI/Conf/*
+config.php
+config.inc.php
+style/avatar/*
+/nbproject/private/
+style/swfupload/

@@ -1,0 +1,183 @@
+<tagLib name="html" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>我的房管-管理中心-{$sitename}</title>
+<link rel="stylesheet" type="text/css" href="/style/meilibo/css/common.css">
+<link rel="stylesheet" type="text/css" href="/style/meilibo/css/user.css">
+<link rel="stylesheet" type="text/css" href="/style/meilibo/css/inside.css">
+<script language="javascript" src="/style/js/jquery.js"></script>
+<script language="javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/style/meilibo/js/logon-2.0.js"></script>
+<script type="text/javascript" src="/style/meilibo/js/usercenter.js"></script>
+<script>
+    UAC.showUserInfo = function(data) {if(data.isLogin == "1"){window.location.reload();}}
+  </script>
+</head>
+<body style="background:url(/style/meilibo/images/mod0_v2.jpg) no-repeat top center;">
+<include file="Public:header" />
+<div class="u_header">
+  <div class="wrap">
+    <div class="uphoto">
+       <img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$userinfo['id']|md5|substr=0,3}/{$userinfo['id']}_big.jpg" width="207" height="207"/>
+       <p class="bj_photo"><a href="/my/center_headerpic/"><span class="bjIcon"></span>更换头像</a></p>
+    </div>
+    <div class="userData">
+      <div class="clearfix" id="vo">
+        <span class="u_nickname">{$userinfo['nickname']}</span>
+ <b class="starLV car{$userinfo['richlevelid']}"></b>        
+      </div>
+      <div class="level clearfix">
+        <span class="fl">秀币：{$userinfo['coinbalance']}</span>
+      </div>
+       <div class="level clearfix">
+        <span class="fl"><?php if (!empty($userinfo['bolevelname'])) { echo $userinfo['bolevelname']; }?></span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="u_tab">
+  <div class="wrap clearfix">
+    <div class="u_tab_left fl">
+      <a href="/my/center_editinfo/">个人设置<span class="arror"></span></a>
+      <a href="/my/mybills/">我的账单<span class="arror"></span></a>
+      <!-- <a href="/my/mytools/">我的道具<span class="arror"></span></a>
+      <a href="/my/mynumbers/">我的靓号<span class="arror"></span></a> -->
+      <a class="tabon" href="/my/mymanagers/">我的管理<span class="arror"></span></a>
+      <!-- <a href="/my/familyIJoin/">我的家族<span class="arror"></span></a> -->
+      <!-- <a href="/my/myfavor/">我的收藏<span class="arror"></span></a> -->
+      <a href="/my/mygods/">我的偶像<span class="arror"></span></a>
+      <a href="/my/myfans/">我的粉丝<span class="arror"></span></a>
+      <a href="/my/mylink/">我的推广链接<span class="arror"></span></a>
+    </div>
+    <div class="u_tab_right fr">
+         <a href="/{$_SESSION['roomnum']}">我的直播</a>
+      <a href="/my/charge/">充值</a>
+      <a href="/my/exchange/">兑换</a>
+      <a href="/my/settlement/">结算</a>
+    </div>
+  </div>
+</div>
+<div class="wrap">
+<div class="usercenter">
+<script language="javascript">
+$(function(){
+   var sm = $('.utab a,.umyhelp a').setMyTab();
+ }
+)
+</script>
+        <div class="usercenter_con">
+            <div class="djsc_top">
+                <h4>我的房管 <cite>({$roomadmins|count})</cite></h4>
+            </div>
+            <div class="house-v">
+<?php
+$monthloginArr = array();
+$monthnotloginArr = array();
+$i = 0;
+if (!empty($roomadmins)) {
+foreach($roomadmins as $k){
+    if(date('Y-m',$k['voo'][0]['lastlogtime']) == date('Y-m',time())){
+        array_push($monthloginArr,$roomadmins[$i]);
+    }
+    else{
+        array_push($monthnotloginArr,$roomadmins[$i]);
+    }
+    $i++;
+}
+}
+?>
+                <div class="house-box">
+                    <h3>一个月内登录过的 <span>({$monthloginArr|count})</span></h3>
+                    <div class="house-tip">
+                    <?php if (!empty($monthloginArr)) {?>
+                        <volist name="monthloginArr" id="vo" key="k">
+                        <dl>
+                            <volist name="vo['voo']" id="sub">
+                            <dt><a href="/{$sub['curroomnum']}"><img  onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" width="110px" height="110px" src="/style/avatar/{$sub['id']|md5|substr=0,3}/{$sub['id']}_middle.jpg" /></a></dt>
+                            <dd class="info">
+                                <p><strong><a href="/{$sub['curroomnum']}" title="{$sub['nickname']}">{$sub['nickname']}</a></strong></p>
+                                <p>性别: <if condition="$sub['sex'] eq '0'">男</if><if condition="$sub['sex'] eq '1'">女</if></p>
+                                <p>地区: {$sub['province']} {$sub['city']}</p>
+                                <p>上次直播时间: <if condition="$sub['showid'] neq 0"><?php echo date('Y-m-d H:i:s',$sub['showid']); ?><else />无</if></p>
+                                <?php
+                                $emceelevel = getEmceelevel($sub['earnbean']);
+                                ?>
+                                <p>主播等级:<span class="star star{$emceelevel[0]['levelid']} ml5"></span></p>
+                            </dd>
+                            <dd class="deals">
+                                <span state="0" uid="{$sub['id']}">解除管理权限</span>
+                            </dd>
+                            </volist>
+                        </dl>
+                        </volist>
+                    <?php } ?>
+                    </div>
+                    
+                </div>
+                <div class="house-box">
+                    <h3>一个月内未登录过的 <span>({$monthnotloginArr|count})</span></h3>
+                    <div class="house-tip">
+                    <?php if (!empty($monthnotloginArr)) {?>
+                        <volist name="monthnotloginArr" id="vo" key="k">
+                        <dl>
+                            <volist name="vo['voo']" id="sub">
+                            <dt><a href="/{$sub['curroomnum']}"><img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" width="110px" height="110px" src="/style/avatar/{$sub['id']|md5|substr=0,3}/{$sub['id']}_middle.jpg" /></a></dt>
+                            <dd class="info">
+                                <p><strong><a href="/{$sub['curroomnum']}" title="{$sub['nickname']}">{$sub['nickname']}</a></strong></p>
+                                <p>性别: <if condition="$sub['sex'] eq '0'">男</if><if condition="$sub['sex'] eq '1'">女</if></p>
+                                <p>地区: {$sub['province']} {$sub['city']}</p>
+                                <p>上次直播时间: <if condition="$sub['showid'] neq 0"><?php echo date('Y-m-d H:i:s',$sub['showid']); ?><else />无</if></p>
+                                <?php
+                                $emceelevel = getEmceelevel($sub['earnbean']);
+                                ?>
+                                <p>主播等级:<span class="star star{$emceelevel[0]['levelid']} ml5"></span></p>
+                            </dd>
+                            <dd class="deals">
+                                <span state="0" uid="{$sub['id']}">解除管理权限</span>
+                            </dd>
+                            </volist>
+                        </dl>
+                        </volist>
+                        <?php } ?>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<include file="Public:footer" />
+<script language="javascript">
+    (function($){
+        $('.house-tip .deals span').click(function(){
+            var intState=$(this).attr('state');
+            var intUid=$(this).attr('uid');
+            var posturl='/my/toggleEmceeShowAdmin/';
+            var that=$(this);
+            $.ajax({
+                type:"post",
+                url:posturl,
+                data:{
+                    m:'toggleEmceeShowAdmin',
+                    userid:intUid,
+                    state:intState
+                },
+                success:function(data){
+                    if(data=='0'){
+                        that.attr('state',0);
+                        that.html("解除管理权限");
+                    }else if(data=='1'){
+                        that.attr('state',1);
+                        that.html("恢复管理权限");
+                    }
+                }
+            });
+        })
+        
+    })(jQuery);
+</script>
+</body>
+</html>

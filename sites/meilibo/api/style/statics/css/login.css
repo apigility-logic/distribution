@@ -1,0 +1,356 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+	padding:0;
+	margin:0;}
+body{
+	font-family:"微软雅黑";
+	font-size:12px;
+	color:black;
+	height:100%;
+	}
+img{
+	display:block;
+	font-size:0px;
+	border:none;}
+a{
+	color:black;
+	text-decoration:none;}
+.clear{
+	clear:both;}
+	
+.construct{
+	position:relative;
+	width:100%;
+	height:auto;
+	}	
+.container{
+	position:relative;
+	width:960px;
+	height:auto;
+	margin:0 auto;}
+
+/********************login***************************/
+#login_bg{
+	position:absolute;/*添加absolute后height的百分比属性才会生效*/
+	z-index:-1;
+	width:100%;
+	height:100%;/*或者使用js在文档加载完成后测body的高度在更改高度*/
+	background:url(/style/statics/images/admin_img/bg1.jpg) no-repeat;
+	background-size:cover;}
+#login_content{}
+#login_content_logo{margin-top:20px;font-size:50px;color:#fff;text-align:center;}
+#login_content_logo img{
+	width:300px;
+	height:95px;
+	margin:0 auto;}
+#login_content_log{
+	transition:background-color 0.5s;
+	-webkit-transition:background-color 0.5s;
+	-moz-transition:background-color 0.5s;
+	-o-transition:background-color 0.5s;
+	-ms-transition:background-color 0.5s;
+	width:250px;
+	height:35px;
+	border-radius:3px;
+	-moz-border-radius:3px;
+	-ms-border-radius:3px;
+	-o-border-radius:3px;
+	-webkit-border-radius:3px;
+	margin:0 auto;
+	margin-top:50px;
+	background-color:#0099cc;
+	color:white;
+	font-size:15px;
+	text-align:center;
+	line-height:35px;
+	cursor:pointer;}
+#login_content_log:hover{
+	background-color:#006FB8;}
+#login_content_reg{
+	transition:background-color 0.5s;
+	-webkit-transition:background-color 0.5s;
+	-moz-transition:background-color 0.5s;
+	-o-transition:background-color 0.5s;
+	-ms-transition:background-color 0.5s;
+	width:250px;
+	height:35px;
+	border-radius:3px;
+	-moz-border-radius:3px;
+	-ms-border-radius:3px;
+	-o-border-radius:3px;
+	-webkit-border-radius:3px;
+	margin:0 auto;
+	margin-top:30px;
+	background-color:white;
+	border:#E3E3E3 1px solid;
+	color:black;
+	font-size:15px;
+	text-align:center;
+	line-height:35px;
+	cursor:pointer;}
+#login_content_reg:hover{
+	background:#E3E3E3;}
+#login_content_log_02{
+	width:400px;
+	height:400px;
+	position:absolute;
+	background-image:url(/style/statics/images/admin_img/bg2.png);
+	background-repeat:repeat;
+	top:50%;
+	left:50%;
+	border-radius:5px;
+	margin-top:-200px;
+	margin-left:-200px;}
+#login_input1 input,#login_input2 input{
+	padding-left:10px;
+	width:238px;
+	height:33px;
+	border:none;
+	background-color:transparent;
+	outline-style:none;
+	font-size:16px;
+	font-family:"微软雅黑";
+    color:#9F9F9F;}
+#login_input5{
+	width:140px;
+	height:35px;
+	margin-left:74px;
+	margin-top:15px;
+	border:gray 1px solid;
+	background-color:white;
+	border-radius:5px;
+	position:relative;
+}
+#login_input5 input{
+	padding-left:10px;
+	width:130px;
+	height:33px;
+	border:none;
+	background-color:transparent;
+	outline-style:none;
+	font-size:16px;
+	font-family:"微软雅黑";
+    color:#9F9F9F;
+}
+#login_input5 img{height:35px;position:absolute;top:0;left:159px;cursor:pointer;}
+#login_input1{
+	width:250px;
+	height:35px;
+	margin:0 auto;
+	margin-top:30px;
+	border:gray 1px solid;
+	background-color:white;
+	border-radius:5px;
+	overflow:hidden;
+   }
+#login_input2{
+	width:250px;
+	height:35px;
+	margin:0 auto;
+	margin-top:15px;
+	border:gray 1px solid;
+	background-color:white;
+	border-radius:5px;
+	position:relative;
+	overflow:hidden;
+}
+.pwdlabel{position:absolute;top:0;left:0;width:60px;height:37px;line-height:37px;padding-left:10px;font-size:16px;font-family:"微软雅黑";color:#9F9F9F;}
+
+#login_input4{
+	position:relative;
+	width:250px;
+	height:35px;
+	font-size:15px;
+	text-align:center;
+	line-height:35px;
+	background-color:#0099cc;
+	border:none;
+	margin:0 auto;
+	margin-top:25px;
+	color:white;
+	cursor:pointer;
+	border-radius:5px;
+	border:#0099cc 1px solid;}
+#login_input4 input{
+	cursor:pointer;
+	position:absolute;
+	left:0px;
+	width:250px;
+	height:35px;
+	border:none;
+	background-color:transparent;
+	}
+#login_input3{
+	float:left;
+	margin:20px 10px 0px 70px;}
+#login_input3 input{vertical-align: middle;}
+#login_link1,#login_link2{
+	float:left;
+	width:60px;
+	margin:20px 19px 0px 25px;}
+#login_link1 a:hover,#login_link2 a:hover{
+	text-decoration:underline;}
+#login_close{
+	position:absolute;
+	top:-5px;
+	right:1px;
+	cursor:pointer;
+	font-size:20px;}
+#login_content_log_03{
+	display:none;
+	position:absolute;
+	width:300px;
+	height:230px;
+	background-image:url(/style/statics/images/admin_img/bg2.png);
+	background-repeat:repeat;
+	top:300px;
+	left:50%;
+	margin-left:-150px;}
+#login_success_img{
+	width:80px;
+	height:80px;
+	border-radius:40px;
+	overflow:hidden;
+	margin:0 auto;
+	margin-top:20px;}
+#login_success1{
+	text-align:center;
+	font-size:15px;
+	color:black;
+	margin-top:20px;
+	}
+#login_success1 span{
+	font-size:16px;
+	color:#0099cc;
+	}
+#login_success2{
+	text-align:center;
+	margin-top:20px;
+	font-size:12px;	
+	}
+#login_success3{
+	text-align:center;
+	margin-top:5px;
+	font-size:12px;
+	}
+#login_defeat{
+	width:120px;
+	height:25px;
+	text-align:center;
+	line-height:25px;
+	background-color:#9B0002;
+	color:white;
+	position:absolute;
+	z-index:3;
+	left:50%;
+	margin-left:-60px;
+	top:-25px;}
+#login_tip{
+	position:absolute;
+	left:0;
+	top:290px;
+	text-align:center;
+	width:100%;
+	font-size:9px;
+	color:#ff0004;
+	margin:0 auto;}
+/****************************************************/
+@-webkit-keyframes bounceIn {
+  from, 20%, 40%, 60%, 80%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    -webkit-transform: scale3d(.3, .3, .3);
+    transform: scale3d(.3, .3, .3);
+  }
+
+  20% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  40% {
+    -webkit-transform: scale3d(.9, .9, .9);
+    transform: scale3d(.9, .9, .9);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: scale3d(1.03, 1.03, 1.03);
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+
+  80% {
+    -webkit-transform: scale3d(.97, .97, .97);
+    transform: scale3d(.97, .97, .97);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes bounceIn {
+  from, 20%, 40%, 60%, 80%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    -webkit-transform: scale3d(.3, .3, .3);
+    transform: scale3d(.3, .3, .3);
+  }
+
+  20% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  40% {
+    -webkit-transform: scale3d(.9, .9, .9);
+    transform: scale3d(.9, .9, .9);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: scale3d(1.03, 1.03, 1.03);
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+
+  80% {
+    -webkit-transform: scale3d(.97, .97, .97);
+    transform: scale3d(.97, .97, .97);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.bounceIn {
+-webkit-animation:bounceIn .8s .4s forwards;-moz-animation:bounceIn .8s .4s forwards;animation:bounceIn .8s .4s forwards;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/********************login***************************/
+/****************************************************/

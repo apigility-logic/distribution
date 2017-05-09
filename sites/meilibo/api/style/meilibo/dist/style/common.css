@@ -1,0 +1,204 @@
+html, body, div,section, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, dd, dl, dt, li, ol, ul,input,select,button,textarea { padding:0; margin:0; border:none;}
+input,button,select,textarea,a,img{outline:none; text-decoration:none;color:#333;}/*去掉超链接或按钮点击时出现的虚线框黄色边框*/
+::-moz-focus-inner{border:0px;}/*火狐的私有属性去掉点击时边框*/
+body {font-size:12px; font-family:"Microsoft YaHei","Arial", "SimSun";}
+html,body{ width:100%;height:100%;background:#ccc;}
+a img { border:none;}
+ul, ul li, ol li, li {  list-style:none;}
+table { border-collapse: collapse;border-spacing:0;}
+input, textarea {border: 0;vertical-align: middle;}
+.clearfix:after {visibility: hidden;display: block;font-size: 0;content: ".";clear: both;height: 0;}
+* html .clearfix {zoom: 1;}
+*:first-child + html .clearfix {zoom: 1;}
+.fl {   float:left;}
+.fr {   float:right;}
+.none{  display:none;}
+.editbtn{color:#337ab7;}
+.editbtn:hover{color:#367fa9;}
+.label-danger{background:transparent;color:#d9534f;font-weight:400;}
+.label-success{background:transparent;color:#619661;font-weight:400;}
+.operation{color:#337ab7;}
+.table>tbody>tr>td,.table>tbody>tr>th,.table>thead>tr>th{vertical-align:middle;}
+.form-horizontal .radio{margin-bottom:15px;}
+textarea.form-control{resize: none;}
+/****滚动条******/
+
+/* Let's get this party started */
+
+::-webkit-scrollbar {
+
+    width: 10px;
+
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+
+
+
+    -webkit-border-radius: 10px;
+
+    border-radius: 10px;
+
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+
+    -webkit-border-radius: 10px;
+
+    border-radius: 10px;
+
+    background:#3c8dbc ; 
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+
+    background:#3c8dbc; 
+
+}
+
+.form-control{border-radius:5px;color:#666;font-size:12px;}
+.mpassword .form-horizontal .form-group{margin:15px 0;}
+.mpassword .submitbtn{text-align:center;}
+
+/**列表头部工具样式****/
+.form-horizontal .control-label{font-weight:400;text-align:center;}
+.box-header{padding:0 15px;}
+.box-header>.box-tools {}
+.box-tools .form-control{display:inline-block;}
+.box-tools .form-group{height:34px;margin:10px 0;}
+.box-tools .form-group *{color:#888;}
+#reportrange{position:relative;width:100%;height:34px;padding:0 5px;line-height:34px;border:1px solid #d2d6de;border-radius:5px;}
+#reportrange input{position:absolute;top:0;left:0;text-indent:25px;display:inline-block;width:100%;background:transparent;}
+#reportrange .caret{position:absolute;right:10px;top:16px;}
+
+.bootstrap-select .btn{background:#fff;}
+/**查询下排按钮**/
+.box-tools .submitbtn{padding-bottom:10px;}
+/**查询上排按钮**/
+.box-tools .submitbtn2{color:#fff;}
+
+/**财务概览   账户充值**/
+.finance h4,.consumption h4{font-size:22px;padding:20px 0;}
+.finance .box{padding:0px 60px;}
+.my_fin{padding:15px 0;margin:0;border-top:1px solid #dcdfe5;border-bottom:1px solid #dcdfe5;}
+.fin-box{min-height:90px;background:#fff;width:100%;padding-left:60px;border-right:1px solid #dcdfe5;}
+.my_fin > div:last-child .fin-box{border:0;}
+.fin-box p{padding:10px 0;font-size:14px;}
+
+.box.box-success{border-top:2px solid #d2d6de;}
+.table_danger th{font-weight:400;}
+.table_danger td,.table_danger th{font-size:16px;color:#847f7f;}
+.table_danger i{margin-right:5px;}
+.table_danger i.fa-color1{color:rgb(99,175,250);}
+.table_danger i.fa-color2{color:rgb(169,127,253);}
+.table_danger i.fa-color3{color:rgb(255,127,151);}
+.table_danger i.fa-color4{color:rgb(253,201,104);}
+
+.page-tip{margin-bottom:50px;}
+.page-tip p{font-size:14px;line-height:28px;max-width:640px;color:#666f80;}
+
+.finance .control-label{font-size:14px;text-align:left;padding-top:7px;}
+.form-control-static{font-family:"Alright Sans LP","Avenir Next","Helvetica Neue",'Helvetica','Arial',"PingFang SC","Source Han Sans SC","Hiragino Sans GB","Microsoft YaHei","WenQuanYi MicroHei",'sans-serif';font-size:14px;}
+.finance .form-group{border-bottom:1px solid #dcdfe5;margin-bottom:40px;padding-bottom:40px;}
+.paytype-line .icon{display:block;width:66px;height:22px;}
+.paytype-list > div{margin-bottom:15px;}
+.paytype-line .icon-alipay{background:url(/dist/img/zhifubao.png) no-repeat center;}
+.paytype-line .icon-weix{background:url(/dist/img/weix.jpg) no-repeat center;}
+.radio-button{padding:5px 10px;border:1px solid #eee;border-radius:3px;cursor:pointer;}
+.radio-button.active{background:url(/dist/img/sprite1x.df961136.png) no-repeat right bottom;border-color:#238efb;}
+
+.finance .amount-wrapper{position:relative;}
+.finance .unit{position:absolute;right:-15px;top:0;display:block;width:34px;height:34px;line-height:34px;text-align:center;}
+.finance .btn-emphasis{color:#fff;}
+/**财务概览 账户充值**/
+
+/*消费详情*/
+.consumption .box{padding:0 15px;}
+.sub-title{font-size:16px;padding:20px 0 15px;font-family:inherit;color:#666;}
+.consumption .table tr th,.consumption .table tr td{height:40px;line-height:40px;font-weight:400;}
+.consumption .table tr th{font-size:16px;color:#7a8599;}
+.consumption .table tr td{color:#7a8599;}
+.consumption label{font-weight:600;}
+#myTab a{color:#7a8599;font-size:14px;}
+
+/*消费详情*/
+
+/*直播监控*/
+.listvideo .box{padding:15px;}
+.listvideo .col-lg-2,.listvideo .col-lg-3,.listvideo .col-md-4,.listvideo .col-sm-6,.listvideo .col-xs-6{padding-bottom:10px;padding-right:5px;padding-left:5px;}
+.object_list{position:relative;border-style:solid;border-width:4px;}
+.objectVideo{}
+.objectbtn{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);text-align:center;opacity:0;filter: alpha(opacity=0);transition:all 0.5s ease;-webkit-transition:all 0.5s ease;-moz-transition:all 0.5s ease;}
+.objectbtn .btn{width:68px;border:1px solid #8e8686;color:#fff;margin-top:15px;transition:all 0.5s ease;-webkit-transition:all 0.5s ease;-moz-transition:all 0.5s ease;}
+.objectbtn .btn_info:hover{background:#00acd6;border-color:#00acd6;}
+.objectbtn .btn_warning:hover{background:#e08e0b;border-color:#e08e0b;}
+.objectbtn .btn_danger:hover{background:#d73925;border-color:#d73925;}
+.objectbtn .btn_success:hover{background:#008d4c;border-color:#008d4c;}
+.object_list:hover .objectbtn{opacity:1;filter: alpha(opacity=1);}
+
+.object_list.default{border-color:#fff; }
+.object_list.infobor{border-color:#00acd6; }
+.object_list.warningbor{border-color:#e08e0b; }
+.object_list.dangerbor{border-color:#d73925; }
+
+/*直播监控*/
+
+/*主播列表*/
+.forbidden.success{color:#50a536;}
+.forbidden.danger{color:#c9302c;}
+/*主播列表*/
+
+/*开通主播选中类型*/
+.tree_box{position:relative;}
+.tree_one{width:100%;position:absolute;top:33px;left:0;z-index:2;}
+.selectdown{height:34px;padding-left:12px;line-height: 34px;font-size:14px;background:#fbfbfb;border-bottom:1px solid #fff;}
+.tree_one .selectdown:last-child{border-bottom:0;}
+.tree_box > ul{margin:0;padding:0;border:1px solid #d2d6de;border-radius:5px;overflow:hidden;}
+.tree_two li{padding-left:10px;}
+.tree_one li:hover{background-color:#f8f8f8;}
+.tree_two li{background-color:#ffffff;height:30px;line-height:30px;padding-left:12px;cursor:pointer;}
+.tree_two li:hover{background-color:#f8f8f8;}
+#anchorlist td{vertical-align: middle;}
+.selecttype .caret{margin-top:8px;}
+/*开通主播选中类型*/
+
+/*礼物列表*/
+.giftinput{height:40px;width:70%;line-height:40px;border:1px solid #ddd;border-radius:3px;text-indent:10px;}
+.pic{width:60px;height:60px;margin:0 auto;border-radius:30px;overflow:hidden;}
+.pic img{width:60px;height:60px;border-radius:50%;}
+.file_input{margin-right:auto;margin-left:auto;}
+.preview img{width:96px;height:96px;}
+/*礼物列表*/
+
+/*系统设置*/
+.proportion{width:auto;display:inline-block;}
+
+/*微信充值*/
+.pay-user-name h3{padding-bottom:10px;font-size:14px;color:#333;font-family:"Microsoft YaHei";}
+.pay-wxin{position:relative;padding-bottom:200px;}
+.pay-wxin .wxin-goback{height:29px;float:right;padding:15px 30px 0 0px;}
+.pay-wxin .wxin-goback i{margin-right:10px;color:#3c8dbc;}
+.pay-wxin .wxin-tit{padding:98px 0 25px;text-align:center;font-size:26px;}
+.pay-wxin .wxin-ewm{margin:0 auto;width:190px;height:190px;}
+.pay-wxin .w-tip{margin:10px auto 22px;width:175px;background:url(/dist/img/pay_04.png) no-repeat;padding-left:30px;color:#8a8a8a;}
+.pay-wxin .w-tim{position:absolute;top:73px;left:50%;margin-left:120px;}
+.pay-wxin .wxin-table{margin:0 auto;}
+.pay-wxin .wxin-table td{padding-left:16px;font-size:16px;border:1px solid #eee;}
+.wxin_sucimg{width:490px;margin:0 auto;}
+.wxin_sucimg  img{float:left;}
+.wxin_sucimg .wxin_suctext{float:left;font-size:16px;}
+.wxin_sucimg .wxin_suctext p{padding-top:15px;}
+.pay-wxin .wxin_sucbtn{text-align:center;padding-top:50px;}
+.pay-wxin .wxinbtn{display:inline-block;width:80px;height:35px;line-height:35px;color:#fff;background:#3c8dbc;border:1px solid #3c8dbc;border-radius:3px;}
+.pay-wxin .wxinbtn:hover{background:#3aa2de;color:#fff;border-color:#3aa2de;}
+
+/*新增礼物*/
+.giftinfo .form-group label{line-height:34px;}
+#view{position:relative;display:inline-block;width:96px;height:96px;margin-bottom:10px;background-size:cover;text-align:center;}
+#view  img{width:94px;height:96px;}
+#file{position:absolute;top:0;left:0;z-index:99;height:96px;width:96px;opacity:0;outline:none;cursor:pointer;}
+#clipArea {margin: 20px 0;height: 300px;}

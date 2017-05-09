@@ -2,10 +2,4 @@
 .idea/
 data/mysql/data/*
 data/php/session/*
-sites/tpshop/*
-sites/meilibo/*
-sites/ectouch/*
-!sites/tpshop/.gitkeep
-!sites/meilibo/.gitkeep
-!sites/ectouch/.gitkeep
 

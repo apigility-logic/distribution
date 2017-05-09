@@ -1,0 +1,198 @@
+<tagLib name="html" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>个人资料-个人中心-管理中心-{$sitename}</title>
+<link rel="stylesheet" type="text/css" href="/style/meilibo/css/common.css">
+<link rel="stylesheet" type="text/css" href="/style/meilibo/css/user.css">
+<link rel="stylesheet" type="text/css" href="/style/meilibo/css/inside.css">
+<script type="text/javascript" src="/style/meilibo/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/style/meilibo/js/common.js"></script>
+<script language="javascript" src="/style/js/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" src="/style/js/areas.js"></script>
+<script type="text/javascript" src="/style/meilibo/js/logon-2.0.js"></script>
+<script type="text/javascript" src="/style/meilibo/js/usercenter.js"></script>
+<script>
+    UAC.showUserInfo = function(data) {if(data.isLogin == "1"){window.location.reload();}}
+  </script>
+</head>
+<body style="background:url(/style/meilibo/images/mod0_v2.jpg) no-repeat top center;">
+ <!--header-->
+  <div class="header">
+    <div class="head_main wrap">
+      <a class="head_logo fl" href="#"><img src="__PUBLIC__/meilibo/images/logo.png">美丽播</a>
+      <div class="head_navm fl">
+        <ul>
+          <?php
+            if (!isset($_GET['_URL_'])) {
+              $_GET['_URL_'][0] = '';
+            }
+          ?>
+          <li><a href="/" <if condition = "$_GET['_URL_'][0] eq ''">class="active"</if>>首页</a></li>
+          <li><a href="/showtime" <if condition = "$_GET['_URL_'][0] eq 'showtime'">class="active"</if>>秀场</a></li>
+          <li><a href="/rank" <if condition = "$_GET['_URL_'][0] eq 'rank'">class="active"</if>>排行榜</a></li>
+          <li><a href="/shop" <if condition = "$_GET['_URL_'][0] eq 'shop'">class="active"</if>>商城</a></li>
+          <li><a href="/family" <if condition = "$_GET['_URL_'][0] eq 'family'">class="active"</if>>家族</a></li>
+          <li><a href="/app" <if condition = "$_GET['_URL_'][0] eq 'app'">class="active"</if>>APP</a></li>
+        </ul>
+      </div>
+      <div class="head_search fl">
+       <form action="/search">
+         <input class="head_input input fl"  type="text" id="roomnum" name="query" value="" placeholder="房间号或主播昵称"/>
+         <button href="javascript:;" class="h_search_btn fl" id="searchBtn" onclick="searchroom();"></button>
+         <div class="search-input" id="searchTips"></div>
+       </form> 
+      </div>
+      <div class="head_login header_user fr"></div>
+    </div> 
+  </div>
+ <!--header-->
+
+<div class="u_header">
+  <div class="wrap">
+    <div class="uphoto">
+       <img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$userinfo['id']|md5|substr=0,3}/{$userinfo['id']}_big.jpg" width="207" height="207"/>
+       <p class="bj_photo"><a href="/my/center_headerpic/"><span class="bjIcon"></span>更换头像</a></p>
+    </div>
+    <div class="userData">
+      <div class="clearfix">
+        <span class="u_nickname">{$userinfo['nickname']}</span>
+        <b class="starLV car{$userinfo['richlevelid']}"></b>      
+      </div>
+      <div class="level clearfix">
+        <span class="fl">秀币：{$userinfo['coinbalance']}</span>
+      </div>
+      <div class="level clearfix">
+        <span class="fl"><?php if (!empty($userinfo['bolevelname'])) { echo $userinfo['bolevelname']; }?></span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="u_tab">
+  <div class="wrap clearfix">
+    <div class="u_tab_left fl">
+      <a href="/my/center_editinfo/">个人设置<span class="arror"></span></a>
+      <a href="/my/mybills/">我的账单<span class="arror"></span></a>
+      <!-- <a href="/my/mytools/">我的道具<span class="arror"></span></a>
+      <a href="/my/mynumbers/">我的靓号<span class="arror"></span></a> -->
+      <a href="/my/mymanagers/">我的管理<span class="arror"></span></a>
+      <!-- <a href="/my/familyIJoin/">我的家族<span class="arror"></span></a> -->
+      <!-- <a href="/my/myfavor/">我的收藏<span class="arror"></span></a> -->
+      <a href="/my/mygods/">我的偶像<span class="arror"></span></a>
+      <a href="/my/myfans/">我的粉丝<span class="arror"></span></a>
+      <a href="/my/mylink/" class="tabon" >我的推广链接<span class="arror"></span></a>
+    </div>
+    <div class="u_tab_right fr">
+      <a href="/{$_SESSION['roomnum']}">我的直播</a>
+      <a href="/my/charge/">充值</a>
+      <a href="/my/exchange/">兑换</a>
+      <a href="/my/settlement/">结算</a>
+    </div>
+  </div>
+</div>
+<script language="javascript">
+$(function(){
+   var sm = $('.utab a,.umyhelp a').setMyTab();
+ }
+)
+</script>
+    <div class="usercenter_con">
+            <div class="djsc_top">
+                <h4>我的推广链接</span>
+            </div>
+            <div class="djsc_list">
+                <table border="0" class="txt_table">
+                  <tr>
+                    <th scope="col">说明： </th>
+                    <th scope="col">推广链接</th>
+                  </tr>
+                  <tr>
+                    <td>您可以通过以下链接邀请好友加入 :  </td>
+                    <td class="mylinkshare" id="mylinkshare">
+                    <span style="float:left;margin-right:15px;">{$invita_url}</span>
+                    <div id="sharebox" style="float:left;width:60px;height:30px;margin:0 auto;position:relative;cursor:pointer;border-radius:5px;">
+                      <span style="display:block;width:60px;height:30px;background:#ff4974;color:#fff;text-align:center;">立即分享</span>
+                      <div class="bdsharebuttonbox" style="display:none;width:145px;padding-left:15px;background:rgb(218, 218, 218);position:absolute;bottom:-28px;left:0;"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+                      </div>
+                  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdUrl":"{$invita_url}","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+                  </td>
+                  </tr>
+                </table>
+            </div>
+        </div>
+  </div>
+</div>
+
+<!--提示层-->
+<div class="poptip" id="giveBox" style="display:none;">
+        <div class="pop-t"><span class="close" id="pop-close"></span><h3>提示</h3></div>    
+        <div class="pop-v">
+            <p class="txt" id="pop-text">修改成功!</p>
+            <p class="txt"><span class="sendBtn" id="pop-btnclose">确 定</span></p>
+        </div>
+</div>
+<!--提示层-->
+<div class="footer">
+  <div class="footer1">
+    <div class="wrap clearfix">
+      <div class="foot_help fl">
+        <h3 class="footer_tt">联系我们</h3>
+        <ul class="footerlst">
+          <li>Email：support@meilibo.net</li>
+          <li>Tel：400-926-2660</li>
+          <li>客服QQ：318097084</li>
+        </ul>
+      </div>
+      <div class="foot_shop fl">
+        <h3 class="footer_tt">手机版下载</h3>
+        <ul class="footerlst">
+          <li><a href="/app">iPhone版下载</a></li>
+          <li><a href="/app">Android版下载</a></li>
+        </ul>
+      </div>
+      <div class="foot_phone fl">
+        <h3 class="footer_tt">帮助中心</h3>
+         <ul class="footerlst">
+          <li><a href="/Activity/huodonginfo/info/20" target="_blank">主播管理规范</a></li>
+          <li><a href="/Activity/huodonginfo/info/21" target="_blank">用户管理规范</a></li>
+          <li><a href="/Activity/huodonginfo/info/22" target="_blank">富豪等级介绍</a></li>
+        </ul>
+      </div>
+      <div class="foot_serve fl">
+        <h3 class="footer_tt">官方微博</h3>
+        <ul class="footerlst">
+          <li><a href="http://weibo.com/5867750387/profile?topnav=1&wvr=6&is_all=1" target="_blank">新浪微博</a></li>
+          <li><a href="http://tieba.baidu.com/f?kw=%C3%C0%C0%F6%B2%A5&fr=index#" target="_blank">百度贴吧</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer2">
+    <div class="wrap clearfix">
+      <div class="footer_tt fl"><span>友情链接</span></div>
+      <div class="footer_link fl">
+         <a href="http://www.meilibo.net" target="_blank">美丽播</a><span class="footer_line">|</span><a href="http://www.workerman.net/" target="_blank">workerman</a>
+      </div>
+    </div>
+  </div>
+  <div class="footercopy">
+    <div class="wrap">
+      <p>美丽播 蜀ICP备14004509号</p>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(function(){
+    $("#sharebox").click(function(){
+      if($(".bdsharebuttonbox").css("display")=="none"){
+        $(".bdsharebuttonbox").show();
+      }else{
+        $(".bdsharebuttonbox").hide();
+      }
+      
+    })
+  })
+</script>
+</body>
+</html>

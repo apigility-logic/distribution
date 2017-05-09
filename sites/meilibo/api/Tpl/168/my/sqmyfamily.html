@@ -1,0 +1,132 @@
+<tagLib name="html" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>个人资料-个人中心-管理中心-{$sitename}</title>
+<link rel="stylesheet" href="/style/css/common.css" type="text/css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/common.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/index.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/user.css">
+<script language="javascript" src="/style/js/jquery.js"></script>
+<script language="javascript" src="/style/js/common.js"></script>
+<script language="javascript" src="/style/js/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" src="/style/js/areas.js"></script>
+<script language="javascript" type="text/javascript" src="/style/statics/js/admin_common.js"></script>
+<script type="text/javascript" src="/style/meilibo/js/logon-2.0.js"></script>
+</head>
+<body style="background:url(/style/meilibo/images/mod0_v2.jpg) no-repeat top center;">
+<include file="Public:header" />
+<div class="u_header">
+  <div class="wrap">
+    <div class="uphoto">
+       <img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$userinfo['id']|md5|substr=0,3}/{$userinfo['id']}_big.jpg" width="207" height="207"/>
+       <p class="bj_photo"><a href="/my/center_headerpic/"><span class="bjIcon"></span>更换头像</a></p>
+    </div>
+    <div class="userData">
+      <div class="clearfix">
+        <span class="u_nickname">{$userinfo['nickname']}</span>
+        <b class="starLV car{$userinfo['richlevelid']}"></b>      
+      </div>
+      <div class="level clearfix">
+        <span class="fl">秀币：{$userinfo['coinbalance']}</span>
+      </div>
+      <div class="level clearfix">
+        <span class="fl"><?php if (!empty($userinfo['bolevelname'])) { echo $userinfo['bolevelname']; }?></span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="u_tab">
+  <div class="wrap clearfix">
+    <div class="u_tab_left fl">
+      <a href="/my/center_editinfo/">个人设置<span class="arror"></span></a>
+      <a href="/my/mybills/">我的账单<span class="arror"></span></a>
+      <a href="/my/mytools/">我的道具<span class="arror"></span></a>
+      <a href="/my/mynumbers/">我的靓号<span class="arror"></span></a>
+      <a href="/my/mymanagers/">我的管理<span class="arror"></span></a>
+      <a  class="tabon"  href="/my/familyIJoin/">我的家族<span class="arror"></span></a>
+      <!-- <a href="/my/myfavor/">我的收藏<span class="arror"></span></a> -->
+      <a href="/my/mygods/">我的偶像<span class="arror"></span></a>
+      <a href="/my/myfans/">我的粉丝<span class="arror"></span></a>
+      <a href="/my/mylink/">我的推广链接<span class="arror"></span></a>
+    </div>
+    <div class="u_tab_right fr">
+      <a href="/{$_SESSION['roomnum']}">我的直播</a>
+      <a href="/my/charge/">充值</a>
+      <a href="/my/exchange/">兑换</a>
+      <a href="/my/settlement/">结算</a>
+    </div>
+  </div>
+</div>
+<script language="javascript">
+$(function(){
+   var sm = $('.utab a,.umyhelp a').setMyTab();
+ }
+)
+</script>
+<div class="myaccount wrap">
+<div class="account-l">
+<a href="/my/familyIJoin/" title="我加入的家族" >我加入的家族</a>
+    <a href="/my/familyICreate/" title="我建立的家族">我建立的家族</a>
+    <a href="/my/myfamily" title="我的家族资料" >我的家族资料</a>
+    <a href="/my/myfamilyimg" title="更换家族封面" >更换家族封面</a>
+    <a href="/my/myfamilyemcee/" title="我的家族成员">成员列表</a> 
+    <a href="/my/sqmyfamily/" title="申请管理" class="on">申请管理</a> 
+    <!-- <a href="/my/familyBadge/" title="我的家族徽章"  >我的家族徽章</a> -->
+    <a href="/my/familyPrerogative/" title="我的家族特权" >我的家族特权</a>
+    <a href="/my/familyOperationLog/"  title="我的操作记录">我的操作记录</a> 
+</div>
+      <div class="account-r">
+        <div class="grzl_r myfamilytable">
+          <table border="0" class="txt_table" style="width:100%">
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">用户名</th>
+                    <th scope="col">等级</th>
+                    <th scope="col">申请时间</th>
+                    <th scope="col">申请状态</th>
+                    <th scope="col">直播间</th>
+                    <th scope="col">管理项</th>
+                  </tr>
+                  <volist name="lists" id="vo">
+                  <tr>
+                    <td><strong>{$vo['id']}</strong></td>
+                    <td>{$vo['nickname']}</td>
+                    <td>{$vo['emceelevel'][0]['levelname']}</td>
+                    <td>{$vo['sqtime']|date="Y-m-d",###}</td>
+                    <td><if condition="$vo['zhuangtai']==0">
+                        未审核
+                        <elseif condition="$vo['zhuangtai']==1"/>
+                        已通过
+                        <elseif condition="$vo['zhuangtai']==2"/>
+                        未通过
+                        </if></td>
+                          <td>
+            <a style="color:#F78216" href="/{$vo['curroomnum']}" target="_blank">进入直播间</a>
+            </td> 
+                     <td><a class="blue" href="/my/edit_sqmyfamily/sqid/{$vo['id']}">点击审核</a> |
+            <a style="color:#F7141D" href="javascript:confirmurl('/my/del_sqmyfamily/sqid/{$vo['id']}/return/{$_SERVER["REQUEST_URI"]|base64_encode}', '是否删除该公告?')">删除</a></td>
+                  
+                  </tr>
+                  </volist>
+          </table>
+        </div>
+        <div style="padding-top:15px;">{$page}</div> 
+        <div class="clear"></div>
+      </div>
+    </div>
+
+<!--提示层-->
+        <div class="poptip" id="giveBox" style="display:none;">
+                <div class="pop-t"><span class="close" id="pop-close"></span><h3>提示</h3></div>    
+                <div class="pop-v">
+                    <p class="txt" id="pop-text">修改成功!</p>
+                    <p class="txt"><span class="sendBtn" id="pop-btnclose">确 定</span></p>
+                </div>
+            </div>
+        <!--提示层-->
+<include file="Public:footer" />
+</body>
+</html>
+

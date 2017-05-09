@@ -1,0 +1,311 @@
+<tagLib name="html" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="__PUBLIC__/meilibo/images/favicon.ico" rel="shortcut icon">
+<title>道具商城-管理中心-{$sitename}</title>
+<!-- <link rel="stylesheet" href="/style/css/common.css" type="text/css" /> -->
+  <link rel="stylesheet" type="text/css" href="/style/meilibo/css/common.css">
+  <link rel="stylesheet" type="text/css" href="/style/meilibo/css/user.css">
+  <link rel="stylesheet" href="/style/css/shop.css" type="text/css"  />
+  <link rel="stylesheet" href="/style/css/car/common.css" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="/style/meilibo/css/inside.css">
+  <script type="text/javascript" src="/style/meilibo/js/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" src="/style/meilibo/js/blocksit.min.js"></script>
+  <script type="text/javascript" src="/style/meilibo/js/common.js"></script>
+  <script type="text/javascript" src="/style/meilibo/js/wishing.js"></script>
+  <script type="text/javascript" src="/style/meilibo/js/logon-2.0.js"></script>
+  <script type="text/javascript" src="/style/meilibo/js/jquery.cookie.js"></script>
+  <script type="text/javascript" src="/style/meilibo/js/mymanage.js"></script>
+  <script type="text/javascript" src="/style/meilibo/js/usercenter.js"></script>
+<script>
+  UAC.showUserInfo = function(data) {if(data.isLogin == "1"){window.location.reload();}}
+</script>
+<script> 
+    try { document.domain = '{$domainroot}'; }
+    catch(e){}
+  </script>
+<script type="text/javascript">
+   $(function(){
+      var datalist;
+      var gsid;
+      var num = 0;
+      var more_s;
+      function getcon_init(sid)
+      {
+        
+        $.cookie("csid2015",sid,
+        {
+          path:"/",
+        })
+        
+        var setmap1;
+        setmap1 = $.cookie("setmap1");
+
+        var order;
+        order = $.cookie("order2015");
+        var province = $.cookie("province");
+        gsid = sid;
+
+        $("#conlist").html("<br /><br /><br />加载中...")
+        $(function()
+        {
+          $.get("__URL__/listbobo2",{sid:sid,setmap1:setmap1,order:order},function(data,t){
+            $("#conlist").html(data);
+            })
+      });
+      }
+      function getcon(sid)
+      {
+
+        getcon_init(sid);
+        //存cooike
+        $.cookie("csid2015",sid,
+        {
+          path:"/",
+        })
+        
+        var setmap1;
+        setmap1 = $.cookie("setmap1");
+        
+        var order;
+        order = $.cookie("order2015");
+        
+        var selectpro;
+
+        selectpro = $.cookie("province");
+        if(sid!=gsid)
+        {
+          num = 0;
+          $("#conlist").html("");
+        }
+          gsid = sid;
+
+          $(".hroom li").hover(function(){
+           $(this).find(".opac").css({"height":"135px"});
+         },function(){
+           $(this).find(".opac").css({"height":"22px"});
+         })  
+          //$("#conlist").html("<br /><br /><br />加载中...")
+          $(function()
+          {
+    
+            $.get("__URL__/listbobo2",{sid:sid,num:num,order:order,setmap1:setmap1},function(data,t){
+              //$("#conlist").html(data);
+              datalist = data;
+              })
+        });
+          
+      }
+      
+      $(function(){
+      //获取分类列表
+          $(window).scroll(function(){
+              // 当滚动到最底部以上50像素时， 加载新内容
+            if ($(document).height() - $(this).scrollTop() - $(this).height()<50){
+            }
+          });
+        //}
+        
+        //window resize
+        var currentWidth = 1100;
+        $(window).resize(function() {
+          var winWidth = $(window).width();
+          var conWidth;
+          if(winWidth < 660) {
+            conWidth = 440;
+            col = 2
+          } else if(winWidth < 880) {
+            conWidth = 660;
+            col = 3
+          } else if(winWidth < 1100) {
+            conWidth = 880;
+            col = 4;
+          } else {
+            conWidth = 1100;
+            col = 5;
+          }
+          
+        });
+      });
+      
+      function e_selectpro()
+      {
+        var t =  $(this).text();
+        $.cookie("province",t,
+        {
+          path:"/",
+        })
+        num = 0;
+        getcon_init($.cookie("csid2015"))
+
+        getcon($.cookie("csid2015"));
+      }
+  })
+  </script>
+<style type="text/css">
+body{background:#f5f5f5;}
+.shop_ico {
+  display: inline-block;
+  cursor: pointer;
+  width: 36px;
+  height: 21px;
+  line-height: 20px;
+  color: #fff;
+  margin-left:80px;
+  margin-top: -10px;
+}
+.shop_ico {
+font-size: 14px;
+  background-image: url(/style/images/shop_ico.png);
+  background-repeat: no-repeat;
+  display: inline-block;  text-align: center;
+}
+</style>
+<script type="text/javascript">
+//test
+    function buy(toolid,toolsubid){
+        var info=document.getElementById('info_'+toolsubid);
+        if(confirm("确认要购买此礼物吗?")){
+            jQuery.ajax({
+                type: "get",
+                dataType: "json",
+                url: "/my/buyTool/toolid/"+toolid+"/toolsubid/"+toolsubid+"/v/"+Math.random(),
+                beforeSend: function(XMLHttpRequest){
+                    info.innerHTML='<img src="/style/images/loading.gif"> ...';
+                },
+                success: function(data, textStatus){
+                    alert(data.msg);
+                    info.innerHTML="";
+                },
+                complete: function(XMLHttpRequest, textStatus){
+                    //alert('complete');                                            
+                },
+                error: function(){                    
+                    //inner.innerHTML='<font color=green>出错啦 稍后再试</font>';    
+                }
+            });    
+            
+        }
+    }
+</script>
+</head>
+<body>
+<include file="Public:header"/>
+<div class="shop_Tab_warp">
+  <div class="wrap shop_Tab">
+    <a href="/shop" class="shop_ico1">
+      <span class="shop_ico2 vip_icon">
+        <b>VIP</b>
+      </span>
+    </a>
+    <a href="/shop/index_zuojia" class="shop_ico1 on">
+      <span class="shop_ico3 vip_icon">
+        <b>座驾</b>
+      </span>
+    </a>
+    <a href="/shop/index_lianghao" class="shop_ico1">
+      <span class="shop_ico4 vip_icon">
+        <b>靓号</b>
+      </span>
+    </a>
+    <a href="/shop/index_shouhu" class="shop_ico1">
+      <span class="shop_ico5 vip_icon">
+        <b>守护</b>
+      </span>
+    </a>
+  </div>
+</div>
+<div class="h_shop">
+  <div class="usercenter">
+    <div class="wrap shop-product">
+        <div class="shop-product-hd"> 
+          <!-- <em class="png24 shop-floor">2F</em> -->
+          <h2>秀场座驾</h2>
+          <!-- <a class="png24 shop-more" href="#"></a>  -->
+        </div>
+        <div class="shop-product-bd shop-prop-bd">
+          <div class="car">
+            <div class="car_03 clearfix">
+            <?php if (!empty($tools)) { 
+            foreach ($tools as $k => $v) {
+            ?>
+            <div class="car_07">
+                <div class="car_01">
+                  <div class="car_02"><?php echo $v['toolname']?></div>
+                  <div class="car_04"><img src="/style/carpic/<?php echo $v['id']?>.png" width="160"></div>
+                  <b class="shop_ico" carid="<?php echo $v['id']?>" >
+                   预览
+                  </b>
+                </div>
+                <div class="car_05">售价：<?php echo $v['price']?>秀币/月</div>
+                <div class="car_06"><a href="#" onClick="buy('5','<?php echo $v['id']?>')">购买</a></div>
+                <div class="car_08"><span id="info_<?php echo $v['id']?>"></span></div>
+              </div>
+              
+            <?php }
+             }
+            ?>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+<include file="Public:footer" />
+<!--靓号弹出层-->
+<div id="giveBox" class="poptip">
+  <div class="pop-t">
+    <span class="close" onclick="Manage.closeBox();"></span>
+    <h3>提示</h3>
+  </div>
+  <div class="pop-v" id="goodnum-tip"></div>
+</div>
+<!--靓号弹出层-->
+<literal><script language="javascript">$(function(){$(".gn-text").ClearRoom();})</script></literal>
+</body>
+</html>
+<script>
+   $("dl.shop_time dd").click(function(){
+       $(this).addClass("on").siblings().removeClass("on");
+   })
+
+   // $(".shop_Tab a").click(function(){
+   //   $(this).addClass("on").siblings().removeClass("on");
+   //   var _index=$(this).index();
+   //   $(".usercenter").eq(_index).show().siblings().hide();
+   // })
+
+    $(".shop_lh_c .lh_search_sm").hover(function(){
+      $(".lh_search_sm_pop").show();
+    },function(){
+      $(".lh_search_sm_pop").hide();
+    })
+     $(".lh_tj_sm").hover(function(){
+      $(".lh_tj_sm_pop").show();
+     },function(){
+       $(".lh_tj_sm_pop").hide();
+     })
+    var c,l;
+    $(".car_01 b").click(function(){    
+    
+        var e=$(this).attr("carid");
+         
+            $("#yulan").remove();
+            $(this).append('<div  style="position:fixed; bottom:-10%;left:20%;   " id="yulan"><embed src="/style/car/'+e+'.swf" wmode="transparent" width="900" height="570" class="flash" type=""></div>');
+            clearTimeout(l);
+            l="2000011"==e||"2000012"==e||"2000014"==e?setTimeout(function(){ 
+              $("#yulan").remove();
+            },6e3):"2000013"==e?setTimeout(function(){ 
+                $("#yulan").remove();
+            },8e3):"2000123"==e?setTimeout(function(){ 
+               $("#yulan").remove();
+            },11e3):setTimeout(function(){ 
+              $("#yulan").remove(); 
+            },4e3);
+            
+    })
+
+</script>
+

@@ -1,0 +1,156 @@
+﻿<tagLib name="html" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>我的道具-管理中心-{$sitename}</title>
+<link rel="stylesheet" type="text/css" href="/style/meilibo/css/common.css">
+<link rel="stylesheet" type="text/css" href="/style/meilibo/css/user.css">
+<link rel="stylesheet" type="text/css" href="/style/meilibo/css/inside.css">
+<script language="javascript" src="/style/js/jquery.js"></script>
+<script type="text/javascript" src="__PUBLIC__/meilibo/js/jquery-1.8.3.min.js"></script>
+<script language="javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/style/meilibo/js/logon-2.0.js"></script>
+<script>
+    UAC.showUserInfo = function(data) {if(data.isLogin == "1"){window.location.reload();}}
+  </script>
+</head>
+<body style="background:url(/style/meilibo/images/mod0_v2.jpg) no-repeat top center;">
+<div class="headhead"></div>
+<include file="Public:header" />
+<div class="u_header">
+  <div class="wrap">
+    <div class="uphoto">
+       <img onerror="javascript:this.src='/style/avatar/0/0_big.jpg'" src="/style/avatar/{$userinfo['id']|md5|substr=0,3}/{$userinfo['id']}_big.jpg" width="207" height="207"/>
+       <p class="bj_photo"><a href="/my/center_headerpic/"><span class="bjIcon"></span>更换头像</a></p>
+    </div>
+    <div class="userData">
+      <div class="clearfix" id="vo">
+        <span class="u_nickname">{$userinfo['nickname']}</span>
+        <b class="starLV car{$userinfo['richlevelid']}"></b>
+        
+      </div>
+      <div class="level clearfix">
+        <span class="fl">秀币：{$userinfo['coinbalance']}</span>
+      </div>
+            <div class="level clearfix">
+        <span class="fl"><?php if (!empty($userinfo['bolevelname'])) { echo $userinfo['bolevelname']; }?></span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="u_tab">
+  <div class="wrap clearfix">
+    <div class="u_tab_left fl">
+      <a href="/my/center_editinfo/">个人设置<span class="arror"></span></a>
+      <a href="/my/mybills/">我的账单<span class="arror"></span></a>
+      <a class="tabon" href="/my/mytools/">我的道具<span class="arror"></span></a>
+      <a href="/my/mynumbers/">我的靓号<span class="arror"></span></a>
+      <a href="/my/mymanagers/">我的管理<span class="arror"></span></a>
+      <a href="/my/familyIJoin/">我的家族<span class="arror"></span></a>
+      <!-- <a href="/my/myfavor/">我的收藏<span class="arror"></span></a> -->
+      <a href="/my/mygods/">我的偶像<span class="arror"></span></a>
+      <a href="/my/myfans/">我的粉丝<span class="arror"></span></a>
+      <a href="/my/mylink/">我的推广链接<span class="arror"></span></a>
+    </div>
+    <div class="u_tab_right fr">
+      <a href="/{$_SESSION['roomnum']}">我的直播</a>
+      <a href="/my/charge/">充值</a>
+      <a href="/my/exchange/">兑换</a>
+      <a href="/my/settlement/">结算</a>
+    </div>
+  </div>
+</div>
+<div class="wrap">
+<div class="usercenter">
+<script language="javascript">
+$(function(){
+   var sm = $('.utab a,.umyhelp a').setMyTab();
+ }
+)
+</script>
+        <div class="usercenter_con" style="padding-top:10px;">
+            <div class="djsc_top mydj">
+                <a href="/my/mytools/" class="mydaoju fl ">道具</a>
+                <a href="/my/mytools2/" class="mydaoju active fl">座驾</a>
+                <span class="fr" style="margin-top:15px;"><a href="/shop" class="djbuy">购买道具</a></span>
+            </div>
+            <div class="djsc_list">
+                <div class="daocon zuojia_list">
+                  <table border="0" class="txt_table">
+                    <tr>
+                      <th scope="col">座驾</th>
+                      <th scope="col">获取时间</th>
+                      <th scope="col">到期时间</th>
+                      <th scope="col">状态</th>
+                      <th scope="col">操作项</th>
+                    </tr>
+                    <?php if (!empty($mytools)) {
+                        foreach ($mytools as $k => $v) {
+                    ?>
+                    <tr>
+                      <td class="daojuimg"><img src="/style/carpic/<?php echo $v['toolsid']?>.png"><?php echo $v['toolname']?></td>
+                      <td><?php echo date('Y-m-d H:i:s', $v['addtime']); ?></td>
+                      <td><?php echo date('Y-m-d H:i:s', $v['extime']); ?></td>
+                      <td>
+                          <a href="#" class="c1 shiyong" style="display:<?php if ($userinfo['toolsid']==$v['toolsid']) {?>block;<?php } else {?>none;<?php }?>">正在使用</a>
+                          <a href="#" class="c1 tingyong" style="display:<?php if ($userinfo['toolsid']==$v['toolsid']) {?>none;<?php } else {?>block;<?php }?>;">停用</a>
+                      </td>
+                      <td class="numdeal">
+                        <a href="javascript:qiyong(<?php echo $v['toolsid']?>);" id="qy<?php echo $v['toolsid']?>" class="qybutton c1">启用</a>
+                        <a class="ci shop_ico" carid="<?php echo $v['toolsid']?>" >预览</a>
+                      </td>
+                    </tr>
+                    <?php 
+                    }
+                    }?>
+                  </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Public:footer" />
+<script type="text/javascript"> 
+    function qiyong(toolid){
+        if(confirm("确认要启用此座驾吗?")){
+            jQuery.ajax({
+                type: "get",
+                dataType: "json",
+                url: "/my/setTool/toolid/"+toolid+"/v/"+Math.random(),
+                success: function(data, textStatus){
+                    alert(data.msg);
+                    window.location.reload(); 
+                },
+                complete: function(XMLHttpRequest, textStatus){
+                    
+                },
+                error: function() {
+                    alert("启用失败 ");
+                }
+            });
+            
+        }
+    }
+$(function(){
+  var c,l;
+    $(".numdeal .shop_ico").click(function(){    
+        var e=$(this).attr("carid");
+            $("#yulan").remove();
+            $(this).append('<div  style="position:fixed; bottom:-10%;left:30%;   " id="yulan"><embed src="/style/car/'+e+'.swf" wmode="transparent" width="900" height="570" class="flash" type=""></div>');
+            clearTimeout(l);
+            l="2000011"==e||"2000012"==e||"2000014"==e?setTimeout(function(){ 
+              $("#yulan").remove();
+            },15e3):"2000013"==e?setTimeout(function(){ 
+                $("#yulan").remove();
+            },17e3):"2000123"==e?setTimeout(function(){ 
+               $("#yulan").remove();
+            },20e3):setTimeout(function(){ 
+              $("#yulan").remove(); 
+            },13e3);
+            
+    })
+})
+</script>
+</body>
+</html>
