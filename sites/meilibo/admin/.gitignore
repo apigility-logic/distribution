@@ -1,11 +1,8 @@
-style
-style/
-./style
-.buildpath
-.hgignore
-.project
-.settings
-.idea
+/2016168/style/*
+!/2016168/style/.gitkeep
 
 /2016168/Runtime/*
-/nbproject/private/
+!/2016168/Runtime/.gitkeep
+
+/sign/Admin/Runtime/*
+!/sign/Admin/Runtime/.gitkeep
