@@ -29,7 +29,7 @@ services:
       - "7272:7272"
       - "1236:1236"
     volumes:
-      - "./sites/meilibo/chatroom:/app"
+      - "./sites/meilibo/ChatRoom:/app"
       - "./data/php/session/meilibo/chatroom:/var/lib/php/session"
     restart: always
 
