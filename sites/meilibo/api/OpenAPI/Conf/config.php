@@ -42,7 +42,7 @@ return array(
     'ROOM_COUNT' => 'ROOM_COUNT_ALL', //所有房间数. 
     'ROOM_STATUS_PREFIX'=>'PHPCHAT_ROOM_', // 房间状态信息，房主/禁言列表等.
     'LIVE_STATUS_PREFIX' => 'ROOM_ANCHOR_ONLINE_PREFIX_',
-    'REGISTER_ADDRESS' => '11.113:1236',
+    'REGISTER_ADDRESS' => 'meilibo_chatroom:1236',
     'QINIU_LIVE_ROOM_ADDR' => 'QINIU_DEMO_ADDR_XXXXXX_',
     'JMESSAGE' => array(
         'APPKEY' => 'd6c4ba516dc1702bf597fd3d',
