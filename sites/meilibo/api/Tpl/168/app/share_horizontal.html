@@ -9,7 +9,7 @@
   <meta http-equiv="X-UA-Compatible"content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="__PUBLIC__/meilibo/images/favicon.ico" rel="shortcut icon">
-  <title>美丽播分享</title>
+  <title>喵榜直播分享</title>
   <link rel="stylesheet" type="text/css" href="__PUBLIC__/meilibo/css/style.css">
   <script type="text/javascript" src="__PUBLIC__/meilibo/js/jquery-1.8.3.min.js"></script>
  </head>
@@ -88,14 +88,14 @@
 		    		<span class="tshare_pic"><img src="__PUBLIC__/avatar/{$user['id']|md5|substr=0,3}/{$user['id']}.jpg" onerror="this.src='__PUBLIC__/images/default.gif'" width="50" height="50"></span>
 		    		<div class="tshare_intro">
 		    			<p class="anchor_info"><a>{$user['nickname']}</a><b><img src="__PUBLIC__/meilibo/images/sex<?php echo $user['sex'] == 0 ? 0 : 1;?>.png" width="15"></b></p>
-		    			<p class="ancor_hao">美丽播号：{$user['id']}</p>
+		    			<p class="ancor_hao">喵榜直播号：{$user['id']}</p>
 		    		</div>
 		    		<a class="follow_btn" href="#">关注</a>
 		    	</dd>
 		    </dl>
 		</div>
 		<div class="share_hot_tab">
-			<span class="active">美丽播热门</span>
+			<span class="active">喵榜直播热门</span>
 			<span>她的精彩回放</span>
 		</div>
 
@@ -124,7 +124,7 @@
 		</div>
 		<div class="share_code">
 			<img src="__PUBLIC__/meilibo/images/app.png">
-			<p>扫码下载美丽播直播</p>
+			<p>扫码下载喵榜直播</p>
 		</div>
    </div>
 	<script type="text/javascript" src="__PUBLIC__/sewise_player/sewise.player.min.js"></script>

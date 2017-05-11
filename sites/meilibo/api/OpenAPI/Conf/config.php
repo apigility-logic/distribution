@@ -63,7 +63,7 @@ return array(
             'CHECK_NAME' => 'OPTION_CHECK',
             ),
         'ALIPAY' => array(
-            'SUBJECT'=>'美丽播秀币购买',
+            'SUBJECT'=>'喵榜直播秀币购买',
             'SERVICE'=>'mobile.securitypay.pay',
             'PARTNER'=>2711910502712,
             'INPUT_CHARSET'=>'utf-8',

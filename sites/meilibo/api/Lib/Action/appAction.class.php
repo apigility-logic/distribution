@@ -989,8 +989,8 @@ class appAction extends BaseAction
         $nonce_str = $this->getRandomStr();
         $param = array(
             'appid'=> static::$configWeiXin['APPID'],
-            'body'=>'美丽播直播',
-            'detail'=>'美丽播秀币购买',
+            'body'=>'喵榜直播',
+            'detail'=>'喵榜直播秀币购买',
             'fee_type'=> 'CNY',
             'mch_id'=> static::$configWeiXin['MCHID'],
             'nonce_str'=>$this->getRandomStr(),
