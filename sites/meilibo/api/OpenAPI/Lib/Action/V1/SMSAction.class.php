@@ -172,7 +172,7 @@ class SMSAction extends BaseAction
         $code = $this->generateRandomStr($this->captcha_length);
         $expired_time = 5; // 单位分钟.
         $msg = array("mobile"=> $phone, "message"=>L('_SMS_MESSAGE_ONE_').$code.L('_SMS_MESSAGE_TOW_')."【喵榜直播】");
-        $this->mmc->set('verify_code_'.$phone, $code, $expired_time * 60);
+        $this->mmc->set('verify_code_'.$phone, $code/*, $expired_time * 60*/);
         try {
 
 
