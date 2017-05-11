@@ -25,7 +25,7 @@ return array(
     'SESSION_PREFIX' => 'PHPCHAT_SESSION_',
     'MEM_CACHE' => array(
         'expired_time' => 24 * 60 * 60 * 30,
-        'mem_server' => '127.0.0.1:11211',
+        'mem_server' => 'memcached:11211',
     ),
     'ROBOT'=>array(
             // 永久在线房间列表
