@@ -165,8 +165,8 @@ return array(
     '_PHONENUM_NOT_R_'  =>  '手机号不正确',
     '_OPERATION_TOO_FREQUENT_'  =>'操作太过于频繁',
 
-    '_SMS_MESSAGE_ONE_' =>  '【美丽播直播服务】您的验证码为:',
-    '_SMS_MESSAGE_TOW_' =>  '，5分钟内有效，切勿告知任何人。【美丽播】',
+    '_SMS_MESSAGE_ONE_' =>  '【喵榜直播】您的验证码为:',
+    '_SMS_MESSAGE_TOW_' =>  '，5分钟内有效，切勿告知任何人。【喵榜直播】',
     '_CODE_FAILED_' =>  '发送验证码失败,请稍后重试',
     '_CODE_SUCCESS_' =>  '验证码已经发送成功',
     '_CODE_TYPE_FAILED_'    =>  '验证码格式不正确',
