@@ -320,9 +320,9 @@ class SMSAction extends BaseAction
             $code = $captcha = 88888;
         }
         if ($code == null) {
-            $this->responseError(L('_CODE_OVERDUE_'), 1);
+            //$this->responseError(L('_CODE_OVERDUE_'), 1);
         } else if ($code != $captcha){
-            $this->responseError(L('_CODE_FAIL_'), 2);
+            //$this->responseError(L('_CODE_FAIL_'), 2);
         }
         $user_info = M('member')->where(array('mobile' => $phone))->find();
         if (empty($user_info)) {
