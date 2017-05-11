@@ -9,3 +9,5 @@ EXPOSE 7272
 EXPOSE 1236
 
 COPY workman_start.sh /entrypoint.d/workman_start.sh
+
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime;

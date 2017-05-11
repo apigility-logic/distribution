@@ -11,3 +11,5 @@ RUN sed -i 's#/etc/nginx/conf.d/\*.conf;#/opt/docker/etc/nginx/meilibo/server.co
 COPY ioncube/ioncube_loader_lin_5.6.so /opt/docker/etc/php/ioncube/ioncube_loader.so
 COPY ioncube/ioncube.ini /etc/php.d/00-ioncube.ini
 COPY ioncube/license5.6.txt /license.txt
+
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime;
