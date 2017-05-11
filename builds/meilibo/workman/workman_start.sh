@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-php /app/start.php start
+php /app/start.php start -d
