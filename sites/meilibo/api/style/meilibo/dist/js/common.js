@@ -1,7 +1,7 @@
 /**
 *直播间js
 *编码utf8
-*美丽播
+*喵榜直播
 */
 
 //设置礼物id giftid，礼物需要金额giftmoney，余额money

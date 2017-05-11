@@ -171,7 +171,7 @@ class SMSAction extends BaseAction
         $ua->accountStatus("sms",$phone);
         $code = $this->generateRandomStr($this->captcha_length);
         $expired_time = 5; // 单位分钟.
-        $msg = array("mobile"=> $phone, "message"=>L('_SMS_MESSAGE_ONE_').$code.L('_SMS_MESSAGE_TOW_')."【美丽播直播服务】");
+        $msg = array("mobile"=> $phone, "message"=>L('_SMS_MESSAGE_ONE_').$code.L('_SMS_MESSAGE_TOW_')."【喵榜直播】");
         $this->mmc->set('verify_code_'.$phone, $code, $expired_time * 60);
         try {
 
@@ -222,7 +222,7 @@ class SMSAction extends BaseAction
         $code = $this->generateRandomStr($this->captcha_length);
         $expired_time = 5; // 单位分钟.
         $this->mmc->set('verify_code_'.$phone, $code, $expired_time * 60);
-        $data = array('templateid' => '10008', 'mobiles' => '["'.$phone.'"]', 'params' => '["美丽播直播用户", "'.$code.'"]');
+        $data = array('templateid' => '10008', 'mobiles' => '["'.$phone.'"]', 'params' => '["喵榜直播用户", "'.$code.'"]');
         $curTime = time();
         $checkSum = sha1($appSecret . $nonce . $curTime);
         $data = http_build_query($data);
@@ -281,7 +281,7 @@ class SMSAction extends BaseAction
             'account'=>'haienwl888',
             'pswd'=>'Hewl123456',
             'mobile'=>$phone,
-            'msg'=>"【美丽播直播服务】您的验证码为: ".$code."，5分钟内有效，切勿告知任何人。【美丽播】",
+            'msg'=>"【喵榜直播服务】您的验证码为: ".$code."，5分钟内有效，切勿告知任何人。【喵榜直播】",
             'needstatus'=>true,
             );
 

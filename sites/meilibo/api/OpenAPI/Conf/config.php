@@ -63,7 +63,7 @@ return array(
             'CHECK_NAME' => 'OPTION_CHECK',
             ),
         'ALIPAY' => array(
-            'SUBJECT'=>'美丽播秀币购买',
+            'SUBJECT'=>'喵榜直播秀币购买',
             'SERVICE'=>'mobile.securitypay.pay',
             'PARTNER'=>2711910502712,
             'INPUT_CHARSET'=>'utf-8',
@@ -92,6 +92,6 @@ return array(
         'APPID' => 'wx382569729fa1f25f',
         'APPSECRET'=> 'ca89764e8ef2e257e006346a0152b2c4',
     ),
-   "SEND_MSG_SECRET_KEY"=> '6f6904f60799b3942434f0a0d06b418e',
+   "SEND_MSG_SECRET_KEY"=> '5252b7f1f0ef4faee628d525afdfe2ba',
 );
 

@@ -1,7 +1,7 @@
 /**
 *直播间js
 *编码utf8
-*美丽播
+*喵榜直播
 */
 
 var point_val=10,bglance_money=parseInt($(".bglance_money").text());

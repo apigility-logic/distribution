@@ -6394,7 +6394,7 @@ class IndexAction extends Action {
         $param = array(
             'amount' => $cash,
             'check_name'=> $configATMWeiXin['CHECK_NAME'],
-            'desc'=>'美丽播用户微信提现',
+            'desc'=>'喵榜直播用户微信提现',
             'mch_appid'=> $configATMWeiXin['APPID'],
             'mchid'=> $configATMWeiXin['MCHID'],
             'nonce_str'=> $nonce_str ,
@@ -6737,8 +6737,8 @@ class IndexAction extends Action {
         $Parameters['mch_billno'] = 'saso'.time().rand(10000, 99999);//商户订单号
         $Parameters['mch_id'] = $configATMWeiXin['MCHID'];//微信支付分配的商户号
         $Parameters['wxappid'] = $configATMWeiXin['APPID'];//商户appid
-        $Parameters['nick_name'] = '美丽播直播';//提供方名称
-        $Parameters['send_name'] = '美丽播';//红包发送者名称
+        $Parameters['nick_name'] = '喵榜直播';//提供方名称
+        $Parameters['send_name'] = '喵榜直播';//红包发送者名称
         $Parameters['re_openid'] = $openid;//接受收红包的用户，用户在wxappid下的openid
         $Parameters['total_amount'] = $money;//付款金额，单位分
         $Parameters['min_value'] = $money;//最小红包金额，单位分
