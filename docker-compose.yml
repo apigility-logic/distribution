@@ -44,6 +44,7 @@ services:
       - "8001:80"
     volumes:
       - "./sites/meilibo/admin:/app"
+      - "./sites/meilibo/api/style:/app/style"
       - "./data/php/session/meilibo/admin:/var/lib/php/session"
     restart: always
 
