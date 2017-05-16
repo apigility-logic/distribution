@@ -1,0 +1,133 @@
+<extend name="Public/base"/>
+
+<block name="script">
+    <script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+    <script type="text/javascript">
+        $('.picker-datetime').datetimepicker({
+            format: 'yyyy-mm-dd hh:ii:ss',
+            language: "zh-CN",
+            minView: 2,
+            autoclose: true
+        });
+        $('.picker-date').datetimepicker({
+            format: 'yyyy-mm-dd',
+            language: "zh-CN",
+            minView: 2,
+            autoclose: true
+        });
+        $('.upload_image').each(function () {
+            var id = $(this).attr('id');
+            var target = $(this).next();
+            $('#' + id).uploadify({
+                height: 30,
+                swf: "__STATIC__/uploadify/uploadify.swf",
+                fileObjName: "download",
+                buttonText: "上传图片",
+                uploader: "{:Url('Media/image',array('session_id'=>session_id()))}",
+                width: 120,
+                removeTimeout: 1,
+                fileTypeExts: '*.jpg; *.png; *.gif;',
+                onUploadSuccess: function (event, response, status) {
+                    var json = $.parseJSON(response);
+                    if (json.status) {
+                        $(target).val(json.data.savepath);
+                        if ($(target).next().find('img').length == 0) {
+                            var html = '<div class="upload-pre-item">';
+                            html += "<div class=\"delete-item\"></div>";
+                            html += '<img data-path="' + json.data.savepath + '" src="' + json.data.thumb + '",  data-origin="' + json.data.filepath + '"></div>';
+                            $(target).next().append(html);
+                        } else {
+                            var img = $(target).next().find('img');
+                            img.attr('data-path', json.data.savepath);
+                            img.attr('src', json.data.thumb);
+                            img.attr('data-origin', json.data.filepath);
+                        }
+                    } else {
+                        updateAlert(json.info);
+                    }
+                },
+                onFallback: function () {
+                    alert('未检测到兼容版本的Flash.');
+                }
+            });
+        });
+        $('.upload_images').each(function () {
+            var id = $(this).attr('id');
+            var target = $(this).next();
+            $('#' + id).uploadify({
+                height: 30,
+                swf: "__STATIC__/uploadify/uploadify.swf",
+                fileObjName: "download",
+                buttonText: "上传图片",
+                uploader: "{:Url('Media/image',array('session_id'=>session_id()))}",
+                width: 120,
+                removeTimeout: 1,
+                fileTypeExts: '*.jpg; *.png; *.gif;',
+                onUploadSuccess: function (event, response, status) {
+                    var json = $.parseJSON(response);
+                    if (json.status) {
+                        var html = '<div class="upload-pre-item" style="float:left;">';
+                        html += "<div class=\"delete-item\"></div>";
+                        html += '<img data-path="' + json.data.savepath + '" src="' + json.data.thumb + '",  data-origin="' + json.data.filepath + '"></div>';
+                        $(target).next().append(html);
+                        var value = $(target).val();
+                        $(target).val(value === '' ? json.data.savepath : value + ',' + json.data.savepath);
+                    } else {
+                        updateAlert(json.info);
+                    }
+                },
+                onFallback: function () {
+                    alert('未检测到兼容版本的Flash.');
+                }
+            });
+        });
+        $('#submit').click(function () {
+            $('#form').submit();
+        });
+    </script>
+</block>
+
+<block name="content">
+    <!-- 标签页导航 -->
+    <div class="row">
+        <div class="col-xs-12">
+            <form id="form" action="{:Url(()}" method="post" role="form" class="form-horizontal">
+                <div class="box box-primary">
+                    <div class="box-header">
+
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+
+                                <!--<if condition="$data">-->
+                                <input type="hidden" name="id" value="{$data.id}"/>
+                                <!--</if>-->
+                                <!--<volist name="form" id="group">-->
+                                <div id="tab{$key}" class="tab-pane tab{$key} {$i == 1 ? 'in' : ''}">
+                                    <!-- 表单 -->
+                                    {$group}
+                                </div>
+                                <!--</volist>-->
+                                <div class="form-item cf">
+                                    <input type="hidden" name="id" value="{$data.id}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-sm-12 text-right">
+                                <button class="btn btn-default" onclick="javascript:history.back(-1);">取 消
+                                </button>
+                                <button class="btn btn-primary ajax-post" id="submit" type="submit" style="margin-left: 15px;"
+                                        target-form="form-horizontal">确 定
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</block>

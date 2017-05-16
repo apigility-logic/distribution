@@ -1,0 +1,112 @@
+<extend name="Public/base"/>
+
+<block name="style">
+    <link rel="stylesheet" href="__ADMIN__/plugins/datatables/dataTables.bootstrap.css">
+    <style>
+        table#example2 td{
+            vertical-align: middle;
+        }
+    </style>
+</block>
+<block name="script">
+
+</block>
+
+<block name="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header">
+
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="dataTables_wrapper form-inline dt-bootstrap">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <empty name="model.extend">
+                                    <div class="text-left" style="margin-bottom:15px;">
+                                        <if condition="in_array('add',$model['list_action']) and check_action_priv('add')">
+                                            <a class="btn btn-success" href="{:Url('add', $_GET)}">新 增</a>
+                                        </if>
+                                        <if condition="in_array('delete',$model['list_action']) and check_action_priv('delete')">
+                                            <button class="btn btn-default ajax-post confirm" target-form="ids" url="{:Url('delete')}">删 除</button>
+                                        </if>
+                                        <if condition="in_array('export',$model['list_action'])">
+                                            <a class="btn"
+                                               href="{:Url('lists', array_merge($_GET,array('export' => 1)))}">导 出</a>
+                                        </if>
+                                        <if condition="is_array($model['list_action']['button'])">
+                                            <volist name="model['list_action']['button']" id="button">
+                                                <a class="btn" href="{:Url($button['url'], $_GET)}">{$button.label}</a>
+                                            </volist>
+                                        </if>
+                                    </div>
+                                </empty>
+                            </div>
+                            <div class="col-sm-7">
+                                <!-- 高级搜索 -->
+                                <div class="text-right" style="margin-bottom:15px;">
+                                    <form action="{:Url('lists')}" method="get" id="search-form" class="form-horizontal">
+                                        {:get_list_search_form($model['search_fields'])}
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12" style="overflow: auto">
+                                <table id="example2" class="table table-bordered table-hover" style="min-width: 800px;">
+                                    <!-- 表头 -->
+                                    <thead>
+                                    <tr>
+                                        <th class="row-selected row-selected" style="width:20px;">
+                                            <input class="check-all" type="checkbox">
+                                        </th>
+                                        <!--<volist name="model.list_grids" id="grid">-->
+                                        <th>{$grid.1}</th>
+                                        <!--</volist>-->
+                                        <!--<if condition="$model['list_action']">-->
+                                        <th>操作</th>
+                                        <!--</if>-->
+                                    </tr>
+                                    </thead>
+
+                                    <!-- 列表 -->
+                                    <tbody>
+                                    <!--<volist name="list_data" id="data">-->
+                                    <tr>
+                                        <td><input class="ids" type="checkbox" value="{$data['id']}" name="ids[]"></td>
+                                        <!--<volist name="model.list_grids" id="grid">-->
+                                        <td>{:get_list_field($data,$grid)}</td>
+                                        <!--</volist>-->
+                                        <!--<if condition="$model['list_action']">-->
+                                        <td style="min-width: 80px;">
+                                            <!--<volist name="model['list_action']" id="action">-->
+                                            {:get_list_action($action,$data)}
+                                            <!--</volist>-->
+                                        </td>
+                                        <!--</if>-->
+                                    </tr>
+                                    <!--</volist>-->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
+                                    共{$count}条记录
+                                </div>
+                            </div>
+                            <div class="col-sm-7">
+                                <div class="dataTables_paginate paging_simple_numbers">
+                                    {$page|default=''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
