@@ -2,4 +2,4 @@
 .idea/
 data/mysql/data/*
 data/php/session/*
-
+.DS_Store
