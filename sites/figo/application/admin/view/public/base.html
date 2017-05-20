@@ -10,35 +10,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <title>Swift | Admin</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="__ADMIN__/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{:request()->root()}/static/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">-->
     <!-- Theme style -->
-    <link rel="stylesheet" href="__ADMIN__/dist/css/AdminLTE.min.css">
-    <link rel="stylesheet" href="__ADMIN__/dist/css/style.css">
+    <link rel="stylesheet" href="{:request()->root()}/static/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="{:request()->root()}/static/dist/css/style.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="__ADMIN__/dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="{:request()->root()}/static/dist/css/skins/_all-skins.min.css">
     <!-- iCheck -->
-    <link rel="stylesheet" href="__ADMIN__/plugins/iCheck/flat/blue.css">
+    <!--<link rel="stylesheet" href="{:request()->root()}/static/plugins/iCheck/flat/blue.css">-->
     <!-- Morris chart -->
-    <link rel="stylesheet" href="__ADMIN__/plugins/morris/morris.css">
+    <!--<link rel="stylesheet" href="{:request()->root()}/static/plugins/morris/morris.css">-->
     <!-- jvectormap -->
-    <link rel="stylesheet" href="__ADMIN__/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+    <!--<link rel="stylesheet" href="{:request()->root()}/static/plugins/jvectormap/jquery-jvectormap-1.2.2.css">-->
     <!-- Date Picker -->
-    <!--<link rel="stylesheet" href="__ADMIN__/plugins/datepicker/datepicker3.css">-->
-    <link href="__ADMIN__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+    <!--<link rel="stylesheet" href="{:request()->root()}/static/plugins/datepicker/datepicker3.css">-->
+    <!--<link href="{:request()->root()}/static/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">-->
     <!-- Daterange picker -->
-    <!--<link rel="stylesheet" href="__ADMIN__/plugins/daterangepicker/daterangepicker.css">-->
+    <!--<link rel="stylesheet" href="{:request()->root()}/static/plugins/daterangepicker/daterangepicker.css">-->
     <!-- bootstrap wysihtml5 - text editor -->
-    <link rel="stylesheet" href="__ADMIN__/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    <!--<link rel="stylesheet" href="{:request()->root()}/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">-->
 
-    <block name="style"></block>
+    {block name="style"}{/block}
 
     <!-- jQuery 2.2.3 -->
-    <script src="__ADMIN__/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="{:request()->root()}/static/plugins/jQuery/jquery-2.2.3.min.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -63,13 +63,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <ul class="nav navbar-nav">
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="__ADMIN__/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                            <img src="{:request()->root()}/static/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                             <span class="hidden-xs">{:session('user_info.username')}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <img src="__ADMIN__/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                <img src="{:request()->root()}/static/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                                 <p>
                                     {:session('user_info.username')} - {:session('user_info.real_name')}
                                 </p>
@@ -77,10 +77,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="{:U('/Admin/AdminUser/edit', array('id' => $uid))}" class="btn btn-default btn-flat">个人信息</a>
+                                    <a href="{:Url('/Admin/AdminUser/edit', array('id' => session('user_info.id')))}" class="btn btn-default btn-flat">个人信息</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="{:U('/Admin/Auth/logout')}" class="btn btn-default btn-flat">登 出</a>
+                                    <a href="{:Url('/Admin/Auth/logout')}" class="btn btn-default btn-flat">登 出</a>
                                 </div>
                             </li>
                         </ul>
@@ -96,7 +96,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="__ADMIN__/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    <img src="{:request()->root()}/static/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
                     <p>{:session('user_info.username')}</p>
@@ -106,27 +106,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
                 <li class="header">导航</li>
-                <volist name="menus" id="menu">
+                {volist name="menus" id="menu"}
                     <li class="treeview {$menu['active']?'active':''}">
-                        <a href="{:U($menu['name'])}">
-                            <i class="fa fa-dashboard"></i> <span>{$menu['title']}</span>
-                            <if condition="count($menu['child']) gt 0">
+                        <a href="{:Url($menu['name'])}">
+                            <i class="{$menu['icon']}"></i> <span>{$menu['title']}</span>
+                            {if condition="count($menu['child']) gt 0"}
                                 <span class="pull-right-container">
                                   <i class="fa fa-angle-left pull-right"></i>
                                 </span>
-                            </if>
+                            {/if}
                         </a>
-                        <if condition="count($menu['child']) gt 0">
+                        {if condition="count($menu['child']) gt 0"}
                             <ul class="treeview-menu">
-                                <volist name="menu['child']" id="child">
-                                    <li class="{$child['active']?'active':''}"><a href="{:U($child['name'])}"><i
-                                            class="fa fa-circle-o"></i>
+                                {volist name="menu['child']" id="child"}
+                                    <li class="{$child['active']?'active':''}"><a href="{:Url($child['name'])}"><i
+                                            class="{$child['icon']}"></i>
                                         {$child['title']} </a></li>
-                                </volist>
+                                {/volist}
                             </ul>
-                        </if>
+                        {/if}
                     </li>
-                </volist>
+                {/volist}
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -136,16 +136,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                {$cur_menu['title']}
+                {$cur_menu['title']|default=''}
             </h1>
             <ol class="breadcrumb">
-                <volist name="cur_menu['crumb']" id="crumb">
-                    <li><a href="{:U($crumb['name'])}"> {$crumb['title']} </a></li>
-                </volist>
+                {volist name="cur_menu['crumb']" id="crumb"}
+                    <li><a href="{:Url($crumb['name'])}"> {$crumb['title']|default=''} </a></li>
+                {/volist}
             </ol>
         </section>
         <section class="content">
-            <block name="content"></block>
+            {block name="content"}{/block}
             <div style="position: fixed;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);min-width: 200px;">
                 <div id="upload-alert" class="alert alert-info alert-dismissible" style="display: none;">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -158,42 +158,41 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 <!-- jQuery UI 1.11.4 -->
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<!--<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>-->
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
-    $.widget.bridge('uibutton', $.ui.button);
+//    $.widget.bridge('uibutton', $.ui.button);
 </script>
 <!-- Bootstrap 3.3.7 -->
-<script src="__ADMIN__/bootstrap/js/bootstrap.min.js"></script>
+<script src="{:request()->root()}/static/bootstrap/js/bootstrap.min.js"></script>
 <!-- Morris.js charts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="__ADMIN__/plugins/morris/morris.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>-->
+<!--<script src="{:request()->root()}/static/plugins/morris/morris.min.js"></script>-->
 <!-- Sparkline -->
-<script src="__ADMIN__/plugins/sparkline/jquery.sparkline.min.js"></script>
+<!--<script src="{:request()->root()}/static/plugins/sparkline/jquery.sparkline.min.js"></script>-->
 <!-- jvectormap -->
-<script src="__ADMIN__/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-<script src="__ADMIN__/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<!--<script src="{:request()->root()}/static/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>-->
+<!--<script src="{:request()->root()}/static/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>-->
 <!-- jQuery Knob Chart -->
-<script src="__ADMIN__/plugins/knob/jquery.knob.js"></script>
+<!--<script src="{:request()->root()}/static/plugins/knob/jquery.knob.js"></script>-->
 <!-- daterangepicker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-<!--<script src="__ADMIN__/plugins/daterangepicker/daterangepicker.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>-->
+<!--<script src="{:request()->root()}/static/plugins/daterangepicker/daterangepicker.js"></script>-->
 <!-- datepicker -->
-<!--<script src="__ADMIN__/plugins/datepicker/bootstrap-datepicker.js"></script>-->
-<script src="__ADMIN__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript" src="__ADMIN__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<!--<script src="{:request()->root()}/static/plugins/datepicker/bootstrap-datepicker.js"></script>-->
+
 <!-- Bootstrap WYSIHTML5 -->
-<script src="__ADMIN__/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<!--<script src="{:request()->root()}/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>-->
 <!-- Slimscroll -->
-<script src="__ADMIN__/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!--<script src="{:request()->root()}/static/plugins/slimScroll/jquery.slimscroll.min.js"></script>-->
 <!-- FastClick -->
-<script src="__ADMIN__/plugins/fastclick/fastclick.js"></script>
+<!--<script src="{:request()->root()}/static/plugins/fastclick/fastclick.js"></script>-->
 <!-- AdminLTE App -->
-<script src="__ADMIN__/dist/js/app.js"></script>
+<script src="{:request()->root()}/static/dist/js/app.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="__ADMIN__/dist/js/pages/dashboard.js"></script>
+<!--<script src="{:request()->root()}/static/dist/js/pages/dashboard.js"></script>-->
 <!-- AdminLTE for demo purposes -->
-<script src="__ADMIN__/dist/js/demo.js"></script>
-<block name="script"></block>
+<!--<script src="{:request()->root()}/static/dist/js/demo.js"></script>-->
+{block name="script"}{/block}
 </body>
 </html>

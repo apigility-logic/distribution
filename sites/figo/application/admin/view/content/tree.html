@@ -1,0 +1,114 @@
+{extend name="Public/base" /}
+
+{block name="style"}
+<link rel="stylesheet" href="{:request()->root()}/static/jstree/themes/default/style.min.css"/>
+{/block}
+
+{block name="script"}
+<script src="{:request()->root()}/static/jstree/jstree.min.js"></script>
+<script>
+    function jstree_create() {
+        var ref = $('#jstree').jstree(true),
+                sel = ref.get_selected();
+        if (!sel.length) {
+            return false;
+        }
+        sel = sel[0];
+        sel = ref.create_node(sel, {"type": "file"});
+        if (sel) {
+            ref.edit(sel);
+        }
+    }
+    function jstree_rename() {
+        var ref = $('#jstree').jstree(true),
+                sel = ref.get_selected();
+        if (!sel.length) {
+            return false;
+        }
+        sel = sel[0];
+        ref.edit(sel);
+    }
+    function jstree_delete() {
+        var ref = $('#jstree').jstree(true),
+                sel = ref.get_selected();
+        if (!sel.length) {
+            return false;
+        }
+        ref.delete_node(sel);
+    }
+
+    $('#jstree').jstree({
+        "core": {
+            "animation": 0,
+            "check_callback": true,
+            "themes": {"stripes": true},
+            'data': {
+                'url': function (node) {
+                    return 'data';
+                },
+                'data': function (node) {
+                    return {'id': node.id};
+                }
+            }
+        },
+        "types": {
+            "#": {
+                "max_children": 1,
+                "max_depth": 4,
+                "valid_children": ["root"]
+            },
+            "root": {
+                "icon": "/static/3.3.4/assets/images/tree_icon.png",
+                "valid_children": ["default"]
+            },
+            "default": {
+                "valid_children": ["default", "file"]
+            },
+            "file": {
+                "icon": "glyphicon glyphicon-file",
+                "valid_children": []
+            }
+        },
+        "plugins": [
+            "contextmenu", "dnd", "search",
+            "state", "types", "wholerow"
+        ]
+    });
+</script>
+{/block}
+
+{block name="content"}
+<!-- 标签页导航 -->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-primary">
+            <div class="box-header">
+
+            </div>
+            <div class="box-body">
+                <div class="row" style="margin-bottom: 15px;">
+                    <div class="col-sm-12">
+                        {volist name="actions" id="action"}
+                        {$action}
+                        {/volist}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="jstree"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-sm-12 text-right">
+                        <button class="btn btn-primary ajax-post" id="submit" type="submit" style="margin-left: 15px;"
+                                target-form="form-horizontal">保 存
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}

@@ -7,6 +7,7 @@
  */
 
 namespace app\common;
+
 use app\common\Code;
 
 class Response
@@ -57,6 +58,16 @@ class Response
 
         $Response = \think\Response::create($data, $type, 200);
         exit($Response->send());
+    }
+
+    public static function getCode($res)
+    {
+        return isset($res[self::ERR_CODE]) ? $res[self::ERR_CODE] : null;
+    }
+
+    public static function isSuccess($res)
+    {
+        return self::getCode($res) == Code::SUCCESS;
     }
 
     // 调用驱动类的方法

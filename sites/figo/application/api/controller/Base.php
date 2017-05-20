@@ -14,23 +14,28 @@ use app\common\Response;
 
 class Base
 {
-    public $Request;
-    public $Response;
 
     public function __construct()
     {
-        $this->Request = Request::instance();
-        $this->Response = Response::instance();
+
     }
 
     public function success()
     {
-        return $this->Response->getJson(Code::SUCCESS);
+        return $this->response()->getJson(Code::SUCCESS);
     }
 
     public function error($code = Code::ERROR)
     {
-        return $this->Response->getJson($code);
+        return $this->response()->getJson($code);
+    }
+
+    protected function request(){
+        return Request::instance();
+    }
+
+    protected function response(){
+        return Response::instance();
     }
 
 }

@@ -3,9 +3,8 @@ namespace app\common\model;
 
 use think\Model;
 
-class UserAddress extends Base
+class UserAddress extends SoftDeleteBase
 {
-
     public static function getLabel()
     {
         $label = [
@@ -16,6 +15,8 @@ class UserAddress extends Base
             'area_id' => '区ID',
             'address' => '地址',
             'street' => '街道',
+            'is_default' => '默认',
+            'district' => '地区',
             'profile' => UserProfile::getLabel()
         ];
         return array_merge(parent::getLabel(), $label);
@@ -23,6 +24,6 @@ class UserAddress extends Base
 
     public function profile()
     {
-        return $this->hasOne('Profile', '');
+        return $this->hasOne('UserProfile', 'user_id', 'user_id')->field($this->getFields('profile'));
     }
 }

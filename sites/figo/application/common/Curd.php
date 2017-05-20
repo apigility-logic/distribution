@@ -9,38 +9,55 @@ class Curd
 {
     protected $_model;
     protected $Model;
+    protected $_params;
+    protected $_options;
 
-    public function __construct($model)
+    public function __construct($model, $params = [], $options = [])
     {
         $this->_model = $model;
         $this->Model = Loader::model($model);
-
-        if($with = Request::instance()->getParam('with')){
-            $this->Model->with($with);
+        $this->_options = $options;
+        $this->_params = $params;
+        $fields = isset($options['fields']) ? $options['fields'] : [];
+        $this->Model->setFields($fields);
+        $this->Model->field($this->Model->getFields($this->_model));
+        $this->_params['with'] = $this->_filterWith();
+        if ($this->_params['with']) {
+            $this->Model->with($this->_params['with']);
         }
+    }
+
+    public function getError()
+    {
+        return $this->Model->getError();
+    }
+
+    public function param($key, $default = null)
+    {
+        return isset($this->_params[$key]) ? $this->_params[$key] : $default;
     }
 
     public function lists()
     {
-        $params = Request::instance()->getParams();
+        $params = $this->_params;
         $this->_filterParams($params);
-        if(!empty($params['where']['keyword']) && !empty($this->Model->keyword) ) {
-            $params['where'][$this->Model->keyword] = ['like', '%' . $params['where']['keyword'] . '%'];
+        $keyword = isset($params['keyword']) ? $params['keyword'] : (isset($params['cond']['keyword']) ? $params['cond']['keyword'] : null);
+        if (!empty($keyword) && !empty($this->Model->keyword)) {
+            $params['cond'][$this->Model->keyword] = ['like', '%' . $keyword . '%'];
         }
-        unset($params['where']['keyword']);
-        $this->Model->where($params['where']);
+        unset($params['cond']['keyword']);
+        $this->Model->where($params['cond']);
         $this->Model->limit($params['limit']);
-
         !empty($params['page']) && $this->Model->page($params['page']);
         $data = $this->Model->order($params['order'])->select();
         $response = ['list' => $data];
         // 处理分页数据
-        if(!empty($params['page'])) {
+        if (!empty($params['page'])) {
             $response['page'] = $params['page'];
-            if($with = Request::instance()->getParam('with')){
+            if ($with = $this->param('with')) {
                 $this->Model->with($with);
             }
-            $response['rows'] =$this->Model->where($params['where'])->count();
+            $response['rows'] = $this->Model->where($params['cond'])->count();
             $response['pages'] = ceil($response['rows'] / $params['limit']);
         }
         return $response;
@@ -48,7 +65,7 @@ class Curd
 
     public function create()
     {
-        $params = Request::instance()->getParams();
+        $params = $this->_params;
         $params['create_time'] = time();
         $this->Model->data($params);
         if (false === $this->Model->allowField(true)->save()) {
@@ -60,9 +77,9 @@ class Curd
 
     public function update()
     {
+        $params = $this->_params;
         $Response = Response::instance();
         $params['update_time'] = time();
-        $params = Request::instance()->getParams();
         if (!isset($params['id'])) {
             return $Response->getJson(Code::PARAM_MISSING);
         }
@@ -79,36 +96,51 @@ class Curd
 
     public function read()
     {
-        $id = Request::instance()->getParam('id', 0);
-        $where = Request::instance()->getParam('where', []);
-        if($id){
+        $id = $this->param('id', 0);
+        $where = $this->param('where', []);
+        if ($id) {
             $where['id'] = $id;
         }
         $data = $this->Model->where($where)->find();
-        if(empty($data)) {
+        if (empty($data)) {
             return Response::instance()->getJson(Code::RECORD_NOT_EXIST);
         }
         return $data;
     }
 
-
     public function delete()
     {
+        $params = $this->_params;
         $Response = Response::instance();
-        $id = Request::instance()->getParam('id', 0);
-        $ids = explode(',', $id);
-        if(count($ids) > 1) {
-            $this->Model->where('id', 'in', $ids)->delete();
-        } else {
-            $this->Model->where('id', $id)->delete();
+        $id = $params['id'];
+        if (!is_array($id)) {
+            $id = explode(',', $id);
         }
+        $this->Model->get($id)->delete();
+        //$this->Model->where('id', 'in', $id)->delete();
         return $Response->getJson(Code::SUCCESS);
+    }
+
+    public function getLabel()
+    {
+        return $this->Model->getLabel();
     }
 
     protected function _filterParams(&$params)
     {
-        !isset($params['where']) && $params['where'] = [];
+        !isset($params['cond']) && $params['cond'] = [];
         (!isset($params['limit']) || $params['limit'] < 0) && $params['limit'] = 200;
         !isset($params['order']) && $params['order'] = 'id desc';
+    }
+
+    protected function _filterWith()
+    {
+        if (!isset($this->_params['with'])) {
+            return '';
+        } else {
+            $withs = explode(',', $this->_params['with']);
+            $ret = array_intersect($withs, isset($this->_options['with']) ? $this->_options['with'] : []);
+            return join(',', $ret);
+        }
     }
 }

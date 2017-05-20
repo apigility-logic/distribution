@@ -1,124 +1,56 @@
 <?php
 
+function date2($timestamp)
+{
+    return date('Y-m-d', $timestamp);
+}
+
+function datetime2($timestamp)
+{
+    return date('Y-m-d H:i:s', $timestamp);
+}
+
 function map($data, $value)
 {
     return isset($data[$value]) ? $data[$value] : null;
 }
 
-function get_list_field($data, $grid, $text = false)
+function check_priv($uri)
 {
-    $field = $grid[0];
-    $attrs = $grid[2];
-    if(strpos($field, '.') > 0){
-        $fields = explode('.', $field);
-        $value = $data[$fields[0]][$fields[1]];
-    } else {
-        $value = $data[$field];
-    }
-    foreach ($attrs as $key => $attr) {
-        switch ($key) {
-            case Admin\Logic\ModelLogic::ATTR_TIMESTAMP:
-                $format = isset($attr['format']) ? $attr['format'] : 'Y-m-d H:i:s';
-                $value = empty($value) ? '-' : date($format, $value);
-                break;
-            case \Admin\Logic\ModelLogic::ATTR_REPLACE:
-                if ($value != '') {
-                    $value = str_replace('[VALUE]', $value, $attr);
-                    foreach ($data as $k => $v) {
-                        $value = str_replace("[VAR_{$k}]", $v, $value);
-                    }
-                }
-                break;
-            case \Admin\Logic\ModelLogic::ATTR_MAP:
-                $value = isset($attr[$value]) ? $attr[$value] : $value;
-                break;
-            case \Admin\Logic\ModelLogic::ATTR_FUNCTION:
-                $value = call_user_func($attr, $data);
-                break;
-            case \Admin\Logic\ModelLogic::MODEL_CALLBACK:
-                list($model, $action) = explode('.', $attr);
-                $value = D($model)->$action($value);
-                break;
-        }
-    }
-    return $value;
+    return \app\admin\Auth::checkPriv($uri);
 }
 
-function get_list_action($action, $data)
+function get_label($label, $field)
 {
-    if (is_array($action)) {
-        $title = $action['title'];
-        $uri = $action['uri'];
-        $key = $action['key'];
-        $params = array();
-        if (is_array($key)) {
-            foreach ($key as $k => $v) {
-                $params[$v] = $data[$k];
-            }
-        } else {
-            $params[$key] = $data[$key];
-        }
-        $html = "<a href=\"" . U($uri, $params) . "\">{$title}</a>";
-    } else {
-        switch ($action) {
-            case \Admin\Logic\ModelLogic::ACTION_ADD:
-                $html = '';
-                break;
-            case \Admin\Logic\ModelLogic::ACTION_EDIT:
-                $html = "<a href=\"" . U($action, array('id' => $data['id'])) . "\"><i class='fa fa-fw fa-edit'></i><span class='hidden-xs hidden-sm'>编辑</span></a>";
-                break;
-            case Admin\Logic\ModelLogic::ACTION_DELETE:
-                $html = "<a class=\"ajax-get confirm\" href=\"" . U($action, array('ids' => $data['id'])) . "\"><i class='fa fa-fw fa-trash-o'></i><span class='hidden-xs hidden-sm'>删除</span></a>";
-                break;
-            case \Admin\Logic\ModelLogic::ACTION_EXPORT:
-                $html = '';
-                break;
-            case \Admin\Logic\ModelLogic::ACTION_BUTTON:
-                $html = '';
-                break;
-            default :
-                $html = $action;
-                if ($html != '') {
-                    foreach ($data as $k => $v) {
-                        $html = str_replace("[VAR_{$k}]", $v, $html);
-                    }
-                }
-        }
+    $map = explode('|', $field);
+    $field = $map[0];
+    if(isset($map[1])){
+        return $map[1];
     }
-    return $html;
+    $fields = explode('.', $field);
+    $count = count($fields);
+    if ($count == 1) {
+        return isset($label[$field]) ? $label[$field] : $field;
+    } else if ($count == 2) {
+        return isset($label[$fields[0]]) && isset($label[$fields[0]][$fields[1]]) ? $label[$fields[0]][$fields[1]] : $field;
+    }
+    return $field;
 }
 
-function get_list_search_form($search_fields)
+function get_data($data_table, $field, $data)
 {
-    $html = '';
-    $keyword = false;
-    foreach ($search_fields as $field_name => $options) {
-        switch ($options[\Admin\Logic\ModelLogic::SEARCH_TYPE]) {
-            case \Admin\Logic\ModelLogic::SEARCH_SELECT:
-                $html .= " <label>{$options[\Admin\Logic\ModelLogic::SEARCH_LABEL]} ";
-                $html .= "<select name='{$field_name}'>";
-                foreach ($options[\Admin\Logic\ModelLogic::SEARCH_SELECT] as $value => $name) {
-                    $html .= "<option value='{$value}'";
-                    if (isset($_GET[$field_name]) && $_GET[$field_name] == $value) {
-                        $html .= ' selected="selected"';
-                    }
-                    $html .= ">{$name}</option>";
-                }
-                $html .= "</select>";
-                $html .= '</label>';
-                break;
-            case \Admin\Logic\ModelLogic::SEARCH_TEXT:
-                break;
-        }
-        if ($field_name == \Admin\Logic\ModelLogic::SEARCH_KEYWORD) {
-            $keyword = true;
-            $html .= " ";
-        }
+    $map = explode('|', $field);
+    $field = $map[0];
+    $extends = $data_table['extends'];
+    if (isset($extends[$field])) {
+        return call_user_func($extends[$field], $data);
     }
-    if ($html) {
-        $html .= '<div class="input-group">' .
-            ($keyword ? "<input placeholder='请输入关键字' type='text' name='keyword' class='form-control' value='{$_GET['keyword']}'>" : '') .
-            '<span class="input-group-btn"><button type="submit" class="btn btn-info">查询</button></span></div>';
+    $fields = explode('.', $field);
+    $count = count($fields);
+    if ($count == 1) {
+        return isset($data[$field]) ? $data[$field] : $field;
+    } else if ($count == 2) {
+        return isset($data[$fields[0]]) && isset($data[$fields[0]][$fields[1]]) ? $data[$fields[0]][$fields[1]] : '';
     }
-    return $html;
+    return '';
 }
