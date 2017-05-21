@@ -26,4 +26,5 @@ class UserAddress extends SoftDeleteBase
     {
         return $this->hasOne('UserProfile', 'user_id', 'user_id')->field($this->getFields('profile'));
     }
+
 }

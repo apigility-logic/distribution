@@ -11,8 +11,9 @@ class GroupActionRecord extends Base
             'user_id' => '会员ID',
             'group_action_id' => '拼团ID',
             'is_free' => '是否免单',
-            'group_order_id' => '订单ID',
-            'profile' => UserProfile::getLabel()
+            'order_id' => '订单ID',
+            'profile' => UserProfile::getLabel(),
+            'order2' => GroupOrder::getLabel(),
         ];
         return array_merge(parent::getLabel(), $label);
     }
@@ -20,5 +21,10 @@ class GroupActionRecord extends Base
     public function profile()
     {
         return $this->hasOne('UserProfile', 'user_id', 'user_id');
+    }
+
+    public function order2()
+    {
+        return $this->hasOne('GroupOrder', 'id', 'order_id');
     }
 }

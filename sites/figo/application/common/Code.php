@@ -45,7 +45,16 @@ class Code {
     const USER_CELL_ERROR = 10304; // 手机号格式错误
     const PASSWORD_ERROR = 10305; // 账号与密码不匹配
     const OLDPASSWORD_ERROR = 10306; //原密码错误
+    const USER_ADDRESS_NOT_EXIST = 10307; // 用户地址不存在
 
+    //商品
+    const GOODS_NOT_EXIST = 10401; // 商品不存在
+    const GOODS_NOT_SALE = 10402; // 商品已下架
+
+    //拼团
+    const GROUP_ACTION_NOT_EXIST = 10501;   //拼团不存在
+    const GROUP_ACTION_END = 10502;     //拼团已结束
+    const GROUP_ACTION_FULL = 10503;    //拼团已满人
 
     // 错误信息定义
     protected static $_errorMessage = array(
@@ -80,6 +89,16 @@ class Code {
         self::USER_STATUS_FROZEN => '账号已冻结',
         self::PASSWORD_ERROR => '账号与密码不匹配',
         self::USER_CELL_ERROR => '手机号格式错误',
+        self::USER_ADDRESS_NOT_EXIST => '地址不存在',
+
+        //商品
+        self::GOODS_NOT_EXIST => '商品不存在',
+        self::GOODS_NOT_SALE => '商品已下架',
+
+        //拼团
+        self::GROUP_ACTION_NOT_EXIST => '拼团不存在',
+        self::GROUP_ACTION_END => '该团已结束',
+        self::GROUP_ACTION_FULL => '该团已满人',
 
     );
     

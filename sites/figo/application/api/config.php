@@ -59,8 +59,8 @@ return [
             'title' => '商品开团',
             'model' => 'group_action',
             'with' => ['profile'],
-            'requireAuth' => false,
-            'action' => ['lists']
+            'requireAuth' => ['create'],
+            'action' => ['lists', 'create']
         ],
         'GroupActionRecord' => [
             'title' => '商品参团记录',
@@ -68,6 +68,13 @@ return [
             'with' => ['profile'],
             'requireAuth' => false,
             'action' => ['lists']
+        ],
+        'GroupOrder' => [
+            'title' => '拼团订单',
+            'model' => 'group_order',
+            'with' => ['profile', 'address', 'goods'],
+            'requireAuth' => true,
+            'action' => ['lists', 'read', 'create']
         ]
     ]
 ];

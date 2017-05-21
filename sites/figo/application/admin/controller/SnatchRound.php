@@ -30,7 +30,7 @@ class SnatchRound extends Base
                 'status' => function ($data) {
                     return map([
                         1 => '<span class="label label-success">进行中</span>',
-                        2 => '<span class="label label-warning">已结束</span>',
+                        2 => '<span class="label label-default">已结束</span>',
                     ], $data['status']);
                 },
             ]

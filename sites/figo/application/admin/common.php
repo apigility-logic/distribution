@@ -15,6 +15,11 @@ function map($data, $value)
     return isset($data[$value]) ? $data[$value] : null;
 }
 
+function href($label, $uri, $params)
+{
+    return '<a href="' . Url($uri, http_build_query($params)) . '">' . $label . '</a>';
+}
+
 function check_priv($uri)
 {
     return \app\admin\Auth::checkPriv($uri);
@@ -24,7 +29,7 @@ function get_label($label, $field)
 {
     $map = explode('|', $field);
     $field = $map[0];
-    if(isset($map[1])){
+    if (isset($map[1])) {
         return $map[1];
     }
     $fields = explode('.', $field);

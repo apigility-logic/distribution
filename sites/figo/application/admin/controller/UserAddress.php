@@ -26,7 +26,7 @@ class UserAddress extends Base
                     return $province . $city . $area . $data['street'];
                 },
                 'is_default' => function ($data) {
-                    return map([0 => '<span class="label label-warning">否</span>', 1 => '<span class="label label-success">是</span>'], $data['is_default']);
+                    return map([0 => '<span class="label label-info">否</span>', 1 => '<span class="label label-success">是</span>'], $data['is_default']);
                 }
             ]
         ];

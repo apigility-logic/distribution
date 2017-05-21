@@ -141,8 +141,10 @@ class Base extends Controller
         $this->data = $data;
         $form = $this->form();
         $FormHelper = new \FormHelper($form, $label = $Curd->getLabel(), $this->data);
+        $scripts = $this->scripts('edit');
         $this->assign('form', $FormHelper->fetch());
         $this->assign('data', $data);
+        $this->assign('scripts', $scripts);
         return $this->fetch();
     }
 
@@ -188,6 +190,31 @@ class Base extends Controller
         } else {
             $this->error(CrudLogic::getErrorMsg());
         }
+    }
+
+    //脚本
+    public function scripts($module = null)
+    {
+        $scripts = [
+            'edit' => []
+        ];
+        $editor = false;
+        foreach ($this->form() as $row) {
+            if ($row[1] == \FormHelper::TYPE_EDITOR) {
+                $editor = true;
+            }
+        }
+        if ($editor) {
+            $scripts['edit'][] = '<script src="' . request()->root() . '/static/ueditor/ueditor.config.js"></script>';
+            $scripts['edit'][] = '<script src="' . request()->root() . '/static/ueditor/ueditor.all.min.js"></script>';
+            $scripts['edit'][] = '<script src="' . request()->root() . '/static/ueditor/lang/zh-cn/zh-cn.js"></script>';
+        }
+        foreach($this->form() as $row){
+            if ($row[1] == \FormHelper::TYPE_EDITOR) {
+                $scripts['edit'][] = '<script>' ."UE.getEditor('editor_{$row[0]}');".'</script>';
+            }
+        }
+        return $module && isset($scripts[$module]) ? $scripts[$module] : [];
     }
 
     protected function fetch($template = '', $vars = [], $replace = [], $config = [])

@@ -53,7 +53,11 @@ class GroupGoods extends Base
             ]],
             ['group_price', \FormHelper::TYPE_TEXT],
             ['goods_price', \FormHelper::TYPE_TEXT],
-            ['content', \FormHelper::TYPE_TEXTAREA],
+            ['content', \FormHelper::TYPE_EDITOR, [
+                'attr' => [
+                    'style' => "height: 500px;"
+                ]
+            ]],
             ['is_recommend', \FormHelper::TYPE_RADIO, [
                 'options' => [0 => '否', 1 => '是'],
                 'default' => 1,

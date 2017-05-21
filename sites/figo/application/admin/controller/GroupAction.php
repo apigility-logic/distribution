@@ -25,12 +25,13 @@ class GroupAction extends Base
                     return date('Y-m-d H:i:s', $data['end_time']);
                 },
                 'status' => function ($data) {
-                    if ($data['group_num'] == count($data['records'])) {
+                    if ($data['status'] == 2) {
                         return '<span class="label label-success">已完成</span>';
                     }
                     if ($data['end_time'] < time()) {
-                        return '<span class="label label-warning">已结束</span>';
+                        return '<span class="label label-default">已结束</span>';
                     }
+                    return '<span class="label label-info">进行中</span>';
                 },
                 '已团人数' => function ($data) {
                     $View = new View();
@@ -46,13 +47,28 @@ class GroupAction extends Base
                     $View->fetch('content/table', [
                         'list_data' => model('group_action_record')->with('profile')->where('group_action_id', $data['id'])->select(),
                         'data_table' => [
-                            'fields' => ['id', 'user_id', 'profile.nickname', 'is_free', 'create_time'],
+                            'fields' => ['id', 'user_id', 'profile.nickname', 'is_free', 'order2.pay_status','order2.order_status', 'create_time'],
                             'extends' => [
                                 'is_free' => function ($data) {
                                     return map([
                                         0 => '<span class="label label-warning">否</span>',
                                         1 => '<span class="label label-success">是</span>',
                                     ], $data['is_free']);
+                                },
+                                'order2.pay_status' => function ($data) {
+                                    return map([
+                                        0 => '<span class="label label-warning">未支付</span>',
+                                        1 => '<span class="label label-success">已支付</span>',
+                                        2 => '<span class="label label-info">全额退款</span>',
+                                    ], $data['order2']['pay_status']);
+                                },
+                                'order2.order_status' => function ($data) {
+                                    return map([
+                                        0 => '<span class="label label-warning">未确认</span>',
+                                        1 => '<span class="label label-info">已确认</span>',
+                                        2 => '<span class="label label-success">已完成</span>',
+                                        3 => '<span class="label label-default">已取消</span>',
+                                    ], $data['order2']['order_status']);
                                 }
                             ]
                         ],

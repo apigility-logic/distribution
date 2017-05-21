@@ -3,6 +3,9 @@
 <link href="{:request()->root()}/static/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
 {/block}
 {block name="script"}
+{volist name="scripts" id="script"}
+{$script}
+{/volist}
 <script src="{:request()->root()}/static/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript"
         src="{:request()->root()}/static/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"
