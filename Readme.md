@@ -3,14 +3,18 @@
 ## 目录说明
 
 ### 数据目录
-- data ： Docker容器产生的数据
-- data/mysql/conf : 自定义的mysql.cnf配置项
-- data/mysql/data : MySQL管理的数据库文件
-- data/php/session : PHP产生的session会话数据
+- `data` Docker容器产生的数据
+- `data/mysql/conf`  自定义的mysql.cnf配置项
+- `data/mysql/data`  MySQL管理的数据库文件
+- `data/php/session` PHP产生的session会话数据
 
 ### 网站代码目录
-- sites : 网站代码目录列表
-- sites/tpshop : tpshop程序根目录
+- `sites` 网站代码目录列表
+- `sites/meilibo`  美丽播程序根目录
+- `sites/meilibo/admin` 美丽播子工程：管理后台
+- `sites/meilibo/api`   美丽播子工程：App接口
+- `sites/meilibo/admin` 美丽播子工程：聊天室服务端
+- `sites/figo` 喵榜二开工程目录：夺宝+拼团功能
 
 
 
@@ -22,6 +26,13 @@ docker-compose up
 ```
 - 访问 http://localhost:8000 打开网站
 - 访问 localhost:3388 连接MySQL服务 （帐号密码参考docker-compose.yml中的配置）
+
+## 开发过程如何更新服务器代码
+```bash
+ssh root@120.76.237.232
+cd /var/docker/miaobang_server
+git pull
+```
 
 ## 开发服务器帐号
 
