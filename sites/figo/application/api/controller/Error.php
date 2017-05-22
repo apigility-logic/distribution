@@ -20,7 +20,10 @@ class Error extends Base
         $model = $access[$controller]['model'];
         $params = request()->param();
         unset($params['user_id']);
-        if ($access[$controller]['requireAuth'] == true || in_array($action, $access[$controller]['requireAuth'])) {
+        if ($access[$controller]['requireAuth'] == true || (
+                is_array($access[$controller]['requireAuth']) &&
+                in_array($action, $access[$controller]['requireAuth'])
+            )) {
             if (empty($user_id)) {
                 return $this->error(Code::APP_TOKEN_ERROR);
             }
