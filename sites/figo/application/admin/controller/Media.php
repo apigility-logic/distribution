@@ -56,7 +56,7 @@ class Media extends Controller
                 'remote_url' => '',
             );
             if(\app\common\Media::$is_upload_qiniu){
-                $Qiniu = new qn();
+                $Qiniu = new \Qiniu();
                 $key = $Qiniu->upload($update_path . $path);
                 if ($key) {
                     $fileurl = $Qiniu->getUrl($key);
