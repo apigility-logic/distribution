@@ -60,3 +60,16 @@ services:
       - "./sites/meilibo/api:/app"
       - "./data/php/session/meilibo/api:/var/lib/php/session"
     restart: always
+
+  figo:
+    depends_on:
+      - mysql
+    build: ./builds/figo
+    ports:
+      - "8003:80"
+    volumes:
+      - "./sites/figo:/app"
+      - "./data/php/session/figo:/var/lib/php/session"
+    restart: always
+    environment:
+      WEB_DOCUMENT_ROOT: /app/public
