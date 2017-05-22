@@ -127,3 +127,11 @@ All rights reserved。
 ThinkPHP® 商标和著作权所有者为上海顶想信息科技有限公司。
 
 更多细节参阅 [LICENSE.txt](LICENSE.txt)
+
+项目域名: zhibofigo.mimilove520.com
+域名指向目录 sites/figo/public
+
+接口url : zhibofigo.mimilove520.com/api
+
+数据库配置:
+
