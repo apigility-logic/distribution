@@ -115,24 +115,6 @@ class Qiniu
     }
 
     /**
-     * 获取七牛上传token
-     * @param string $access_key
-     * @param string $secret_key
-     * @param string $bucket
-     */
-    public function getAppUploadToken($access_key = null, $secret_key = null, $bucket = null)
-    {
-        is_null($access_key) && $access_key = $this->access_key;
-        is_null($secret_key) && $secret_key = $this->secret_key;
-        is_null($bucket) && $bucket = $this->bucket;
-        require_once(EXTEND_PATH . "qn/app/rs.php");
-        Qiniu_SetKeys($access_key, $secret_key);
-        $putPolicy = new \Qiniu_RS_PutPolicy($bucket);
-        $upToken = $putPolicy->Token(null);
-        return $upToken;
-    }
-
-    /**
      * 缩略图
      * @param string $url
      * @param int $width

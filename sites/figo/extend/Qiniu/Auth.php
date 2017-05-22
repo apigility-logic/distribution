@@ -98,7 +98,7 @@ final class Auth
         if ($err === null) {
             $args['upHosts'] = $upHosts;
         }
-        
+
         $b = json_encode($args);
         return $this->signWithData($b);
     }

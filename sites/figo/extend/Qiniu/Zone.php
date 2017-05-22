@@ -147,15 +147,14 @@ final class Zone
     private function hostCacheToFile()
     {
         $path = $this->hostCacheFilePath();
-        //print_r(sys_get_temp_dir());
-        //print_r($path);die();
         file_put_contents($path, json_encode($this->hostCache), LOCK_EX);
         return;
     }
 
     private function hostCacheFilePath()
     {
-        return sys_get_temp_dir() . '/.qiniu_phpsdk_hostscache.json';
+        //return sys_get_temp_dir() . '/.qiniu_phpsdk_hostscache.json';
+        return '/tmp/.qiniu_phpsdk_hostscache.json';
     }
 
     /*  请求包：
