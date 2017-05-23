@@ -14,7 +14,7 @@ $gateway->name = 'ChatGateway';
 // 设置进程数，gateway进程数建议与cpu核数相同
 $gateway->count = 4;
 // 分布式部署时请设置成内网ip（非127.0.0.1）
-$gateway->lanIp = '192.168.16.4';
+$gateway->lanIp = 'meilibo_chatroom';
 // 内部通讯起始端口，假如$gateway->count=4，起始端口为4000
 // 则一般会使用4000 4001 4002 4003 4个端口作为内部通讯端口 
 $gateway->startPort = 2300;
