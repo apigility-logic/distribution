@@ -53,7 +53,7 @@ class Curd
         $response = ['list' => $data];
         // 处理分页数据
         if (!empty($params['page'])) {
-            $response['page'] = $params['page'];
+            $response['page'] = intval($params['page']);
             if ($with = $this->param('with')) {
                 $this->Model->with($with);
             }
