@@ -67,11 +67,15 @@ class Curd
     {
         $params = $this->_params;
         $params['create_time'] = time();
-        $this->Model->data($params);
-        if (false === $this->Model->allowField(true)->save()) {
-            return Response::instance()->getJson(Code::INSERT_ERROR);
+        $table_info = $this->Model->db()->getTableInfo($this->Model->getTable(), 'type');
+        unset($table_info['id']);
+        $fields = array_keys($table_info);
+        $this->Model->field($fields);
+        $model = $this->Model->create($params, true);
+        if ($model) {
+            return ['id' => $model->id];
         } else {
-            return ['id' => $this->Model->id];
+            return Response::instance()->getJson(Code::INSERT_ERROR);
         }
     }
 
@@ -116,10 +120,9 @@ class Curd
         if (!is_array($id)) {
             $id = explode(',', $id);
         }
-        $data = $this->Model->get($id);
-        if ($data) {
-            $data->delete();
-        }
+        $model = $this->Model->get($id)
+        ->delete();
+        //$this->Model->where('id', 'in', $id)->delete();
         return $Response->getJson(Code::SUCCESS);
     }
 
