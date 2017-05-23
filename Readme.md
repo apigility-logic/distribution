@@ -18,14 +18,26 @@
 
 
 
-##　使用Docker管理运行环境
+## 使用Docker管理运行环境
 请查看 docker-compose.yml 文件，了解Docker环境的结构
 ```bash
 # 启动环境
 docker-compose up
 ```
-- 访问 http://localhost:8000 打开网站
+- 访问 http://localhost:8000 打开PC端网站
 - 访问 localhost:3388 连接MySQL服务 （帐号密码参考docker-compose.yml中的配置）
+
+## 域名绑定与反向代理
+本项目需要4个域名：
+- `zhibo.mimilove520.com` APP接口子工程访问
+- `admin.mimilove520.com` 管理后台访问
+- `chatroom.mimilove520.com` 聊天室服务器访问
+- `eadmin.mimilove520.com`  夺宝+拼团功能，二开工程的访问
+
+> 这4个域名中，除了聊天室服务访问外的3个域名都需要用
+ nginx做反向代理，`nginx-servers.conf` 文件可以直接include到`nginx.conf`中。
+
+> 在本地开发时，可以通过修改系统hosts文件的方式，把以上4个域名指向到127.0.0.1
 
 ## 开发过程如何更新服务器代码
 ```bash
@@ -34,20 +46,26 @@ cd /var/docker/miaobang_server
 git pull
 ```
 
-## 开发服务器帐号
+## 帐号
 
+```
+# 服务器帐号
 120.76.237.232(公)
-
 10.26.88.101(内)
-
 root meilibo123$%^
-
+```
+```
+# 管理后台默认帐号
 admin
 admin0987
+```
 
+```
 七牛：
 www.qiniu.com
 app@figo.cn
 Appfigo1607
 账号：miao@miaobang520.com
 登陆密码：Haomao2017
+```
+
