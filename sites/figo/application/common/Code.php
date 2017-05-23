@@ -64,13 +64,15 @@ class Code {
 
         self::PARAM_MISSING => '缺少请求参数',
         self::PARAM_ERROR => '请求参数值不符合要求',
+
         // 系统错误
         self::RECORD_EXIST => '数据已存在',
         self::RECORD_NOT_EXIST => '数据不存在',
-        self::INSERT_ERROR => '数据插入错误',
-        self::UPDATE_ERROR => '数据库更新记录失败',
-        self::DELETE_ERROR => '数据库删除记录失败',
-        self::DB_TIMEOUT => '数据库操作超时',
+        self::INSERT_ERROR => '新增错误',
+        self::UPDATE_ERROR => '更新失败',
+        self::DELETE_ERROR => '删除失败',
+        self::DB_TIMEOUT => '操作超时',
+
         //APP
         self::APP_NOT_EXIST => 'APPID不合法',
         self::APP_SIGN_ERROR => '签名错误',

@@ -116,8 +116,10 @@ class Curd
         if (!is_array($id)) {
             $id = explode(',', $id);
         }
-        $this->Model->get($id)->delete();
-        //$this->Model->where('id', 'in', $id)->delete();
+        $data = $this->Model->get($id);
+        if ($data) {
+            $data->delete();
+        }
         return $Response->getJson(Code::SUCCESS);
     }
 

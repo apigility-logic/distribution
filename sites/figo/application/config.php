@@ -244,5 +244,7 @@ return [
         'SECRET_KEY' => 'NNo-SAe8CY79rIljesG4vPIDtJlRC8ZbQwz5OTnD',
         'BUCKET' => 'figo',
         'DOMAIN' => 'oqcf3gqmg.bkt.clouddn.com',
-    ]
+    ],
+
+    'group_code_base' => '1000000'
 ];
