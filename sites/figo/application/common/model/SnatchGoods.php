@@ -18,4 +18,12 @@ class SnatchGoods extends SoftDeleteBase
         ];
         return array_merge(parent::getLabel(), $label);
     }
+
+    public function rounds()
+    {
+        return $this->hasMany('SnatchRound', 'goods_id', 'id')
+            ->join('user_profile', 'user_profile.user_id = snatch_round.lucky_user_id', 'left')
+            ->field($this->getFields('rounds'))
+            ->order('snatch_round.id desc')->limit(10);
+    }
 }

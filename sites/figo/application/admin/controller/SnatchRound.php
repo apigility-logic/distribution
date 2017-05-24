@@ -16,7 +16,7 @@ class SnatchRound extends Base
     protected function dataTable()
     {
         return [
-            'fields' => ['id', 'snatch_goods_id', 'goods.title', 'code_num', 'code_unit', 'sale_times', 'sale_rate', 'status', 'create_time'],
+            'fields' => ['id', 'goods_id', 'goods.title', 'code_num', 'code_unit', 'sale_times', 'sale_rate', 'status', 'create_time'],
             'extends' => [
                 'sale_rate' => function ($data) {
                     $percent = $data['sale_rate'] * 100;

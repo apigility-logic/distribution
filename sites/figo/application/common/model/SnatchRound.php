@@ -8,7 +8,7 @@ class SnatchRound extends Base
     public static function getLabel()
     {
         $label = [
-            'snatch_goods_id' => '商品ID',
+            'goods_id' => '商品ID',
             'code_unit' => '夺宝码单价',
             'code_num' => '夺宝码个数',
             'sale_times' => '已购个数',
@@ -19,7 +19,13 @@ class SnatchRound extends Base
         return array_merge(parent::getLabel(), $label);
     }
 
-    public function goods(){
-        return $this->hasOne('snatch_goods', 'id', 'snatch_goods_id');
+    public function goods()
+    {
+        return $this->hasOne('snatch_goods', 'id', 'goods_id')->field($this->getFields('goods'));
+    }
+
+    public function profile()
+    {
+        return $this->hasOne('user_profile', 'user_id', 'lucky_user_id')->field($this->getFields('profile'));
     }
 }

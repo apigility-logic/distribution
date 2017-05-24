@@ -21,16 +21,16 @@ class GroupAction extends Base
 
     public function profile()
     {
-        return $this->hasOne('UserProfile', 'user_id', 'user_id');
+        return $this->hasOne('UserProfile', 'user_id', 'user_id')->field($this->getFields('profile'));
     }
 
     public function goods()
     {
-        return $this->hasOne('GroupGoods', 'id', 'goods_id');
+        return $this->hasOne('GroupGoods', 'id', 'goods_id')->field($this->getFields('goods'));
     }
 
     public function records()
     {
-        return $this->hasMany('GroupActionRecord', 'group_action_id', 'id');
+        return $this->hasMany('GroupActionRecord', 'group_action_id', 'id')->field($this->getFields('records'));
     }
 }

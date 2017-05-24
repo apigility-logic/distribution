@@ -25,16 +25,16 @@ class GroupOrder extends Base
 
     public function profile()
     {
-        return $this->hasOne('UserProfile', 'user_id', 'user_id');
+        return $this->hasOne('UserProfile', 'user_id', 'user_id')->field($this->getFields('profile'));
     }
 
     public function goods()
     {
-        return $this->hasMany('GroupOrderGoods', 'order_id', 'id');
+        return $this->hasMany('GroupOrderGoods', 'order_id', 'id')->field($this->getFields('goods'));
     }
 
     public function address()
     {
-        return $this->hasOne('GroupOrderAddress', 'order_id', 'id');
+        return $this->hasOne('GroupOrderAddress', 'order_id', 'id')->field($this->getFields('address'));
     }
 }

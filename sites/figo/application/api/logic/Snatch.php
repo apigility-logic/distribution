@@ -39,7 +39,7 @@ class Snatch
     public function addRound($goods_id)
     {
         $goods = model('snatch_goods')->get($goods_id);
-        $data = array(
+        $data = [
             'goods_id' => $goods_id,
             'code_num' => $goods['code_num'],
             'code_unit' => $goods['code_unit'],
@@ -47,8 +47,8 @@ class Snatch
             'sale_rate' => 0,
             'codes' => join(',', $this->genCodes($goods['code_num'])),
             'create_time' => time()
-        );
-        return model('snatch_round')->save($data);
+        ];
+        return model('snatch_round')->create($data);
     }
 
     /**
@@ -77,12 +77,12 @@ class Snatch
                 'goods_id' => $round['goods_id'],
                 'user_id' => $user_id,
                 'codes' => join(',', $user_codes),
-                'count' => count($user_codes),
+                'code_num' => $user_codes_num,
                 'create_time' => time(),
             ]);
             $round['sale_times'] += $user_codes_num;
             $round['sale_rate'] = floatval($round['sale_times']) / $round['code_num'];
-            Db::table('snatch_round')->update($round);
+            Db::table('snatch_round')->where('id', $round_id)->update($round->getData());
         }
         if ($user_codes_num < $code_num) {
             $new_round = $this->addRound($round['goods_id']);

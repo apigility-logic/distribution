@@ -31,13 +31,15 @@ class SnatchRecord extends Base
                 $round = $Snatch->addRound($goods_id);
                 $round_id = $round['id'];
             }
-            $Snatch->createCodes($user_id, $goods_id, $code_num);
+            $Snatch->createCodes($user_id, $round_id, $code_num);
             Db::commit();
-            exit('test');
+            return $this->success();
         } catch (\Exception $e) {
             // 回滚事务
             Db::rollback();
             exit($e->getMessage());
+            exit(model('snatch_record')->getLastSql());
+            return $this->error();
         }
     }
 

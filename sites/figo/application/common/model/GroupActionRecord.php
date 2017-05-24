@@ -20,11 +20,11 @@ class GroupActionRecord extends Base
 
     public function profile()
     {
-        return $this->hasOne('UserProfile', 'user_id', 'user_id');
+        return $this->hasOne('UserProfile', 'user_id', 'user_id')->field($this->getFields('profile'));
     }
 
     public function order2()
     {
-        return $this->hasOne('GroupOrder', 'id', 'order_id');
+        return $this->hasOne('GroupOrder', 'id', 'order_id')->field($this->getFields('order2'));
     }
 }

@@ -16,7 +16,7 @@ class SnatchRecord extends Base
     protected function dataTable()
     {
         return [
-            'fields' => ['snatch_round_id', 'profile.nickname', 'snatch_goods_id', 'code_num', 'codes', 'create_time'],
+            'fields' => ['round_id', 'profile.nickname', 'goods_id', 'code_num', 'codes', 'create_time'],
             'extends' => [
                 'codes' => function ($data) {
                     return '<a href="javascript:;" data-toggle="modal" data-target="#modalCodes-' . $data['id'] . ' "><i class="fa fa-list"></i> 查看</a>' .

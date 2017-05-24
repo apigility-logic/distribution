@@ -30,13 +30,24 @@ return [
             'requireAuth' => true,
             'action' => ['create', 'update', 'read', 'lists', 'delete']
         ],
+        'SnatchGoods' => [
+            'title' => '夺宝商品',
+            'model' => 'snatch_goods',
+            'with' => ['rounds'],
+            'fields' => [
+                'rounds' => 'snatch_round.id,goods_id,lucky_code,lucky_user_id,avatar,nickname,announce_time',
+                'goods' => '*',
+            ],
+            'requireAuth' => false,
+            'action' => ['lists', 'read']
+        ],
         'SnatchRound' => [
             'title' => '夺宝轮次',
             'model' => 'snatch_round',
-            'with' => ['goods'],
+            'with' => ['goods','profile'],
             'fields' => [
-                'snatch_round' => '*',
-                'goods' => '*',
+                'snatch_round' => 'id,goods_id,code_unit,code_num,sale_times,lucky_code,lucky_user_id,create_time, status',
+                'profile' => 'user_id,avatar,nickname'
             ],
             'requireAuth' => false,
             'action' => ['lists']
@@ -45,6 +56,9 @@ return [
             'title' => '夺宝记录',
             'model' => 'snatch_record',
             'with' => ['profile', 'goods', 'round'],
+            'fields' => [
+                'profile' => 'user_id,avatar,nickname',
+            ],
             'requireAuth' => false,
             'action' => ['lists']
         ],
@@ -65,9 +79,12 @@ return [
         'GroupAction' => [
             'title' => '商品开团',
             'model' => 'group_action',
-            'with' => ['profile'],
+            'with' => ['profile','goods'],
+            'fields' => [
+                'profile' => 'user_id,avatar,nickname',
+            ],
             'requireAuth' => ['create'],
-            'action' => ['lists', 'create']
+            'action' => ['lists', 'create', 'read']
         ],
         'GroupActionRecord' => [
             'title' => '商品参团记录',

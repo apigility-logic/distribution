@@ -9,8 +9,8 @@ class SnatchRecord extends Base
     {
         $label = [
             'user_id' => '会员ID',
-            'snatch_round_id' => '夺宝轮次',
-            'snatch_goods_id' => '商品ID',
+            'round_id' => '夺宝轮次',
+            'goods_id' => '商品ID',
             'codes' => '夺宝码',
             'code_num' => '参与次数',
             'profile' => UserProfile::getLabel(),
@@ -22,16 +22,16 @@ class SnatchRecord extends Base
 
     public function round()
     {
-        return $this->hasOne('SnatchRound', 'id', 'snatch_round_id');
+        return $this->hasOne('SnatchRound', 'id', 'snatch_round_id')->field($this->getFields('round'));
     }
 
     public function goods()
     {
-        return $this->hasOne('SnatchGoods', 'id', 'snatch_goods_id');
+        return $this->hasOne('SnatchGoods', 'id', 'snatch_goods_id')->field($this->getFields('goods'));
     }
 
     public function profile()
     {
-        return $this->hasOne('UserProfile', 'user_id', 'user_id');
+        return $this->hasOne('UserProfile', 'user_id', 'user_id')->field($this->getFields('profile'));
     }
 }

@@ -116,6 +116,7 @@ class Base extends Controller
         } else {
             $this->assign('has_action', true);
         }
+        $this->assign('scripts', $this->scripts('lists'));
         return $this->fetch();
     }
 
@@ -127,6 +128,7 @@ class Base extends Controller
         $model = Loader::model($this->model);
         $FormHelper = new \FormHelper($this->form(), $model->getLabel());
         $this->assign('form', $FormHelper->fetch());
+        $this->assign('scripts', $this->scripts('edit'));
         return $this->fetch('content/edit');
     }
 
@@ -141,10 +143,9 @@ class Base extends Controller
         $this->data = $data;
         $form = $this->form();
         $FormHelper = new \FormHelper($form, $label = $Curd->getLabel(), $this->data);
-        $scripts = $this->scripts('edit');
         $this->assign('form', $FormHelper->fetch());
         $this->assign('data', $data);
-        $this->assign('scripts', $scripts);
+        $this->assign('scripts', $this->scripts('edit'));
         return $this->fetch();
     }
 
@@ -196,7 +197,8 @@ class Base extends Controller
     public function scripts($module = null)
     {
         $scripts = [
-            'edit' => []
+            'edit' => [],
+            'lists' => [],
         ];
         $editor = false;
         foreach ($this->form() as $row) {
