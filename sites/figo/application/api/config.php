@@ -99,6 +99,12 @@ return [
             'with' => ['profile', 'address', 'goods'],
             'requireAuth' => true,
             'action' => ['lists', 'read', 'create']
+        ],
+        'UserShare' => [
+            'title' => '晒单',
+            'model' => 'user_share',
+            'requireAuth' => ['create', 'delete'],
+            'action' => ['lists', 'read', 'create', 'delete']
         ]
     ]
 ];
