@@ -130,6 +130,10 @@ return [
         'UserShare' => [
             'title' => '晒单内容',
             'model' => 'user_share',
+            'with' => ['profile'],
+            'fields' => [
+                'profile' => 'user_id,avatar,nickname',
+            ],
             'requireAuth' => ['create', 'delete'],
             'action' => ['lists', 'read', 'create', 'delete']
         ]

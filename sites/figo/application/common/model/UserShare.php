@@ -34,4 +34,9 @@ class UserShare extends SoftDeleteBase
         return $this->hasOne('group_goods', 'id', 'goods_id')->field($this->getFields('goodsGoods'));
     }
 
+    public function profile()
+    {
+        return $this->hasOne('user_profile', 'user_id', 'user_id')->field($this->getFields('profile'));
+    }
+
 }
