@@ -47,7 +47,7 @@ return [
             'model' => 'snatch_round',
             'with' => ['goods','profile'],
             'fields' => [
-                'snatch_round' => 'id,goods_id,code_unit,code_num,sale_times,lucky_code,lucky_user_id,announce_time,create_time, status',
+                'snatch_round' => 'id,goods_id,code_unit,code_num,sale_times,sale_rate,lucky_code,lucky_user_id,announce_time,create_time, status',
                 'profile' => 'user_id,avatar,nickname',
                 'goods' => 'id,title,images'
             ],
@@ -59,6 +59,8 @@ return [
             'model' => 'snatch_record',
             'with' => ['profile', 'goods', 'round'],
             'fields' => [
+                'round' => 'id,sale_rate,lucky_code,lucky_user_id,announce_time,status',
+                'goods' => 'id,title,images',
                 'profile' => 'user_id,avatar,nickname',
             ],
             'requireAuth' => false,

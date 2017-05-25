@@ -22,12 +22,12 @@ class SnatchRecord extends Base
 
     public function round()
     {
-        return $this->hasOne('SnatchRound', 'id', 'snatch_round_id')->field($this->getFields('round'));
+        return $this->hasOne('SnatchRound', 'id', 'round_id')->with('profile')->field($this->getFields('round'));
     }
 
     public function goods()
     {
-        return $this->hasOne('SnatchGoods', 'id', 'snatch_goods_id')->field($this->getFields('goods'));
+        return $this->hasOne('SnatchGoods', 'id', 'goods_id')->field($this->getFields('goods'));
     }
 
     public function profile()
