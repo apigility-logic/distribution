@@ -10,7 +10,7 @@ while(1){
                 try {
                         //sleep(8);
                         $ch = curl_init();
-                        curl_setopt($ch,CURLOPT_URL,"http://zhibo.mimilove.com/OpenAPI/v1/qiniu/GetList");
+                        curl_setopt($ch,CURLOPT_URL,"http://zhibo.mimilove520.com/OpenAPI/v1/qiniu/GetList");
                         curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
                         curl_setopt($ch,CURLOPT_HEADER,0);
                         curl_exec($ch);
