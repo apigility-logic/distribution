@@ -3,6 +3,7 @@
 return [
     'default_return_type'    => 'json',
     'default_ajax_return'    => 'json',
+    'datetime_format' => false,
     'session'                => [
         'id'             => '',
         'var_session_id' => '',
@@ -46,8 +47,9 @@ return [
             'model' => 'snatch_round',
             'with' => ['goods','profile'],
             'fields' => [
-                'snatch_round' => 'id,goods_id,code_unit,code_num,sale_times,lucky_code,lucky_user_id,create_time, status',
-                'profile' => 'user_id,avatar,nickname'
+                'snatch_round' => 'id,goods_id,code_unit,code_num,sale_times,lucky_code,lucky_user_id,announce_time,create_time, status',
+                'profile' => 'user_id,avatar,nickname',
+                'goods' => 'id,title,images'
             ],
             'requireAuth' => false,
             'action' => ['lists']
