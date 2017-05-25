@@ -73,3 +73,16 @@ services:
     restart: always
     environment:
       WEB_DOCUMENT_ROOT: /app/public
+
+  apigility:
+    depends_on:
+      - mysql
+    build: ./builds/figo
+    ports:
+      - "8004:80"
+    volumes:
+      - "./sites/apigility:/app"
+      - "./data/php/session/apigility:/var/lib/php/session"
+    restart: always
+    environment:
+      WEB_DOCUMENT_ROOT: /app/public
