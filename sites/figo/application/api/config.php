@@ -71,6 +71,12 @@ return [
             'title' => '拼团商品',
             'model' => 'group_goods',
             'with' => [],
+            'fields' => [
+                'group_goods' => [
+                    'lists' => 'id,title,cover,group_num,group_price,goods_price',
+                    'read' => '*'
+                ]
+            ],
             'requireAuth' => false,
             'action' => ['lists', 'read']
         ],
@@ -84,9 +90,10 @@ return [
         'GroupAction' => [
             'title' => '商品开团',
             'model' => 'group_action',
-            'with' => ['profile','goods'],
+            'with' => ['profile','goods', 'records'],
             'fields' => [
                 'profile' => 'user_id,avatar,nickname',
+                'goods' => 'id,title,group_price,goods_price,cover'
             ],
             'requireAuth' => ['create'],
             'action' => ['lists', 'create', 'read']
@@ -95,6 +102,10 @@ return [
             'title' => '商品参团记录',
             'model' => 'group_action_record',
             'with' => ['profile'],
+            'fields' => [
+                'group_action_record' => 'user_id',
+                'profile' => 'user_id,avatar,nickname',
+            ],
             'requireAuth' => false,
             'action' => ['lists']
         ],
@@ -102,11 +113,22 @@ return [
             'title' => '拼团订单',
             'model' => 'group_order',
             'with' => ['profile', 'address', 'goods'],
+            'fields' => [
+                'profile' => 'user_id,avatar,nickname',
+            ],
             'requireAuth' => true,
             'action' => ['lists', 'read', 'create']
         ],
-        'UserShare' => [
+
+        'UserOrderShare' => [
             'title' => '晒单',
+            'model' => 'user_order_share',
+            'requireAuth' => true,
+            'action' => ['lists']
+        ],
+
+        'UserShare' => [
+            'title' => '晒单内容',
             'model' => 'user_share',
             'requireAuth' => ['create', 'delete'],
             'action' => ['lists', 'read', 'create', 'delete']

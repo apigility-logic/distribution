@@ -39,4 +39,14 @@ class UserAddress
         }
     }
 
+    public function lists(&$params)
+    {
+        foreach($params['list'] as $row) {
+            $province = model('district')->title($row['province_id']);
+            $city = model('district')->title($row['city_id']);
+            $area = model('district')->title($row['area_id']);
+            $row['address'] = $province . $city . $area . $row['street'];
+        }
+    }
+
 }

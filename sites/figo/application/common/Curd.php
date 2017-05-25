@@ -19,12 +19,28 @@ class Curd
         $this->_options = $options;
         $this->_params = $params;
         $fields = isset($options['fields']) ? $options['fields'] : [];
-        $this->Model->setFields($fields);
+        $this->setFields($fields);
         $this->Model->field($this->Model->getFields($this->_model));
         $this->_params['with'] = $this->_filterWith();
         if ($this->_params['with']) {
             $this->Model->with($this->_params['with']);
         }
+    }
+
+    protected function setFields($fields)
+    {
+        $action = request()->action();
+        $data = [];
+        foreach ($fields as $key => $field) {
+            if(is_array($field)) {
+                if(isset($field[$action])){
+                    $data[$key] = $field[$action];
+                }
+            } else {
+                $data[$key] = $field;
+            }
+        }
+        $this->Model->setFields($data);
     }
 
     public function getError()

@@ -31,6 +31,6 @@ class GroupAction extends Base
 
     public function records()
     {
-        return $this->hasMany('GroupActionRecord', 'group_action_id', 'id')->field($this->getFields('records'));
+        return $this->hasMany('GroupActionRecord', 'group_action_id', 'id')->with('profile')->field($this->getFields('records'));
     }
 }
