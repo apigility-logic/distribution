@@ -36,7 +36,8 @@ return [
             'model' => 'snatch_goods',
             'with' => ['rounds'],
             'fields' => [
-                'rounds' => 'snatch_round.id,goods_id,lucky_code,lucky_user_id,avatar,nickname,announce_time',
+                'rounds' => 'snatch_round.id,goods_id,code_num,sale_times,sale_rate,lucky_code,lucky_user_id,announce_time',
+                'profile' => 'user_id,avatar,nickname',
                 'goods' => '*',
             ],
             'requireAuth' => false,

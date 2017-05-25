@@ -21,8 +21,7 @@ class SnatchGoods extends SoftDeleteBase
 
     public function rounds()
     {
-        return $this->hasMany('SnatchRound', 'goods_id', 'id')
-            ->join('user_profile', 'user_profile.user_id = snatch_round.lucky_user_id', 'left')
+        return $this->hasMany('SnatchRound', 'goods_id', 'id')->with('profile')
             ->field($this->getFields('rounds'))
             ->order('snatch_round.id desc')->limit(10);
     }
