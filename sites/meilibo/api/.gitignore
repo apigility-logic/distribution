@@ -8,3 +8,4 @@ sign/Runtime/*
 
 style/avatar/*
 !style/avatar/.gitkeep
+/nohup.out

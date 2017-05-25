@@ -68,4 +68,10 @@ Appfigo1607
 账号：miao@miaobang520.com
 登陆密码：Haomao2017
 ```
-
+## 异步进程
+解决主播在线状态问题的异步脚本
+`meilibo/api/cron.php` 
+```bash
+docker-compose exec meilibo_api bash
+nohup php cron.php &
+```
