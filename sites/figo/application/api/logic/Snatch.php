@@ -14,6 +14,14 @@ use think\Db;
 
 class Snatch
 {
+
+    public function getMillisecond()
+    {
+        $micro_time = microtime(true);
+        $time = intval($micro_time);
+        return intval(($micro_time - $time) * 1000);
+    }
+
     /**
      * 生成夺宝码
      * @param $num
@@ -78,6 +86,8 @@ class Snatch
                 'user_id' => $user_id,
                 'codes' => join(',', $user_codes),
                 'code_num' => $user_codes_num,
+                'ip' => request()->ip(0, true),
+                'millisecond' => $this->getMillisecond(),
                 'create_time' => time(),
             ]);
             $round['sale_times'] += $user_codes_num;
