@@ -53,10 +53,19 @@ class Snatch
             'code_unit' => $goods['code_unit'],
             'sale_times' => 0,
             'sale_rate' => 0,
-            'codes' => join(',', $this->genCodes($goods['code_num'])),
             'create_time' => time()
         ];
-        return model('snatch_round')->create($data);
+        $round = model('snatch_round')->create($data);
+        if ($round) {
+            model('snatch_round_code')->create([
+                'round_id' => $round['id'],
+                'code_num' => $goods['code_num'],
+                'sale_times' => 0,
+                'codes' => join(',', $this->genCodes($goods['code_num'])),
+                'create_time' => time()
+            ]);
+        }
+        return $round;
     }
 
     /**
@@ -72,10 +81,11 @@ class Snatch
         if ($level > 5) {
             return;
         }
-        $round = model('snatch_round')->lock(true)->find($round_id);
-        $codes = explode(',', $round['codes']);
+        $round = model('snatch_round')->find($round_id);
+        $round_code = model('snatch_round_code')->lock(true)->where('round_id', $round_id)->find();
+        $codes = explode(',', $round_code['codes']);
         $user_codes = [];
-        for ($i = $round['sale_times']; $i < $round['sale_times'] + $code_num && $i < $round['code_num']; $i++) {
+        for ($i = $round_code['sale_times']; $i < $round_code['sale_times'] + $code_num && $i < $round_code['code_num']; $i++) {
             $user_codes[] = $codes[$i];
         }
         $user_codes_num = count($user_codes);
@@ -91,7 +101,8 @@ class Snatch
                 'create_time' => time(),
             ]);
             $round['sale_times'] += $user_codes_num;
-            $round['sale_rate'] = floatval($round['sale_times']) / $round['code_num'];
+            $round['sale_rate'] = floatval($round['sale_times']) / $round_code['code_num'];
+            Db::table('snatch_round_code')->where('round_id', $round_id)->update(['sale_times' => $round['sale_times']]);
             Db::table('snatch_round')->where('id', $round_id)->update($round->getData());
         }
         if ($user_codes_num < $code_num) {
@@ -107,6 +118,68 @@ class Snatch
     public function getLastRoundId($goods_id)
     {
         return model('snatch_round')->where(['goods_id' => $goods_id])->max('id');
+    }
+
+    /**
+     * 揭晓
+     * @param int $goods_info
+     * @param int $goods_times
+     * @param int $number
+     * @param int $last_consume_id
+     * @return type
+     */
+    public function announce($round_id)
+    {
+        model('snatch_round')->where('id', $round_id)->save([
+            'status' => 2,
+            'announce_time' => time() + 3 * 60
+        ]);
+        $goods_id = $goods_info['id'];
+        $need_num = $goods_info['price'] / self::UNIT_PRICE;
+        list($time_count, $count_data) = $this->getCountData($last_consume_id);
+        $lucky_number = fmod($time_count, $need_num) + 1000001;
+        $data = array(
+            'sale_times' => array('exp', "`sale_times` + {$number}"),
+            'announce_time' => $this->_timestamp + 60 * 3,
+            'announce_millisecond' => $this->_millisecond,
+            'time_count' => $time_count,
+            'count_data' => json_encode($count_data),
+            'lucky_number' => $lucky_number,
+            'last_consume_id' => $last_consume_id,
+            'user_id' => $this->getLuckyUserId($goods_id, $goods_times, $lucky_number),
+        );
+        $where = array('goods_id' => $goods_id, 'goods_times' => $goods_times);
+        $ret = M('goods_data')->where($where)->save($data);
+        if ($ret) {
+            $goods_order_id = $this->addGoodsOrder($goods_id, $goods_times);
+            if ($goods_order_id) {
+                return $this->addGoodsOrderLog(array(
+                    'goods_order_id' => $goods_order_id,
+                    'action_user_id' => 0,
+                    'action_user' => '乐淘系统',
+                ), 1);
+            }
+            return $goods_order_id;
+        }
+        return $ret;
+    }
+
+    public function getLuckyCode($round_id)
+    {
+        $round_code = model('snatch_round_code')->where('round_id', $round_id)->find();
+        $lucky_code = 0;
+        if ($round_code) {
+            $code_num = $round_code['code_num'];
+            $pos = rand(0, $code_num);
+            $codes = explode(',', $round_code['codes']);
+            $lucky_code = $codes[$pos];
+        }
+        return $lucky_code;
+    }
+
+    public function getLuckyUserId($round_id, $code)
+    {
+
     }
 
 }

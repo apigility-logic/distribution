@@ -28,4 +28,8 @@ class SnatchRound extends Base
     {
         return $this->hasOne('user_profile', 'user_id', 'lucky_user_id')->field($this->getFields('profile'));
     }
+
+    public function code(){
+        return $this->hasOne('snatch_round_code', 'round_id', 'id')->field($this->getFields('snatch_round_code'));
+    }
 }
