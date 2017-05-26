@@ -19,11 +19,16 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\InheritanceType;
+use Doctrine\ORM\Mapping\DiscriminatorColumn;
+use Doctrine\ORM\Mapping\DiscriminatorMap;
 
 /**
  * Class Event
  * @package ApigilityLogic\Distribution\DoctrineEntity
  * @Entity @Table(name="al_dist_event")
+ * @InheritanceType("SINGLE_TABLE")
+ * @DiscriminatorColumn(name="type", type="string")
  */
 class Event
 {
@@ -72,5 +77,49 @@ class Event
     public function __construct() {
         $this->downstream_distributors = new ArrayCollection();
         $this->commissions = new ArrayCollection();
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+        return $this;
+    }
+
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    public function setBasePercent($base_percent)
+    {
+        $this->base_percent = $base_percent;
+        return $this;
+    }
+
+    public function getBasePercent()
+    {
+        return $this->base_percent;
+    }
+
+    public function setCreateTime($create_time)
+    {
+        $this->create_time = $create_time;
+        return $this;
+    }
+
+    public function getCreateTime()
+    {
+        return $this->create_time;
     }
 }

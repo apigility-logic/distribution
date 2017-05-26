@@ -73,7 +73,7 @@ class Leader
     /**
      * 领导的所有分佣项
      *
-     * @OneToMany(targetEntity="Commission", mappedBy="leader")
+     * @OneToMany(targetEntity="TeamCommission", mappedBy="leader")
      */
     protected $commissions;
 

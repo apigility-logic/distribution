@@ -49,7 +49,7 @@ class ChainLevel
     /**
      * 此链级关聊的所有分佣项
      *
-     * @OneToMany(targetEntity="Commission", mappedBy="event")
+     * @OneToMany(targetEntity="ChainCommission", mappedBy="event")
      */
     protected $commissions;
 
