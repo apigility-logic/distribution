@@ -37,10 +37,28 @@ class SnatchRecord extends Base
         } catch (\Exception $e) {
             // 回滚事务
             Db::rollback();
-            exit($e->getMessage());
-            exit(model('snatch_record')->getLastSql());
+            //exit($e->getMessage());
+            //exit(model('snatch_record')->getLastSql());
             return $this->error();
         }
+    }
+
+    public function rank()
+    {
+        $round_id = request()->param('round_id');
+        \app\common\model\SnatchRecord::setFields(['profile' => 'user_id,avatar,nickname']);
+        $data = model('snatch_record')->with('profile')
+            ->field('user_id,round_id,ip,millisecond,create_time,sum(`code_num`) as code_num')
+            ->where('round_id', $round_id)
+            ->group('user_id,round_id')
+            ->order('code_num desc')
+            ->limit(10)
+            ->select();
+        foreach($data as $row){
+            $row['code_num'] = intval($row['code_num']);
+        }
+        $response = ['list' => $data];
+        return $response;
     }
 
 }
