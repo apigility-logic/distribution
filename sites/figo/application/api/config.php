@@ -50,7 +50,7 @@ return [
             'fields' => [
                 'snatch_round' => 'id,goods_id,code_unit,code_num,sale_times,sale_rate,lucky_code,lucky_user_id,announce_time,create_time, status',
                 'profile' => 'user_id,avatar,nickname',
-                'goods' => 'id,title,images'
+                'goods' => 'id,title,cover'
             ],
             'requireAuth' => false,
             'action' => ['lists']
