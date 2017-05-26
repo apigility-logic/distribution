@@ -19,11 +19,16 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\InheritanceType;
+use Doctrine\ORM\Mapping\DiscriminatorColumn;
+use Doctrine\ORM\Mapping\DiscriminatorMap;
 
 /**
  * Class Commission
  * @package ApigilityLogic\Distribution\DoctrineEntity
  * @Entity @Table(name="al_dist_commission")
+ * @InheritanceType("SINGLE_TABLE")
+ * @DiscriminatorColumn(name="type", type="string")
  */
 class Commission
 {
@@ -69,22 +74,6 @@ class Commission
      * @JoinColumn(name="distributor_id", referencedColumnName="id")
      */
     protected $distributor;
-
-    /**
-     * 接受分佣的领导（团队分佣模式）
-     *
-     * @ManyToOne(targetEntity="Leader", inversedBy="commissions")
-     * @JoinColumn(name="leader_id", referencedColumnName="id")
-     */
-    protected $leader;
-
-    /**
-     * 接受分佣者在当前分佣事件中所处的链级（链级分佣模式）
-     *
-     * @ManyToOne(targetEntity="ChainLevel", inversedBy="commissions")
-     * @JoinColumn(name="chain_level_id", referencedColumnName="id")
-     */
-    protected $chain_level;
 
     public function __construct() {
         $this->downstream_distributors = new ArrayCollection();
