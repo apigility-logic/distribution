@@ -32,6 +32,7 @@ return [
     'Phpro\\DoctrineHydrationModule',
     'ZF\\Apigility\\Doctrine\\Admin',
     'ZF\\Apigility\\Doctrine\\Server',
+    'ZF\\Apigility\\Documentation\\Swagger',
     'Application',
     'ApigilityLogic\\Distribution',
     'Meilibo\\Auth',

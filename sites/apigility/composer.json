@@ -32,7 +32,8 @@
         "zfcampus/zf-apigility-documentation": "^1.2.3",
         "zfcampus/zf-development-mode": "^3.0",
         "doctrine/doctrine-orm-module": "^1.1",
-        "zfcampus/zf-apigility-doctrine": "^2.1"
+        "zfcampus/zf-apigility-doctrine": "^2.1",
+        "zfcampus/zf-apigility-documentation-swagger": "^1.2"
     },
     "require-dev": {
         "zendframework/zend-developer-tools": "^1.1",
