@@ -31,7 +31,7 @@ class Snatch
     {
         $code = array();
         for ($i = 1; $i <= $num; $i++) {
-            $code[] = Config::get('group_code_base') + $i;
+            $code[] = Config::get('snatch_code_base') + $i;
         }
         shuffle($code);
         return $code;
@@ -90,7 +90,7 @@ class Snatch
         }
         $user_codes_num = count($user_codes);
         if ($user_codes_num > 0) {
-            Db::table('snatch_record')->insert([
+            $record_id = Db::table('snatch_record')->insert([
                 'round_id' => $round_id,
                 'goods_id' => $round['goods_id'],
                 'user_id' => $user_id,
@@ -99,11 +99,14 @@ class Snatch
                 'ip' => request()->ip(0, true),
                 'millisecond' => $this->getMillisecond(),
                 'create_time' => time(),
-            ]);
+            ], false, true);
             $round['sale_times'] += $user_codes_num;
             $round['sale_rate'] = floatval($round['sale_times']) / $round_code['code_num'];
             Db::table('snatch_round_code')->where('round_id', $round_id)->update(['sale_times' => $round['sale_times']]);
             Db::table('snatch_round')->where('id', $round_id)->update($round->getData());
+            if ($round['sale_rate'] == 1) {
+                $this->announce($round, $record_id);
+            }
         }
         if ($user_codes_num < $code_num) {
             $new_round = $this->addRound($round['goods_id']);
@@ -115,71 +118,82 @@ class Snatch
         return $user_codes;
     }
 
+    /**
+     * 最新一轮
+     * @param $goods_id
+     * @return mixed
+     */
     public function getLastRoundId($goods_id)
     {
         return model('snatch_round')->where(['goods_id' => $goods_id])->max('id');
     }
 
     /**
-     * 揭晓
-     * @param int $goods_info
-     * @param int $goods_times
-     * @param int $number
-     * @param int $last_consume_id
-     * @return type
+     * 计算数据,全网最后一百条购买记录
+     * @param $record_id
+     * @return array
      */
-    public function announce($round_id)
+    public function getCountData($record_id)
     {
-        model('snatch_round')->where('id', $round_id)->save([
-            'status' => 2,
-            'announce_time' => time() + 3 * 60
-        ]);
-        $goods_id = $goods_info['id'];
-        $need_num = $goods_info['price'] / self::UNIT_PRICE;
-        list($time_count, $count_data) = $this->getCountData($last_consume_id);
-        $lucky_number = fmod($time_count, $need_num) + 1000001;
-        $data = array(
-            'sale_times' => array('exp', "`sale_times` + {$number}"),
-            'announce_time' => $this->_timestamp + 60 * 3,
-            'announce_millisecond' => $this->_millisecond,
-            'time_count' => $time_count,
-            'count_data' => json_encode($count_data),
-            'lucky_number' => $lucky_number,
-            'last_consume_id' => $last_consume_id,
-            'user_id' => $this->getLuckyUserId($goods_id, $goods_times, $lucky_number),
-        );
-        $where = array('goods_id' => $goods_id, 'goods_times' => $goods_times);
-        $ret = M('goods_data')->where($where)->save($data);
-        if ($ret) {
-            $goods_order_id = $this->addGoodsOrder($goods_id, $goods_times);
-            if ($goods_order_id) {
-                return $this->addGoodsOrderLog(array(
-                    'goods_order_id' => $goods_order_id,
-                    'action_user_id' => 0,
-                    'action_user' => '乐淘系统',
-                ), 1);
-            }
-            return $goods_order_id;
+        $data = model('snatch_record')->alias('sr')
+            ->field('sr.create_time,millisecond,sr.user_id,nickname,avatar')
+            ->join('user_profile up', 'up.user_id = sr.user_id')
+            ->where('sr.id', '<=', $record_id)
+            ->limit(100)
+            ->order('sr.id desc')
+            ->select();
+        foreach ($data as $row) {
+            $row['count_value'] = date('His', $row['create_time']) . str_pad($row['millisecond'], 3, '0', STR_PAD_LEFT);
         }
-        return $ret;
+        return $data;
     }
 
-    public function getLuckyCode($round_id)
+    /**
+     * 揭晓
+     * @param $round_id
+     * @param $record_id
+     * @return false|int
+     */
+    public function announce($round, $record_id)
     {
-        $round_code = model('snatch_round_code')->where('round_id', $round_id)->find();
+        $count_data = $this->getCountData($record_id);
         $lucky_code = 0;
-        if ($round_code) {
-            $code_num = $round_code['code_num'];
-            $pos = rand(0, $code_num);
-            $codes = explode(',', $round_code['codes']);
-            $lucky_code = $codes[$pos];
+        $snatch_code_base = Config::get('snatch_code_base');
+        foreach ($count_data as $row) {
+            $lucky_code = ($lucky_code + $row['count_value']) % $round['code_num'];
         }
-        return $lucky_code;
+        $lucky_code += $snatch_code_base + 1;
+        $lucky_record = model('snatch_record')->where('round_id', $round['id'])->whereLike('codes', '%' . $lucky_code . '%')->find();
+        $model = model('snatch_round')->where('id', $round['id'])->update([
+            'status' => 2,
+            'announce_time' => time() + 3 * 60, //3分钟后揭晓
+            'lucky_code' => $lucky_code,
+            'lucky_user_id' => $lucky_record['user_id'],
+            'lucky_time' => $lucky_record['create_time'],
+            'count_data' => json_encode($count_data)
+        ]);
+        $this->createOrder([
+            'user_id' => $lucky_record['user_id'],
+            'round_id' => $round['id'],
+            'goods_id' => $round['goods_id'],
+            'create_time' => time()
+        ]);
+        return $model;
     }
 
-    public function getLuckyUserId($round_id, $code)
+    public function getOrderSn()
     {
+        return '10' . date('ymdHis') . rand(1000, 9999);
+    }
 
+    public function createOrder($data)
+    {
+        $data['order_sn'] = $this->getOrderSn();
+        $data['create_time'] = time();
+        $data['address_id'] = 0;
+        $data['shipping_status'] = 0;
+        $data['order_status'] = 0;
+        return model('snatch_order')->create($data);
     }
 
 }

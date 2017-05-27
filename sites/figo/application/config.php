@@ -246,5 +246,5 @@ return [
         'DOMAIN' => 'oqcf3gqmg.bkt.clouddn.com',
     ],
 
-    'group_code_base' => '1000000'
+    'snatch_code_base' => '1000000'
 ];
