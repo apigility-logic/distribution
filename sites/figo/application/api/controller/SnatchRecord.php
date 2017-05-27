@@ -37,7 +37,7 @@ class SnatchRecord extends Base
         } catch (\Exception $e) {
             // 回滚事务
             Db::rollback();
-            //exit($e->getMessage());
+            exit($e->getMessage());
             //exit(model('snatch_record')->getLastSql());
             return $this->error();
         }

@@ -40,7 +40,7 @@ class GroupOrder
     }
 
     public function getOrderSn(){
-        return date('ymdHis') . rand(1000, 9999);
+        return '20' . date('ymdHis') . rand(1000, 9999);
     }
 
     protected function _fee($data)
