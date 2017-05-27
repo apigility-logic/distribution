@@ -56,6 +56,9 @@ class AuthenticationAdapter extends AbstractAdapter
             return new Identity\GuestIdentity();
         }
 
-        return (new Identity\AuthenticatedIdentity(['Test Identity']))->setName('test_user_id');
+        $identity = new Identity\AuthenticatedIdentity(['Test Identity']);
+        $identity->setName('test_user_id');
+
+        return $identity;
     }
 }
