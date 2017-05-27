@@ -21,5 +21,11 @@ return [
     ],
     'ApigilityLogic\\Distribution\\V1\\Rest\\Distributor\\Controller' => [
         'description' => '分销者资源，用于管理分销链。每一个`Distributor`资源是一个节点，每一个节点都可以有一个上游节点。',
+        'collection' => [
+            'description' => '',
+            'GET' => [
+                'description' => '',
+            ],
+        ],
     ],
 ];
