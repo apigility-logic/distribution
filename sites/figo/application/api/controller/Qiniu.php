@@ -14,7 +14,10 @@ class Qiniu extends Base
     {
         $Qiniu = new \Qiniu();
         $token = $Qiniu->getUploadToken();
-        return ['token' => $token];
+        return [
+            'token' => $token,
+            'expire_time' => time() + 3000
+        ];
     }
 
 }
