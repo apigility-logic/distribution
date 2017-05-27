@@ -86,3 +86,4 @@ services:
     restart: always
     environment:
       WEB_DOCUMENT_ROOT: /app/public
+      XDEBUG_REMOTE_CONNECT_BACK: 1
