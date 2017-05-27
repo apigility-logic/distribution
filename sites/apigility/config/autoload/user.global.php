@@ -17,5 +17,15 @@
  */
 
 return [
-    // ...
+    'db' => [
+        'adapters' => [
+            'miaobang_apigility' => [
+                'database' => 'apigility',
+                'driver' => 'PDO_Mysql',
+                'hostname' => 'mysql',
+                'username' => 'root',
+                'password' => 'abc123',
+            ],
+        ],
+    ],
 ];
