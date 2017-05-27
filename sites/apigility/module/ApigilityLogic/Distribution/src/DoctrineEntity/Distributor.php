@@ -19,11 +19,16 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\InheritanceType;
+use Doctrine\ORM\Mapping\DiscriminatorColumn;
+use Doctrine\ORM\Mapping\DiscriminatorMap;
 
 /**
  * Class Distributor
  * @package ApigilityLogic\Distribution\DoctrineEntity
  * @Entity @Table(name="al_dist_distributor")
+ * @InheritanceType("SINGLE_TABLE")
+ * @DiscriminatorColumn(name="type", type="string")
  */
 class Distributor
 {
@@ -43,14 +48,14 @@ class Distributor
     /**
      * 创建时间
      *
-     * @Column(type="datetime", nullable=false)
+     * @Column(type="datetime", nullable=true)
      */
     protected $create_time;
 
     /**
      * 更新时间
      *
-     * @Column(type="datetime", nullable=false)
+     * @Column(type="datetime", nullable=true)
      */
     protected $update_time;
 

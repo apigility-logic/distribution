@@ -51,7 +51,8 @@
         "psr-4": {
             "Application\\": "module/Application/src/",
             "ApigilityLogic\\Distribution\\": "module/ApigilityLogic/Distribution/src/",
-            "Meilibo\\Auth\\": "module/Meilibo/Auth/src/"
+            "Meilibo\\Auth\\": "module/Meilibo/Auth/src/",
+            "Meilibo\\Distribution\\": "module/Meilibo/Distribution/src/"
         }
     },
     "autoload-dev": {

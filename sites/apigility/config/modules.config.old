@@ -36,5 +36,4 @@ return [
     'Application',
     'ApigilityLogic\\Distribution',
     'Meilibo\\Auth',
-    'Test',
 ];
