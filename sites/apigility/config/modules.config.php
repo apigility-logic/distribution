@@ -15,6 +15,7 @@ return [
     'Zend\\Router',
     'Zend\\Validator',
     'ZF\\Apigility',
+    'ZF\\Apigility\\Admin',
     'ZF\\Apigility\\Documentation',
     'ZF\\ApiProblem',
     'ZF\\Configuration',
@@ -28,6 +29,9 @@ return [
     'ZF\\Versioning',
     'DoctrineModule',
     'DoctrineORMModule',
+    'Phpro\DoctrineHydrationModule',
+    'ZF\Apigility\Doctrine\Admin',
+    'ZF\Apigility\Doctrine\Server',
     'Application',
     'ApigilityLogic\\Distribution',
 ];
