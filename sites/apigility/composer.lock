@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b4ea2aa47ee28a5d285dac0d0b16859c",
+    "content-hash": "8a5c08baa903532a68eedf4e94b3fdd7",
     "packages": [
         {
             "name": "api-skeletons/zf-doctrine-module-zend-hydrator",
@@ -42,6 +42,68 @@
             ],
             "description": "Corrects DoctrineModule classes to use zend-hydrator",
             "time": "2016-06-12T20:55:02+00:00"
+        },
+        {
+            "name": "api-skeletons/zf-oauth2-doctrine",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/API-Skeletons/zf-oauth2-doctrine.git",
+                "reference": "659ea1ace90bc967bb2828d75ccc5835e0e3a20c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/API-Skeletons/zf-oauth2-doctrine/659ea1ace90bc967bb2828d75ccc5835e0e3a20c.zip",
+                "reference": "659ea1ace90bc967bb2828d75ccc5835e0e3a20c",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/doctrine-module": "~0.8 || ^1.0",
+                "doctrine/doctrine-orm-module": "~0.8 || ^1.0",
+                "doctrine/orm": "^2.4.5",
+                "php": "^5.5 || ^7.0",
+                "zendframework/zend-config": "^2.4",
+                "zendframework/zend-i18n": "^2.4",
+                "zendframework/zend-modulemanager": "^2.4",
+                "zendframework/zend-mvc": "^2.4 || ^3.0.3",
+                "zendframework/zend-servicemanager": "^2.4 || ^3.0",
+                "zfcampus/zf-mvc-auth": "^1.3",
+                "zfcampus/zf-oauth2": "^1.3"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.5",
+                "phpunit/phpunit": "^4.8.8 || ^5.2",
+                "satooshi/php-coveralls": "^1.0",
+                "squizlabs/php_codesniffer": "^2.7",
+                "zendframework/zend-authentication": "^2.4",
+                "zendframework/zend-eventmanager": "^2.4 || ^3.0",
+                "zendframework/zend-form": "^2.4",
+                "zendframework/zend-loader": "^2.4",
+                "zendframework/zend-log": "^2.4",
+                "zendframework/zend-serializer": "^2.4",
+                "zendframework/zend-test": "^2.4 || ^3.0"
+            },
+            "suggest": {
+                "api-skeletons/zf-oauth2-doctrine-permissions-acl": "Access Control Lists for zf-oauth2-doctrine",
+                "bushbaby/zf-oauth2-doctrine-mutatetablenames": "Allows configuration of the table names that this module uses"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ZF\\OAuth2\\Doctrine\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Doctrine OAuth2 Server Adapter for Apigility",
+            "keywords": [
+                "apigility",
+                "doctrine",
+                "oauth2"
+            ],
+            "time": "2016-12-27T01:20:18+00:00"
         },
         {
             "name": "bshaffer/oauth2-server-php",
@@ -1168,16 +1230,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.2.8",
+            "version": "v3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "a7a17e0c6c3c4d70a211f80782e4b90ddadeaa38"
+                "reference": "c80e63f3f5e3a331bfc25e6e9332b10422eb9b05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/console/a7a17e0c6c3c4d70a211f80782e4b90ddadeaa38.zip",
-                "reference": "a7a17e0c6c3c4d70a211f80782e4b90ddadeaa38",
+                "url": "https://files.phpcomposer.com/files/symfony/console/c80e63f3f5e3a331bfc25e6e9332b10422eb9b05.zip",
+                "reference": "c80e63f3f5e3a331bfc25e6e9332b10422eb9b05",
                 "shasum": ""
             },
             "require": {
@@ -1185,10 +1247,15 @@
                 "symfony/debug": "~2.8|~3.0",
                 "symfony/polyfill-mbstring": "~1.0"
             },
+            "conflict": {
+                "symfony/dependency-injection": "<3.3"
+            },
             "require-dev": {
                 "psr/log": "~1.0",
+                "symfony/dependency-injection": "~3.3",
                 "symfony/event-dispatcher": "~2.8|~3.0",
                 "symfony/filesystem": "~2.8|~3.0",
+                "symfony/http-kernel": "~2.8|~3.0",
                 "symfony/process": "~2.8|~3.0"
             },
             "suggest": {
@@ -1200,7 +1267,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2-dev"
+                    "dev-master": "3.3-dev"
                 }
             },
             "autoload": {
@@ -1227,20 +1294,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2017-04-26T01:39:17+00:00"
+            "time": "2017-05-28T14:08:56+00:00"
         },
         {
             "name": "symfony/debug",
-            "version": "v3.2.8",
+            "version": "v3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "fd6eeee656a5a7b384d56f1072243fe1c0e81686"
+                "reference": "ef5f19a7a68075a0bd05969a329ead3b0776fb7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/debug/fd6eeee656a5a7b384d56f1072243fe1c0e81686.zip",
-                "reference": "fd6eeee656a5a7b384d56f1072243fe1c0e81686",
+                "url": "https://files.phpcomposer.com/files/symfony/debug/ef5f19a7a68075a0bd05969a329ead3b0776fb7a.zip",
+                "reference": "ef5f19a7a68075a0bd05969a329ead3b0776fb7a",
                 "shasum": ""
             },
             "require": {
@@ -1251,13 +1318,12 @@
                 "symfony/http-kernel": ">=2.3,<2.3.24|~2.4.0|>=2.5,<2.5.9|>=2.6,<2.6.2"
             },
             "require-dev": {
-                "symfony/class-loader": "~2.8|~3.0",
                 "symfony/http-kernel": "~2.8|~3.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2-dev"
+                    "dev-master": "3.3-dev"
                 }
             },
             "autoload": {
@@ -1284,7 +1350,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2017-04-19T20:17:50+00:00"
+            "time": "2017-05-27T16:02:27+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -2031,6 +2097,73 @@
                 "zf2"
             ],
             "time": "2017-05-17T18:40:45+00:00"
+        },
+        {
+            "name": "zendframework/zend-i18n",
+            "version": "2.7.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/zend-i18n.git",
+                "reference": "d3431e29cc00c2a1c6704e601d4371dbf24f6a31"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/zendframework/zend-i18n/d3431e29cc00c2a1c6704e601d4371dbf24f6a31.zip",
+                "reference": "d3431e29cc00c2a1c6704e601d4371dbf24f6a31",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0 || ^5.6",
+                "zendframework/zend-stdlib": "^2.7 || ^3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.0.8 || ^5.7.15",
+                "zendframework/zend-cache": "^2.6.1",
+                "zendframework/zend-coding-standard": "~1.0.0",
+                "zendframework/zend-config": "^2.6",
+                "zendframework/zend-eventmanager": "^2.6.2 || ^3.0",
+                "zendframework/zend-filter": "^2.6.1",
+                "zendframework/zend-servicemanager": "^2.7.5 || ^3.0.3",
+                "zendframework/zend-validator": "^2.6",
+                "zendframework/zend-view": "^2.6.3"
+            },
+            "suggest": {
+                "ext-intl": "Required for most features of Zend\\I18n; included in default builds of PHP",
+                "zendframework/zend-cache": "Zend\\Cache component",
+                "zendframework/zend-config": "Zend\\Config component",
+                "zendframework/zend-eventmanager": "You should install this package to use the events in the translator",
+                "zendframework/zend-filter": "You should install this package to use the provided filters",
+                "zendframework/zend-i18n-resources": "Translation resources",
+                "zendframework/zend-servicemanager": "Zend\\ServiceManager component",
+                "zendframework/zend-validator": "You should install this package to use the provided validators",
+                "zendframework/zend-view": "You should install this package to use the provided view helpers"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7-dev",
+                    "dev-develop": "2.8-dev"
+                },
+                "zf": {
+                    "component": "Zend\\I18n",
+                    "config-provider": "Zend\\I18n\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zend\\I18n\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "homepage": "https://github.com/zendframework/zend-i18n",
+            "keywords": [
+                "i18n",
+                "zf2"
+            ],
+            "time": "2017-05-17T17:00:12+00:00"
         },
         {
             "name": "zendframework/zend-inputfilter",

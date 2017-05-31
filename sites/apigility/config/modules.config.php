@@ -5,6 +5,7 @@
  * The previous config file has been stored in ./config/modules.config.old
  */
 return [
+    'Zend\I18n',
     'Zend\\Cache',
     'Zend\\Form',
     'Zend\\Db',
@@ -34,7 +35,9 @@ return [
     'ZF\\Apigility\\Doctrine\\Server',
     'ZF\\Apigility\\Documentation\\Swagger',
     'ZF\\Doctrine\\QueryBuilder',
+    'ZF\OAuth2\Doctrine',
     'Application',
+    'ApigilityLogic\\User',
     'ApigilityLogic\\Distribution',
     'Meilibo\\Auth',
     'Meilibo\\Distribution',
