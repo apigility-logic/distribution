@@ -6,12 +6,18 @@
 {volist name="scripts" id="script"}
 {$script}
 {/volist}
+<script src="{:request()->root()}/static/plugins/sortable/Sortable.min.js"></script>
 <script src="{:request()->root()}/static/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript"
         src="{:request()->root()}/static/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"
         charset="UTF-8"></script>
 <script type="text/javascript" src="{:request()->root()}/static/uploadify/jquery.uploadify.min.js"></script>
 <script type="text/javascript">
+    $(function(){
+        $(".sortable-box").each(function(){
+            Sortable.create($(this)[0]); // That's all.
+        });
+    });
     $('.picker-datetime').datetimepicker({
         format: 'yyyy-mm-dd hh:ii:ss',
         language: "zh-CN",
@@ -41,7 +47,7 @@
                 if (json.code) {
                     $(target).val(json.data.savepath);
                     if ($(target).next().find('img').length == 0) {
-                        var html = '<div class="upload-pre-item">';
+                        var html = '<div class="upload-pre-item sortable">';
                         html += "<div class=\"delete-item\"></div>";
                         html += '<img data-path="' + json.data.savepath + '" src="' + json.data.thumb + '",  data-origin="' + json.data.filepath + '"></div>';
                         $(target).next().append(html);
@@ -75,7 +81,7 @@
             onUploadSuccess: function (event, response, status) {
                 var json = $.parseJSON(response);
                 if (json.code) {
-                    var html = '<div class="upload-pre-item" style="float:left;">';
+                    var html = '<div class="upload-pre-item sortable" style="float:left">';
                     html += "<div class=\"delete-item\"></div>";
                     html += '<img data-path="' + json.data.savepath + '" src="' + json.data.thumb + '",  data-origin="' + json.data.filepath + '"></div>';
                     $(target).next().append(html);

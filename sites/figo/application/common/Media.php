@@ -15,8 +15,6 @@ namespace app\common;
 
 //use think\Image;
 
-use qn\qn;
-
 class Media
 {
     public static $upload = ROOT_PATH . 'upload';
@@ -43,7 +41,7 @@ class Media
         if(false === strpos($path, 'http://')){
             return $path;
         } else {
-            $Qiniu = new qn();
+            $Qiniu = new \Qiniu();
             return $Qiniu->getThumbImg($path, $width, $height);
         }
 

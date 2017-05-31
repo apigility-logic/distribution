@@ -33,10 +33,12 @@ class SnatchGoods extends Base
         return [
             //field, type
             ['title', \FormHelper::TYPE_TEXT],
+            ['images', \FormHelper::TYPE_IMAGES],
             ['intro', \FormHelper::TYPE_TEXT],
             ['code_unit', \FormHelper::TYPE_TEXT],
             ['code_num', \FormHelper::TYPE_TEXT],
             ['goods_num', \FormHelper::TYPE_TEXT],
+            ['content', \FormHelper::TYPE_EDITOR],
             ['status', \FormHelper::TYPE_RADIO, [
                 'options' => [0 => '禁用', 1 => '正常'],
                 'default' => 1,

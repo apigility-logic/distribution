@@ -14,6 +14,7 @@ class SnatchGoods extends SoftDeleteBase
             'code_unit' => '夺宝码单价',
             'code_num' => '夺宝码个数',
             'goods_num' => '商品个数',
+            'content' => '商品详情',
             'status' => '状态',
         ];
         return array_merge(parent::getLabel(), $label);

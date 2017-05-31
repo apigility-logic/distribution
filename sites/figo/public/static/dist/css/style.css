@@ -58,6 +58,7 @@
     cursor: pointer;
     border: 1px solid #ccc;
     transition: all .3s linear;
+    margin: 15px 15px 0 0;
 }
 .upload-img-box .upload-pre-item .delete-item{
     position: absolute;
