@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3af7367cbcd3e98e880958668f2b5e42",
+    "content-hash": "b4ea2aa47ee28a5d285dac0d0b16859c",
     "packages": [
         {
             "name": "api-skeletons/zf-doctrine-module-zend-hydrator",
@@ -3492,6 +3492,80 @@
                 "zf2"
             ],
             "time": "2017-01-09T23:34:49+00:00"
+        },
+        {
+            "name": "zfcampus/zf-doctrine-querybuilder",
+            "version": "1.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zfcampus/zf-doctrine-querybuilder.git",
+                "reference": "cf3799c17e454fb1ccfe883a50427da1ed2ea8ce"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/zfcampus/zf-doctrine-querybuilder/cf3799c17e454fb1ccfe883a50427da1ed2ea8ce.zip",
+                "reference": "cf3799c17e454fb1ccfe883a50427da1ed2ea8ce",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/doctrine-module": "^1.2",
+                "php": "^5.6 || ^7.0",
+                "zendframework/zend-hydrator": "^1.1 || ^2.2.1",
+                "zendframework/zend-modulemanager": "^2.7.2",
+                "zendframework/zend-mvc": "^2.7.10 || ^3.0.2",
+                "zendframework/zend-servicemanager": "^2.7.6 || ^3.1.1",
+                "zfcampus/zf-api-problem": "^1.2.2",
+                "zfcampus/zf-apigility-doctrine": "^2.1",
+                "zfcampus/zf-hal": "^1.4.2"
+            },
+            "require-dev": {
+                "doctrine/doctrine-mongo-odm-module": "^0.11",
+                "doctrine/doctrine-orm-module": "^1.1",
+                "phpunit/phpunit": "^5.6",
+                "zendframework/zend-coding-standard": "~1.0.0",
+                "zendframework/zend-i18n": "^2.7.3",
+                "zendframework/zend-log": "^2.9.1",
+                "zendframework/zend-serializer": "^2.8",
+                "zendframework/zend-test": "^2.6.1 || ^3.0.1",
+                "zfcampus/zf-apigility-provider": "^1.2"
+            },
+            "suggest": {
+                "doctrine/doctrine-mongo-odm-module": "^0.11, if you wish to use the Doctrine ODM",
+                "doctrine/doctrine-orm-module": "^1.1, if you wish to use the Doctrine ORM",
+                "ext/mongo": "Mongo extension, if using ODM"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.5-dev",
+                    "dev-develop": "1.6-dev"
+                },
+                "zf": {
+                    "module": [
+                        "ZF\\Doctrine\\QueryBuilder"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ZF\\Doctrine\\QueryBuilder\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Apigility Doctrine QueryBuilder module",
+            "homepage": "https://apigility.org",
+            "keywords": [
+                "api",
+                "apigility",
+                "doctrine",
+                "filter",
+                "zend",
+                "zf"
+            ],
+            "time": "2016-11-14T18:11:31+00:00"
         },
         {
             "name": "zfcampus/zf-hal",
