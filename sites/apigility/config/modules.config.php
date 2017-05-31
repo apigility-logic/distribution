@@ -35,6 +35,7 @@ return [
     'ZF\\Apigility\\Documentation\\Swagger',
     'ZF\\Doctrine\\QueryBuilder',
     'Application',
+    'ApigilityLogic\\User',
     'ApigilityLogic\\Distribution',
     'Meilibo\\Auth',
     'Meilibo\\Distribution',
