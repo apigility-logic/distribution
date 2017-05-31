@@ -34,7 +34,8 @@
         "doctrine/doctrine-orm-module": "^1.1",
         "zfcampus/zf-apigility-doctrine": "^2.1",
         "zfcampus/zf-apigility-documentation-swagger": "^1.2",
-        "zfcampus/zf-doctrine-querybuilder": "^1.5"
+        "zfcampus/zf-doctrine-querybuilder": "^1.5",
+        "api-skeletons/zf-oauth2-doctrine": "^1.1"
     },
     "require-dev": {
         "zendframework/zend-developer-tools": "^1.1",
