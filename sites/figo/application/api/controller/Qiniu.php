@@ -15,6 +15,7 @@ class Qiniu extends Base
         $Qiniu = new \Qiniu();
         $token = $Qiniu->getUploadToken();
         return [
+            'domain' => 'http://' . $Qiniu->domain,
             'token' => $token,
             'expire_time' => time() + 3000
         ];
