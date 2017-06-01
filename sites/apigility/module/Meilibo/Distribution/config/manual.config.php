@@ -6,4 +6,11 @@
  * Time: 16:32
  */
 return [
+    'zf-mvc-auth' => [
+        'authentication' => [
+            'map' => [
+                'Meilibo\\Distribution\\V1' => 'meilibo',
+            ],
+        ],
+    ],
 ];
