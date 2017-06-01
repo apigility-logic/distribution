@@ -3,7 +3,7 @@
 /**
  * The user entity is always stored in another namespace than ZF\OAuth2
  */
-$userEntity = 'ApigilityLogic\User\DoctrineEntity\User';
+$userEntity = 'ApigilityLogic\User\Doctrine\Entity\User';
 
 return array(
     'zf-oauth2-doctrine' => array(

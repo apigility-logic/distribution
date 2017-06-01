@@ -38,7 +38,7 @@ return [
             'collection_query_whitelist' => [],
             'page_size' => 25,
             'page_size_param' => null,
-            'entity_class' => \Meilibo\Distribution\DoctrineEntity\MeiliboDistributor::class,
+            'entity_class' => \Meilibo\Distribution\Doctrine\Entity\MeiliboDistributor::class,
             'collection_class' => \Meilibo\Distribution\V1\Rest\MeiliboDistributor\MeiliboDistributorCollection::class,
             'service_name' => 'MeiliboDistributor',
         ],
@@ -62,7 +62,7 @@ return [
     ],
     'zf-hal' => [
         'metadata_map' => [
-            \Meilibo\Distribution\DoctrineEntity\MeiliboDistributor::class => [
+            \Meilibo\Distribution\Doctrine\Entity\MeiliboDistributor::class => [
                 'route_identifier_name' => 'meilibo_distributor_id',
                 'entity_identifier_name' => 'id',
                 'route_name' => 'meilibo\\distribution.rest.doctrine.meilibo-distributor',
@@ -85,7 +85,7 @@ return [
     ],
     'doctrine-hydrator' => [
         'Meilibo\\Distribution\\V1\\Rest\\MeiliboDistributor\\MeiliboDistributorHydrator' => [
-            'entity_class' => \Meilibo\Distribution\DoctrineEntity\MeiliboDistributor::class,
+            'entity_class' => \Meilibo\Distribution\Doctrine\Entity\MeiliboDistributor::class,
             'object_manager' => 'doctrine.entitymanager.orm_default',
             'by_value' => false,
             'strategies' => [],
@@ -119,8 +119,6 @@ return [
                         ],
                     ],
                 ],
-                'description' => '分销者名称',
-                'field_type' => 'string',
             ],
             1 => [
                 'name' => 'code',
@@ -175,8 +173,6 @@ return [
                         ],
                     ],
                 ],
-                'field_type' => 'string',
-                'description' => '美丽播用户标识',
             ],
         ],
     ],
