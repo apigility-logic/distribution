@@ -26,6 +26,8 @@ class MeiliboDistributor extends AbstractCreateFilter
 
         if (!isset($data->code)) $data->code = Rand::getString(8, 'abcdefghijklmnopqrstuvwxyz');
 
+        //var_dump($data); exit();
+
         return $data;
     }
 }
