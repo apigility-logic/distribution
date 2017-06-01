@@ -6,11 +6,4 @@
  * Time: 16:32
  */
 return [
-    'zf-mvc-auth' => [
-        'authentication' => [
-            'map' => [
-                'ApigilityLogic\\Distribution\\V1' => 'meilibo',
-            ],
-        ],
-    ],
 ];

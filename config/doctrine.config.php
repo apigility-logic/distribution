@@ -13,7 +13,7 @@ return array(
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
                 'paths' => array(
-                    __DIR__ . '/../src/DoctrineEntity'
+                    __DIR__ . '/../src/Doctrine/Entity'
                 ),
             ),
 
@@ -22,7 +22,7 @@ return array(
             'orm_default' => array(
                 'drivers' => array(
                     // register `my_annotation_driver` for any entity under namespace `My\Namespace`
-                    'ApigilityLogic\Distribution\DoctrineEntity' => 'apigility_logic_distribution_annotation_driver'
+                    'ApigilityLogic\Distribution\Doctrine\Entity' => 'apigility_logic_distribution_annotation_driver'
                 )
             )
         )

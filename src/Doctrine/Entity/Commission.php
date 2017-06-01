@@ -5,7 +5,7 @@
  * Date: 2017/5/26
  * Time: 16:02:01
  */
-namespace ApigilityLogic\Distribution\DoctrineEntity;
+namespace ApigilityLogic\Distribution\Doctrine\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping\Entity;
@@ -25,7 +25,7 @@ use Doctrine\ORM\Mapping\DiscriminatorMap;
 
 /**
  * Class Commission
- * @package ApigilityLogic\Distribution\DoctrineEntity
+ * @package ApigilityLogic\Distribution\Doctrine\Entity
  * @Entity @Table(name="al_dist_commission")
  * @InheritanceType("SINGLE_TABLE")
  * @DiscriminatorColumn(name="type", type="string")

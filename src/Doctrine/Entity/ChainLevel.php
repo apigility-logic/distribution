@@ -5,7 +5,7 @@
  * Date: 2017/5/26
  * Time: 15:10:31
  */
-namespace ApigilityLogic\Distribution\DoctrineEntity;
+namespace ApigilityLogic\Distribution\Doctrine\Entity;
 
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
@@ -21,7 +21,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class ChainLevel
- * @package ApigilityLogic\Distribution\DoctrineEntity
+ * @package ApigilityLogic\Distribution\Doctrine\Entity
  * @Entity @Table(name="al_dist_chain_level")
  */
 class ChainLevel

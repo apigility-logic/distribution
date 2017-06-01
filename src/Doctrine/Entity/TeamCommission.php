@@ -5,7 +5,7 @@
  * Date: 2017/5/26
  * Time: 19:08:15
  */
-namespace ApigilityLogic\Distribution\DoctrineEntity;
+namespace ApigilityLogic\Distribution\Doctrine\Entity;
 
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\ManyToOne;

@@ -3,9 +3,9 @@
  * Created by PhpStorm.
  * User: figo-007
  * Date: 2017/5/26
- * Time: 16:01:29
+ * Time: 16:01:10
  */
-namespace ApigilityLogic\Distribution\DoctrineEntity;
+namespace ApigilityLogic\Distribution\Doctrine\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping\Entity;
@@ -21,11 +21,11 @@ use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\OneToMany;
 
 /**
- * Class Leader
- * @package ApigilityLogic\Distribution\DoctrineEntity
- * @Entity @Table(name="al_dist_leader")
+ * Class LeaderStatus
+ * @package ApigilityLogic\Distribution\Doctrine\Entity
+ * @Entity @Table(name="al_dist_leader_status")
  */
-class Leader
+class LeaderStatus
 {
     /**
      * @Id @Column(type="integer")
@@ -34,11 +34,18 @@ class Leader
     protected $id;
 
     /**
-     * 领导名称
+     * 身份（领导节点类型）名称
      *
      * @Column(type="string", length=50, nullable=true)
      */
     protected $name;
+
+    /**
+     * 分佣比值
+     *
+     * @Column(type="decimal", precision=5, scale=2, nullable=false)
+     */
+    protected $percent;
 
     /**
      * 创建时间
@@ -55,29 +62,11 @@ class Leader
     protected $update_time;
 
     /**
-     * 领导的身份类型
-     *
-     * @ManyToOne(targetEntity="LeaderStatus", inversedBy="leaders")
-     * @JoinColumn(name="product_id", referencedColumnName="id")
+     * @OneToMany(targetEntity="Leader", mappedBy="status")
      */
-    protected $status;
-
-    /**
-     * 领导对应的分销者节点
-     *
-     * @OneToOne(targetEntity="Distributor", inversedBy="leader")
-     * @JoinColumn(name="distributor_id", referencedColumnName="id")
-     */
-    protected $distributor;
-
-    /**
-     * 领导的所有分佣项
-     *
-     * @OneToMany(targetEntity="TeamCommission", mappedBy="leader")
-     */
-    protected $commissions;
+    protected $leaders;
 
     public function __construct() {
-        $this->commissions = new ArrayCollection();
+        $this->leaders = new ArrayCollection();
     }
 }
