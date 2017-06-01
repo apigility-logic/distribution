@@ -46,6 +46,13 @@ class Distributor
     protected $name;
 
     /**
+     * 推荐码，每个分销者都有一个唯一的推荐码，当他推荐朋友注册发展下级时，让朋友输入此推荐码来关联上级
+     *
+     * @Column(type="string", length=50, nullable=false)
+     */
+    protected $code;
+
+    /**
      * 创建时间
      *
      * @Column(type="datetime", nullable=true)
