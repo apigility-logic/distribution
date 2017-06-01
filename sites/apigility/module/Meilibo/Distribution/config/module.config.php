@@ -123,18 +123,39 @@ return [
                 'field_type' => 'string',
             ],
             1 => [
+                'name' => 'code',
+                'required' => false,
+                'filters' => [
+                    0 => [
+                        'name' => \Zend\Filter\StringTrim::class,
+                    ],
+                    1 => [
+                        'name' => \Zend\Filter\StripTags::class,
+                    ],
+                ],
+                'validators' => [
+                    0 => [
+                        'name' => \Zend\Validator\StringLength::class,
+                        'options' => [
+                            'min' => 1,
+                            'max' => 50,
+                        ],
+                    ],
+                ],
+            ],
+            2 => [
                 'name' => 'create_time',
                 'required' => false,
                 'filters' => [],
                 'validators' => [],
             ],
-            2 => [
+            3 => [
                 'name' => 'update_time',
                 'required' => false,
                 'filters' => [],
                 'validators' => [],
             ],
-            3 => [
+            4 => [
                 'name' => 'meilibo_user_id',
                 'required' => false,
                 'filters' => [
