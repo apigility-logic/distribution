@@ -200,12 +200,12 @@ class Item
 
                 $item_html = "<input class=\"upload_images\" type=\"file\" id=\"upload_images_{$this->_name}\">"
                     . "<input type=\"hidden\" name=\"{$this->_name}\" id=\"cover_id_{$this->_name}\" value=\"{$this->_value}\"/>"
-                    . "<div class=\"upload-img-box\" style=\"width:400px;\">";
+                    . "<div class=\"upload-img-box sortable-box\" style=\"width:450px;\">";
                 if ($this->_value) {
                     $images = explode(',', $this->_value);
                     foreach ($images as $image) {
                         $thumb = Media::thumb($image, 200, 200);
-                        $item_html .= "<div class=\"upload-pre-item\" style=\"float:left;\">"
+                        $item_html .= "<div class=\"upload-pre-item sortable\" style='float:left' >"
                             . "<div class=\"delete-item\"></div>"
                             . "<img data-origin=\"" . Media::getUrl($image) . "\" src=\"" . Media::getUrl($thumb) . "\"/>"
                             . "</div>";
