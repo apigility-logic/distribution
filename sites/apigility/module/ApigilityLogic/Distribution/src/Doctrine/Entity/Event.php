@@ -74,6 +74,14 @@ class Event
      */
     protected $commissions;
 
+    /**
+     * 发生结束发件的标的物
+     *
+     * @ManyToOne(targetEntity="Target", inversedBy="event")
+     * @JoinColumn(name="target_id", referencedColumnName="id")
+     */
+    protected $target;
+
     public function __construct() {
         $this->downstream_distributors = new ArrayCollection();
         $this->commissions = new ArrayCollection();

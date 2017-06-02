@@ -53,6 +53,14 @@ class ChainLevel
      */
     protected $commissions;
 
+    /**
+     * 该分佣链级配置所属的标的
+     *
+     * @ManyToOne(targetEntity="Target", inversedBy="chain_levels")
+     * @JoinColumn(name="target_id", referencedColumnName="id")
+     */
+    protected $target;
+
     public function __construct() {
         $this->commissions = new ArrayCollection();
     }
