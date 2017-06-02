@@ -84,6 +84,7 @@
 - `Leader` 领导节点（团队分佣模式）
 - `LeaderStatus` 领导节点类型（团队分佣模式）
 - `ChainLevel` 分佣链级（链式分佣模式）
+- `Target` 分销标的物，发生分佣事件的源，一般来说是一个商品
 - `Event` 分佣事件，关联多个分佣项
 - `Commission` 分佣项
 
