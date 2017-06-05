@@ -19,6 +19,9 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\InheritanceType;
+use Doctrine\ORM\Mapping\DiscriminatorColumn;
+use Doctrine\ORM\Mapping\DiscriminatorMap;
 
 /**
  * 分销标的物
@@ -26,6 +29,8 @@ use Doctrine\ORM\Mapping\OneToMany;
  * Class Target
  * @package ApigilityLogic\Distribution\Doctrine\Entity
  * @Entity @Table(name="al_dist_target")
+ * @InheritanceType("SINGLE_TABLE")
+ * @DiscriminatorColumn(name="type", type="string")
  */
 class Target
 {
