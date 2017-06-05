@@ -1,0 +1,24 @@
+{
+    "name": "apigility-logic/distribution",
+    "description": "Apigility Logic 分销组件",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "api",
+        "apigility",
+        "framework",
+        "zf2",
+        "logic",
+        "apigility-logic"
+    ],
+    "homepage": "http://github.com/apigility-logic",
+    "support": {
+        "email": "164713332@qq.com",
+        "source": "https://github.com/apigility-logic/distribution",
+        "issues": "https://github.com/apigility-logic/distribution/issues"
+    },
+    "require": {
+        "php": "^5.6 || ^7.0",
+        "zfcampus/zf-apigility": "^1.3",
+        "doctrine/doctrine-orm-module": "^1.1"
+    }
+}
