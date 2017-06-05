@@ -113,4 +113,5 @@ class Distributor
     use GetterSetter\CreateTime;
     use GetterSetter\UpdateTime;
     use GetterSetter\Name;
+    use GetterSetter\Code;
 }
