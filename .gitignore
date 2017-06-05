@@ -1,5 +1,0 @@
-# Created by .ignore support plugin (hsz.mobi)
-.idea/
-data/mysql/data/*
-data/php/session/*
-.DS_Store

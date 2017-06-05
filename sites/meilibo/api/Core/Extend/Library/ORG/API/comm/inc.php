@@ -1,2 +1,0 @@
-<?php die('forbidden'); ?>
-{"appid":"101246982","appkey":"04f609c0ec85e4666585d61ef595d938","callback":"http://net.cn/index.php/login/qqCallback","scope":"get_user_info,add_share,list_album,add_album,upload_pic,add_topic,add_one_blog,add_weibo,check_page_fans,add_t,add_pic_t,del_t,get_repost_list,get_info,get_other_info,get_fanslist,get_idolist,add_idol,del_idol,get_tenpay_addr","errorReport":true,"storageType":"file","host":"localhost","user":"root","password":"tieweishivps","database":"dome521fms"}
