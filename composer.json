@@ -17,8 +17,11 @@
         "issues": "https://github.com/apigility-logic/distribution/issues"
     },
     "require": {
-        "php": "^5.6 || ^7.0",
-        "zfcampus/zf-apigility": "^1.3",
-        "doctrine/doctrine-orm-module": "^1.1"
+        "php": "^5.6 || ^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ApigilityLogic\\Distribution\\": "src/"
+        }
     }
 }
