@@ -22,6 +22,7 @@ use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\InheritanceType;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
+use ApigilityLogic\Foundation\Doctrine\GetterSetter;
 
 /**
  * Class Distributor
@@ -107,4 +108,9 @@ class Distributor
         $this->events = new ArrayCollection();
         $this->commissions = new ArrayCollection();
     }
+
+    use GetterSetter\Id;
+    use GetterSetter\CreateTime;
+    use GetterSetter\UpdateTime;
+    use GetterSetter\Name;
 }
