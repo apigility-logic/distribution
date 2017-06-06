@@ -11,7 +11,7 @@ use ApigilityLogic\Foundation\Doctrine\Query\CreateFilter\AbstractCreateFilter;
 use Zend\Math\Rand;
 use ZF\Rest\ResourceEvent;
 
-class Distributor extends AbstractCreateFilter
+class DistributorCreateFilter extends AbstractCreateFilter
 {
     /**
      * @param ResourceEvent $event
