@@ -22,6 +22,7 @@ use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\InheritanceType;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
+use ApigilityLogic\Foundation\Doctrine\GetterSetter;
 
 /**
  * 分销标的物
@@ -78,4 +79,9 @@ class Target
     public function __construct() {
         $this->chain_levels = new ArrayCollection();
     }
+
+    use GetterSetter\Id;
+    use GetterSetter\Name;
+    use GetterSetter\CreateTime;
+    use GetterSetter\UpdateTime;
 }
