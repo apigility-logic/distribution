@@ -28,4 +28,7 @@ return [
             ],
         ],
     ],
+    'ApigilityLogic\\Distribution\\V1\\Rest\\ChainEvent\\Controller' => [
+        'description' => '链级分佣事件',
+    ],
 ];

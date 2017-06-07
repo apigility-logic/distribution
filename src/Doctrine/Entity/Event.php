@@ -22,6 +22,7 @@ use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\InheritanceType;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
+use ApigilityLogic\Foundation\Doctrine\GetterSetter;
 
 /**
  * Class Event
@@ -87,16 +88,8 @@ class Event
         $this->commissions = new ArrayCollection();
     }
 
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
+    use GetterSetter\Id;
+    use GetterSetter\CreateTime;
 
     public function setAmount($amount)
     {
@@ -120,14 +113,14 @@ class Event
         return $this->base_percent;
     }
 
-    public function setCreateTime($create_time)
+    public function setTarget($target)
     {
-        $this->create_time = $create_time;
+        $this->target = $target;
         return $this;
     }
 
-    public function getCreateTime()
+    public function getTarget()
     {
-        return $this->create_time;
+        return $this->target;
     }
 }

@@ -10,6 +10,8 @@ namespace ApigilityLogic\Distribution\Doctrine\Entity;
 use Doctrine\ORM\Mapping\Entity;
 
 /**
+ * Class ChainEvent
+ * @package ApigilityLogic\Distribution\Doctrine\Entity
  * @Entity
  */
 class ChainEvent extends Event

@@ -10,6 +10,8 @@ namespace ApigilityLogic\Distribution\Doctrine\Entity;
 use Doctrine\ORM\Mapping\Entity;
 
 /**
+ * Class TeamEvent
+ * @package ApigilityLogic\Distribution\Doctrine\Entity
  * @Entity
  */
 class TeamEvent extends Event

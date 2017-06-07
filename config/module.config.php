@@ -20,12 +20,22 @@ return [
                     ],
                 ],
             ],
+            'apigility-logic\\distribution.rest.doctrine.chain-event' => [
+                'type' => 'Segment',
+                'options' => [
+                    'route' => '/apigility-logic/distribution/chain-event[/:chain_event_id]',
+                    'defaults' => [
+                        'controller' => 'ApigilityLogic\\Distribution\\V1\\Rest\\ChainEvent\\Controller',
+                    ],
+                ],
+            ],
         ],
     ],
     'zf-versioning' => [
         'uri' => [
             0 => 'apigility-logic\\distribution.rest.doctrine.distributor',
             1 => 'apigility-logic\\distribution.rest.doctrine.chain-level',
+            2 => 'apigility-logic\\distribution.rest.doctrine.chain-event',
         ],
     ],
     'zf-rest' => [
@@ -75,11 +85,35 @@ return [
             'collection_class' => \ApigilityLogic\Distribution\V1\Rest\ChainLevel\ChainLevelCollection::class,
             'service_name' => 'ChainLevel',
         ],
+        'ApigilityLogic\\Distribution\\V1\\Rest\\ChainEvent\\Controller' => [
+            'listener' => \ApigilityLogic\Distribution\V1\Rest\ChainEvent\ChainEventResource::class,
+            'route_name' => 'apigility-logic\\distribution.rest.doctrine.chain-event',
+            'route_identifier_name' => 'chain_event_id',
+            'entity_identifier_name' => 'id',
+            'collection_name' => 'chain_event',
+            'entity_http_methods' => [
+                0 => 'GET',
+                1 => 'PATCH',
+                2 => 'PUT',
+                3 => 'DELETE',
+            ],
+            'collection_http_methods' => [
+                0 => 'GET',
+                1 => 'POST',
+            ],
+            'collection_query_whitelist' => [],
+            'page_size' => 25,
+            'page_size_param' => null,
+            'entity_class' => \ApigilityLogic\Distribution\Doctrine\Entity\ChainEvent::class,
+            'collection_class' => \ApigilityLogic\Distribution\V1\Rest\ChainEvent\ChainEventCollection::class,
+            'service_name' => 'ChainEvent',
+        ],
     ],
     'zf-content-negotiation' => [
         'controllers' => [
             'ApigilityLogic\\Distribution\\V1\\Rest\\Distributor\\Controller' => 'HalJson',
             'ApigilityLogic\\Distribution\\V1\\Rest\\ChainLevel\\Controller' => 'HalJson',
+            'ApigilityLogic\\Distribution\\V1\\Rest\\ChainEvent\\Controller' => 'HalJson',
         ],
         'accept-whitelist' => [
             'ApigilityLogic\\Distribution\\V1\\Rest\\Distributor\\Controller' => [
@@ -92,12 +126,20 @@ return [
                 1 => 'application/hal+json',
                 2 => 'application/json',
             ],
+            'ApigilityLogic\\Distribution\\V1\\Rest\\ChainEvent\\Controller' => [
+                0 => 'application/vnd.apigility-logic\\distribution.v1+json',
+                1 => 'application/hal+json',
+                2 => 'application/json',
+            ],
         ],
         'content-type-whitelist' => [
             'ApigilityLogic\\Distribution\\V1\\Rest\\Distributor\\Controller' => [
                 0 => 'application/json',
             ],
             'ApigilityLogic\\Distribution\\V1\\Rest\\ChainLevel\\Controller' => [
+                0 => 'application/json',
+            ],
+            'ApigilityLogic\\Distribution\\V1\\Rest\\ChainEvent\\Controller' => [
                 0 => 'application/json',
             ],
         ],
@@ -126,6 +168,17 @@ return [
                 'route_name' => 'apigility-logic\\distribution.rest.doctrine.chain-level',
                 'is_collection' => true,
             ],
+            \ApigilityLogic\Distribution\Doctrine\Entity\ChainEvent::class => [
+                'route_identifier_name' => 'chain_event_id',
+                'entity_identifier_name' => 'id',
+                'route_name' => 'apigility-logic\\distribution.rest.doctrine.chain-event',
+                'hydrator' => 'ApigilityLogic\\Distribution\\V1\\Rest\\ChainEvent\\ChainEventHydrator',
+            ],
+            \ApigilityLogic\Distribution\V1\Rest\ChainEvent\ChainEventCollection::class => [
+                'entity_identifier_name' => 'id',
+                'route_name' => 'apigility-logic\\distribution.rest.doctrine.chain-event',
+                'is_collection' => true,
+            ],
         ],
     ],
     'zf-apigility' => [
@@ -137,6 +190,10 @@ return [
             \ApigilityLogic\Distribution\V1\Rest\ChainLevel\ChainLevelResource::class => [
                 'object_manager' => 'doctrine.entitymanager.orm_default',
                 'hydrator' => 'ApigilityLogic\\Distribution\\V1\\Rest\\ChainLevel\\ChainLevelHydrator',
+            ],
+            \ApigilityLogic\Distribution\V1\Rest\ChainEvent\ChainEventResource::class => [
+                'object_manager' => 'doctrine.entitymanager.orm_default',
+                'hydrator' => 'ApigilityLogic\\Distribution\\V1\\Rest\\ChainEvent\\ChainEventHydrator',
             ],
         ],
     ],
@@ -155,6 +212,13 @@ return [
             'strategies' => [],
             'use_generated_hydrator' => true,
         ],
+        'ApigilityLogic\\Distribution\\V1\\Rest\\ChainEvent\\ChainEventHydrator' => [
+            'entity_class' => \ApigilityLogic\Distribution\Doctrine\Entity\ChainEvent::class,
+            'object_manager' => 'doctrine.entitymanager.orm_default',
+            'by_value' => true,
+            'strategies' => [],
+            'use_generated_hydrator' => true,
+        ],
     ],
     'zf-content-validation' => [
         'ApigilityLogic\\Distribution\\V1\\Rest\\Distributor\\Controller' => [
@@ -162,6 +226,9 @@ return [
         ],
         'ApigilityLogic\\Distribution\\V1\\Rest\\ChainLevel\\Controller' => [
             'input_filter' => 'ApigilityLogic\\Distribution\\V1\\Rest\\ChainLevel\\Validator',
+        ],
+        'ApigilityLogic\\Distribution\\V1\\Rest\\ChainEvent\\Controller' => [
+            'input_filter' => 'ApigilityLogic\\Distribution\\V1\\Rest\\ChainEvent\\Validator',
         ],
     ],
     'input_filter_specs' => [
@@ -246,6 +313,26 @@ return [
                 'validators' => [],
                 'filters' => [],
                 'name' => 'target',
+            ],
+        ],
+        'ApigilityLogic\\Distribution\\V1\\Rest\\ChainEvent\\Validator' => [
+            0 => [
+                'name' => 'amount',
+                'required' => true,
+                'filters' => [],
+                'validators' => [],
+            ],
+            1 => [
+                'name' => 'base_percent',
+                'required' => true,
+                'filters' => [],
+                'validators' => [],
+            ],
+            2 => [
+                'name' => 'create_time',
+                'required' => false,
+                'filters' => [],
+                'validators' => [],
             ],
         ],
     ],
