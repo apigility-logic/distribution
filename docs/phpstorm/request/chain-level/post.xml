@@ -1,0 +1,46 @@
+<RestClientRequest>
+  <option name="biscuits">
+    <list>
+      <Biscuit>
+        <option name="date" value="1496818390000" />
+        <option name="domain" value="localhost" />
+        <option name="name" value="XDEBUG_SESSION" />
+        <option name="path" value="/" />
+        <option name="value" value="docker" />
+      </Biscuit>
+    </list>
+  </option>
+  <option name="httpMethod" value="POST" />
+  <option name="urlBase" value="http://localhost:8004" />
+  <option name="urlPath" value="/apigility-logic/distribution/chain-level" />
+  <option name="headers">
+    <list>
+      <KeyValuePair>
+        <option name="key" value="Accept" />
+        <option name="value" value="*/*" />
+      </KeyValuePair>
+      <KeyValuePair>
+        <option name="key" value="Cache-Control" />
+        <option name="value" value="no-cache" />
+      </KeyValuePair>
+      <KeyValuePair>
+        <option name="key" value="Content-Type" />
+        <option name="value" value="application/json" />
+      </KeyValuePair>
+    </list>
+  </option>
+  <option name="parameters">
+    <list>
+      <KeyValuePair>
+        <option name="key" value="XDEBUG_SESSION_START" />
+        <option name="value" value="docker" />
+      </KeyValuePair>
+    </list>
+  </option>
+  <option name="parametersEnabled" value="true" />
+  <option name="haveTextToSend" value="true" />
+  <option name="haveFileToSend" value="false" />
+  <option name="isFileUpload" value="false" />
+  <option name="textToSend" value="{   &quot;level&quot;:1,   &quot;percent&quot;:20, &quot;target&quot;:1 }" />
+  <option name="filesToSend" value="" />
+</RestClientRequest>

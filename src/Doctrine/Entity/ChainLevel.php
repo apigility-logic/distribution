@@ -65,15 +65,17 @@ class ChainLevel
         $this->commissions = new ArrayCollection();
     }
 
-    public function setId($id)
+    use \ApigilityLogic\Foundation\Doctrine\GetterSetter\Id;
+
+    public function setLevel($level)
     {
-        $this->id = $id;
+        $this->level = $level;
         return $this;
     }
 
-    public function getId()
+    public function getLevel()
     {
-        return $this->id;
+        return $this->level;
     }
 
     public function setPercent($percent)
@@ -85,6 +87,17 @@ class ChainLevel
     public function getPercent()
     {
         return $this->percent;
+    }
+
+    public function setTarget($target)
+    {
+        $this->target = $target;
+        return $this;
+    }
+
+    public function getTarget()
+    {
+        return $this->target;
     }
 }
 
