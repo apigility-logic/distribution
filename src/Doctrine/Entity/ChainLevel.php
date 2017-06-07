@@ -26,11 +26,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class ChainLevel
 {
-    /**
-     * @Id @Column(type="integer")
-     * @GeneratedValue
-     */
-    protected $id;
+    use \ApigilityLogic\Foundation\Doctrine\Field\Id;
 
     /**
      * 链级
@@ -64,8 +60,6 @@ class ChainLevel
     public function __construct() {
         $this->commissions = new ArrayCollection();
     }
-
-    use \ApigilityLogic\Foundation\Doctrine\GetterSetter\Id;
 
     public function setLevel($level)
     {

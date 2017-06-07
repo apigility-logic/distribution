@@ -22,7 +22,7 @@ use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\InheritanceType;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
-use ApigilityLogic\Foundation\Doctrine\GetterSetter;
+use ApigilityLogic\Foundation\Doctrine\Field;
 
 /**
  * Class Event
@@ -33,11 +33,8 @@ use ApigilityLogic\Foundation\Doctrine\GetterSetter;
  */
 class Event
 {
-    /**
-     * @Id @Column(type="integer")
-     * @GeneratedValue
-     */
-    protected $id;
+    use Field\Id;
+    use Field\CreateTime;
 
     /**
      * 交易事件的发生额
@@ -52,13 +49,6 @@ class Event
      * @Column(type="decimal", precision=5, scale=2, nullable=false)
      */
     protected $base_percent;
-
-    /**
-     * 创建时间
-     *
-     * @Column(type="datetime", nullable=false)
-     */
-    protected $create_time;
 
     /**
      * 分佣事件发生的分销链节点
@@ -87,9 +77,6 @@ class Event
         $this->downstream_distributors = new ArrayCollection();
         $this->commissions = new ArrayCollection();
     }
-
-    use GetterSetter\Id;
-    use GetterSetter\CreateTime;
 
     public function setAmount($amount)
     {

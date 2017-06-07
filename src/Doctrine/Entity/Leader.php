@@ -19,6 +19,7 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\OneToMany;
+use ApigilityLogic\Foundation\Doctrine\Field;
 
 /**
  * Class Leader
@@ -27,32 +28,10 @@ use Doctrine\ORM\Mapping\OneToMany;
  */
 class Leader
 {
-    /**
-     * @Id @Column(type="integer")
-     * @GeneratedValue
-     */
-    protected $id;
-
-    /**
-     * 领导名称
-     *
-     * @Column(type="string", length=50, nullable=true)
-     */
-    protected $name;
-
-    /**
-     * 创建时间
-     *
-     * @Column(type="datetime", nullable=false)
-     */
-    protected $create_time;
-
-    /**
-     * 更新时间
-     *
-     * @Column(type="datetime", nullable=false)
-     */
-    protected $update_time;
+    use Field\Id;
+    use Field\Name;
+    use Field\CreateTime;
+    use Field\UpdateTime;
 
     /**
      * 领导的身份类型

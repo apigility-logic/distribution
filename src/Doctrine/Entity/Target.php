@@ -22,7 +22,7 @@ use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\InheritanceType;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
-use ApigilityLogic\Foundation\Doctrine\GetterSetter;
+use ApigilityLogic\Foundation\Doctrine\Field;
 
 /**
  * 分销标的物
@@ -35,32 +35,10 @@ use ApigilityLogic\Foundation\Doctrine\GetterSetter;
  */
 class Target
 {
-    /**
-     * @Id @Column(type="integer")
-     * @GeneratedValue
-     */
-    protected $id;
-
-    /**
-     * 名称
-     *
-     * @Column(type="string", length=50, nullable=true)
-     */
-    protected $name;
-
-    /**
-     * 创建时间
-     *
-     * @Column(type="datetime", nullable=false)
-     */
-    protected $create_time;
-
-    /**
-     * 更新时间
-     *
-     * @Column(type="datetime", nullable=false)
-     */
-    protected $update_time;
+    use Field\Id;
+    use Field\Name;
+    use Field\CreateTime;
+    use Field\UpdateTime;
 
     /**
      * 此标的物所关聊的所有分佣链级
@@ -79,9 +57,4 @@ class Target
     public function __construct() {
         $this->chain_levels = new ArrayCollection();
     }
-
-    use GetterSetter\Id;
-    use GetterSetter\Name;
-    use GetterSetter\CreateTime;
-    use GetterSetter\UpdateTime;
 }

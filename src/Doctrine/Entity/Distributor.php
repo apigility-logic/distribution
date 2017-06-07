@@ -22,7 +22,7 @@ use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\InheritanceType;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
-use ApigilityLogic\Foundation\Doctrine\GetterSetter;
+use ApigilityLogic\Foundation\Doctrine\Field;
 
 /**
  * Class Distributor
@@ -33,39 +33,11 @@ use ApigilityLogic\Foundation\Doctrine\GetterSetter;
  */
 class Distributor
 {
-    /**
-     * @Id @Column(type="integer")
-     * @GeneratedValue
-     */
-    protected $id;
-
-    /**
-     * 分销者名称
-     *
-     * @Column(type="string", length=50, nullable=true)
-     */
-    protected $name;
-
-    /**
-     * 推荐码，每个分销者都有一个唯一的推荐码，当他推荐朋友注册发展下级时，让朋友输入此推荐码来关联上级
-     *
-     * @Column(type="string", length=50, nullable=false)
-     */
-    protected $code;
-
-    /**
-     * 创建时间
-     *
-     * @Column(type="datetime", nullable=true)
-     */
-    protected $create_time;
-
-    /**
-     * 更新时间
-     *
-     * @Column(type="datetime", nullable=true)
-     */
-    protected $update_time;
+    use Field\Id;
+    use Field\Name; // 分销者名称
+    use Field\Code; // 推荐码，每个分销者都有一个唯一的推荐码，当他推荐朋友注册发展下级时，让朋友输入此推荐码来关联上级
+    use Field\CreateTime;
+    use Field\UpdateTime;
 
     /**
      * 下游（下级）分销者集合
@@ -108,10 +80,4 @@ class Distributor
         $this->events = new ArrayCollection();
         $this->commissions = new ArrayCollection();
     }
-
-    use GetterSetter\Id;
-    use GetterSetter\CreateTime;
-    use GetterSetter\UpdateTime;
-    use GetterSetter\Name;
-    use GetterSetter\Code;
 }

@@ -32,11 +32,7 @@ use Doctrine\ORM\Mapping\DiscriminatorMap;
  */
 class Commission
 {
-    /**
-     * @Id @Column(type="integer")
-     * @GeneratedValue
-     */
-    protected $id;
+    use \ApigilityLogic\Foundation\Doctrine\Field\Id;
 
     /**
      * 标题（用于记录字面备注）
