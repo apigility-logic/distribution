@@ -2,7 +2,7 @@
   <option name="biscuits">
     <list>
       <Biscuit>
-        <option name="date" value="1496811258000" />
+        <option name="date" value="1496821229000" />
         <option name="domain" value="localhost" />
         <option name="name" value="XDEBUG_SESSION" />
         <option name="path" value="/" />
@@ -35,12 +35,24 @@
         <option name="key" value="XDEBUG_SESSION_START" />
         <option name="value" value="docker" />
       </KeyValuePair>
+      <KeyValuePair>
+        <option name="key" value="filter[0][field]" />
+        <option name="value" value="target" />
+      </KeyValuePair>
+      <KeyValuePair>
+        <option name="key" value="filter[0][type]" />
+        <option name="value" value="eq" />
+      </KeyValuePair>
+      <KeyValuePair>
+        <option name="key" value="filter[0][value]" />
+        <option name="value" value="1" />
+      </KeyValuePair>
     </list>
   </option>
   <option name="parametersEnabled" value="true" />
   <option name="haveTextToSend" value="false" />
   <option name="haveFileToSend" value="false" />
   <option name="isFileUpload" value="false" />
-  <option name="textToSend" value="{ &quot;name&quot;:&quot;商品1&quot;,&quot;meilibo_goods_id&quot;:1}" />
+  <option name="textToSend" value="{   &quot;level&quot;:1,   &quot;percent&quot;:20, &quot;target&quot;:1 }" />
   <option name="filesToSend" value="" />
 </RestClientRequest>
