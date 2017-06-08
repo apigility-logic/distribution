@@ -32,13 +32,7 @@ class LeaderStatus
     use Field\Name; // 身份（领导节点类型）名称
     use Field\CreateTime;
     use Field\UpdateTime;
-
-    /**
-     * 分佣比值
-     *
-     * @Column(type="decimal", precision=5, scale=2, nullable=false)
-     */
-    protected $percent;
+    use Field\Percent;
 
     /**
      * @OneToMany(targetEntity="Leader", mappedBy="status")

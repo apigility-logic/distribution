@@ -22,6 +22,7 @@ use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\InheritanceType;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
+use ApigilityLogic\Foundation\Doctrine\Field;
 
 /**
  * Class Commission
@@ -32,28 +33,11 @@ use Doctrine\ORM\Mapping\DiscriminatorMap;
  */
 class Commission
 {
-    use \ApigilityLogic\Foundation\Doctrine\Field\Id;
-
-    /**
-     * 标题（用于记录字面备注）
-     *
-     * @Column(type="string", length=200, nullable=true)
-     */
-    protected $title;
-
-    /**
-     * 分佣比值（当前记录的）
-     *
-     * @Column(type="decimal", precision=5, scale=2, nullable=false)
-     */
-    protected $percent;
-
-    /**
-     * 创建时间
-     *
-     * @Column(type="datetime", nullable=false)
-     */
-    protected $create_time;
+    use Field\Id;
+    use Field\Amount;
+    use Field\CreateTime;
+    use Field\Title; //（用于记录字面备注）
+    use Field\Percent; // 分佣比值（当前记录的）
 
     /**
      * 分佣项所属的分佣事件
@@ -73,5 +57,27 @@ class Commission
 
     public function __construct() {
         $this->downstream_distributors = new ArrayCollection();
+    }
+
+    public function setEvent($event)
+    {
+        $this->event = $event;
+        return $this;
+    }
+
+    public function getEvent()
+    {
+        return $this->event;
+    }
+
+    public function setDistributor($distributor)
+    {
+        $this->distributor = $distributor;
+        return $this;
+    }
+
+    public function getDistributor()
+    {
+        return $this->distributor;
     }
 }

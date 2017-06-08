@@ -80,4 +80,18 @@ class Distributor
         $this->events = new ArrayCollection();
         $this->commissions = new ArrayCollection();
     }
+
+    public function setUpstreamDistributor($upstream_distributor)
+    {
+        $this->upstream_distributor = $upstream_distributor;
+        return $this;
+    }
+
+    /**
+     * @return Distributor
+     */
+    public function getUpstreamDistributor()
+    {
+        return $this->upstream_distributor;
+    }
 }

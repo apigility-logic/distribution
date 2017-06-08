@@ -35,13 +35,7 @@ class Event
 {
     use Field\Id;
     use Field\CreateTime;
-
-    /**
-     * 交易事件的发生额
-     *
-     * @Column(type="decimal", precision=11, scale=2, nullable=false)
-     */
-    protected $amount;
+    use Field\Amount;
 
     /**
      * 基准比值（当前记录的）
@@ -78,17 +72,6 @@ class Event
         $this->commissions = new ArrayCollection();
     }
 
-    public function setAmount($amount)
-    {
-        $this->amount = $amount;
-        return $this;
-    }
-
-    public function getAmount()
-    {
-        return $this->amount;
-    }
-
     public function setBasePercent($base_percent)
     {
         $this->base_percent = $base_percent;
@@ -100,12 +83,29 @@ class Event
         return $this->base_percent;
     }
 
+    public function setDistributor($distributor)
+    {
+        $this->distributor = $distributor;
+        return $this;
+    }
+
+    /**
+     * @return Distributor
+     */
+    public function getDistributor()
+    {
+        return $this->distributor;
+    }
+
     public function setTarget($target)
     {
         $this->target = $target;
         return $this;
     }
 
+    /**
+     * @return Target
+     */
     public function getTarget()
     {
         return $this->target;

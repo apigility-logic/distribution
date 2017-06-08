@@ -7,6 +7,7 @@
  */
 namespace ApigilityLogic\Distribution\Doctrine\Entity;
 
+use ApigilityLogic\Foundation\Doctrine\Field;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Id;
@@ -26,7 +27,8 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class ChainLevel
 {
-    use \ApigilityLogic\Foundation\Doctrine\Field\Id;
+    use Field\Id;
+    use Field\Percent;
 
     /**
      * 链级
@@ -34,13 +36,6 @@ class ChainLevel
      * @Column(type="integer", length=50, nullable=false)
      */
     protected $level;
-
-    /**
-     * 分佣比值
-     *
-     * @Column(type="decimal", precision=5, scale=2, nullable=false)
-     */
-    protected $percent;
 
     /**
      * 此链级关聊的所有分佣项
@@ -70,17 +65,6 @@ class ChainLevel
     public function getLevel()
     {
         return $this->level;
-    }
-
-    public function setPercent($percent)
-    {
-        $this->percent = $percent;
-        return $this;
-    }
-
-    public function getPercent()
-    {
-        return $this->percent;
     }
 
     public function setTarget($target)

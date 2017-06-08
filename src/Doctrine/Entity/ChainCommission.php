@@ -24,4 +24,15 @@ class ChainCommission extends Commission
      * @JoinColumn(name="chain_level_id", referencedColumnName="id")
      */
     protected $chain_level;
+
+    public function setChainLevel($chain_level)
+    {
+        $this->chain_level = $chain_level;
+        return $this;
+    }
+
+    public function getChainLevel()
+    {
+        return $this->chain_level;
+    }
 }

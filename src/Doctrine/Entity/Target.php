@@ -57,4 +57,18 @@ class Target
     public function __construct() {
         $this->chain_levels = new ArrayCollection();
     }
+
+    public function setChainLevels($chain_levels)
+    {
+        $this->chain_levels = $chain_levels;
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection|ChainLevel[]
+     */
+    public function getChainLevels()
+    {
+        return $this->chain_levels;
+    }
 }
