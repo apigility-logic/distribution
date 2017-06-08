@@ -6,9 +6,10 @@
  * Time: 14:09:09
  */
 
-namespace ApigilityLogic\Distribution\Doctrine\Listener;
+namespace ApigilityLogic\Distribution\Listener;
 
-use ApigilityLogic\Distribution\Doctrine\Event\EventEntityEvent;
+use ApigilityLogic\Distribution\Event\EventEntityEvent;
+use ApigilityLogic\Distribution\Service\CommissionService;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 
@@ -45,6 +46,7 @@ class CommissionListener implements ListenerAggregateInterface
 
     public function generateCommissions(EventEntityEvent $event)
     {
-        return null;
+        $commission_service = $event->serviceManager->get(CommissionService::class);
+        $commission_service->perform($event->getEntity());
     }
 }

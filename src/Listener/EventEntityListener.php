@@ -6,12 +6,13 @@
  * Time: 14:48:56
  */
 
-namespace ApigilityLogic\Distribution\Doctrine\Listener;
+namespace ApigilityLogic\Distribution\Listener;
 
 use ApigilityLogic\Distribution\Doctrine\Entity\Event as DistributionEventEntity;
-use ApigilityLogic\Distribution\Doctrine\Event\EventEntityEvent;
+use ApigilityLogic\Distribution\Event\EventEntityEvent;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerAwareTrait;
+use Zend\ServiceManager\ServiceManager;
 use ZF\Apigility\Doctrine\Server\Event\DoctrineResourceEvent;
 use Zend\EventManager\SharedEventManagerInterface;
 
@@ -20,6 +21,13 @@ class EventEntityListener implements EventManagerAwareInterface
     use EventManagerAwareTrait;
 
     protected $sharedListeners = [];
+
+    private $sm;
+
+    function __construct(ServiceManager $serviceManager)
+    {
+        $this->sm = $serviceManager;
+    }
 
     /**
      * @param SharedEventManagerInterface $events
@@ -43,7 +51,8 @@ class EventEntityListener implements EventManagerAwareInterface
     {
         if ($event->getEntity() instanceof DistributionEventEntity) {
             // 触发事件
-            $event_entity_event = new EventEntityEvent(EventEntityEvent::EVENT_EVENT_ENTITY_CREATE_POST, $this);
+            $event_entity_event = new EventEntityEvent($this->sm);
+            $event_entity_event->setTarget($this);
             $event_entity_event->setEntity($event->getEntity());
             $this->getEventManager()->triggerEvent($event_entity_event);
         }
