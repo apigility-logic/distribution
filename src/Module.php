@@ -1,8 +1,13 @@
 <?php
 namespace ApigilityLogic\Distribution;
 
+use ApigilityLogic\Distribution\Doctrine\Entity\Event as DistributionEventEntity;
+use ApigilityLogic\Distribution\Doctrine\Listener\CommissionListener;
+use ApigilityLogic\Distribution\Doctrine\Listener\EventEntityListener;
 use ZF\Apigility\Provider\ApigilityProviderInterface;
 use Zend\Config\Config;
+use Zend\Mvc\MvcEvent;
+use ZF\Apigility\Doctrine\Server\Event\DoctrineResourceEvent;
 
 class Module implements ApigilityProviderInterface
 {
@@ -29,5 +34,20 @@ class Module implements ApigilityProviderInterface
                 ],
             ],
         ];
+    }
+
+    public function onBootstrap(MvcEvent $e)
+    {
+        $app      = $e->getTarget();
+        $services = $app->getServiceManager();
+        $events   = $app->getEventManager();
+
+        $sharedEvents = $events->getSharedManager();
+
+        $event_entity_listener = new EventEntityListener();
+        $event_entity_listener->attachShared($sharedEvents);
+
+        $commission_listener = new CommissionListener();
+        $commission_listener->attach($event_entity_listener->getEventManager());
     }
 }
