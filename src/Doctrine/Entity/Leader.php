@@ -37,7 +37,7 @@ class Leader
      * 领导的身份类型
      *
      * @ManyToOne(targetEntity="LeaderStatus", inversedBy="leaders")
-     * @JoinColumn(name="product_id", referencedColumnName="id")
+     * @JoinColumn(name="leader_status_id", referencedColumnName="id")
      */
     protected $status;
 
@@ -72,5 +72,16 @@ class Leader
     public function getStatus()
     {
         return $this->status;
+    }
+
+    public function setDistributor($distributor)
+    {
+        $this->distributor = $distributor;
+        return $this;
+    }
+
+    public function getDistributor()
+    {
+        return $this->distributor;
     }
 }

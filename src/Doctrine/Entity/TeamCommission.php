@@ -24,4 +24,18 @@ class TeamCommission extends Commission
      * @JoinColumn(name="leader_id", referencedColumnName="id")
      */
     protected $leader;
+
+    public function setLeader($leader)
+    {
+        $this->leader = $leader;
+        return $this;
+    }
+
+    /**
+     * @return Leader
+     */
+    public function getLeader()
+    {
+        return $this->leader;
+    }
 }
