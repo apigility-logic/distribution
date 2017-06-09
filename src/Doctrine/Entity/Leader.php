@@ -59,4 +59,18 @@ class Leader
     public function __construct() {
         $this->commissions = new ArrayCollection();
     }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    /**
+     * @return LeaderStatus
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 }

@@ -13,6 +13,8 @@ use ApigilityLogic\Distribution\Doctrine\Entity\ChainCommission;
 use ApigilityLogic\Distribution\Doctrine\Entity\ChainEvent;
 use ApigilityLogic\Distribution\Doctrine\Entity\Distributor;
 use ApigilityLogic\Distribution\Doctrine\Entity\Event;
+use ApigilityLogic\Distribution\Doctrine\Entity\LeaderStatus;
+use ApigilityLogic\Distribution\Doctrine\Entity\TeamCommission;
 use ApigilityLogic\Distribution\Doctrine\Entity\TeamEvent;
 use Doctrine\ORM\EntityManager;
 use Zend\Hydrator\ClassMethods;
@@ -88,7 +90,37 @@ class CommissionService
      */
     private function performTeamCommission(TeamEvent $event_entity)
     {
+        $distributor = $event_entity->getDistributor();
+        $last_leader_status = null;
 
+        do {
+            $distributor = $distributor->getUpstreamDistributor();
+
+            if ($distributor && $distributor->getLeader()) {
+                // 找到领导节点
+                $leader = $distributor->getLeader();
+                $commission_data = [
+                    'title' => '团队分佣，' . $leader->getStatus()->getName() . $leader->getStatus()->getPercent() .'%',
+                    'percent' => $leader->getStatus()->getPercent(),
+                    'amount' => $event_entity->getAmount() * $event_entity->getBasePercent() / 100,
+                    'distributor' => $distributor,
+                    'leader' => $leader,
+                    'event' => $event_entity
+                ];
+
+                if (!($last_leader_status instanceof LeaderStatus)) {
+                    // 首次找到
+                    $commission_data['amount'] *= $leader->getStatus()->getPercent() / 100;
+                    $this->create(TeamCommission::class, $commission_data);
+                } elseif ((float)$distributor->getLeader()->getStatus()->getPercent() > (float)$last_leader_status->getPercent()) {
+                    // 非首次，且等级上一次找到的更高
+                    $commission_data['amount'] *= ($leader->getStatus()->getPercent()-$last_leader_status->getPercent()) / 100;
+                    $this->create(TeamCommission::class, $commission_data);
+                }
+
+                $last_leader_status = $distributor->getLeader()->getStatus()->getId();
+            }
+        } while($distributor && $distributor->getUpstreamDistributor());
     }
 
     /**

@@ -94,4 +94,18 @@ class Distributor
     {
         return $this->upstream_distributor;
     }
+
+    public function setLeader($leader)
+    {
+        $this->leader = $leader;
+        return $this;
+    }
+
+    /**
+     * @return Leader
+     */
+    public function getLeader()
+    {
+        return $this->leader;
+    }
 }
