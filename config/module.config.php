@@ -29,6 +29,15 @@ return [
                     ],
                 ],
             ],
+            'apigility-logic\\distribution.rest.doctrine.commission' => [
+                'type' => 'Segment',
+                'options' => [
+                    'route' => '/apigility-logic/distribution/commission[/:commission_id]',
+                    'defaults' => [
+                        'controller' => 'ApigilityLogic\\Distribution\\V1\\Rest\\Commission\\Controller',
+                    ],
+                ],
+            ],
         ],
     ],
     'zf-versioning' => [
@@ -36,6 +45,7 @@ return [
             0 => 'apigility-logic\\distribution.rest.doctrine.distributor',
             1 => 'apigility-logic\\distribution.rest.doctrine.chain-level',
             2 => 'apigility-logic\\distribution.rest.doctrine.chain-event',
+            3 => 'apigility-logic\\distribution.rest.doctrine.commission',
         ],
     ],
     'zf-rest' => [
@@ -108,12 +118,36 @@ return [
             'collection_class' => \ApigilityLogic\Distribution\V1\Rest\ChainEvent\ChainEventCollection::class,
             'service_name' => 'ChainEvent',
         ],
+        'ApigilityLogic\\Distribution\\V1\\Rest\\Commission\\Controller' => [
+            'listener' => \ApigilityLogic\Distribution\V1\Rest\Commission\CommissionResource::class,
+            'route_name' => 'apigility-logic\\distribution.rest.doctrine.commission',
+            'route_identifier_name' => 'commission_id',
+            'entity_identifier_name' => 'id',
+            'collection_name' => 'commission',
+            'entity_http_methods' => [
+                0 => 'GET',
+                1 => 'PATCH',
+                2 => 'PUT',
+                3 => 'DELETE',
+            ],
+            'collection_http_methods' => [
+                0 => 'GET',
+                1 => 'POST',
+            ],
+            'collection_query_whitelist' => [],
+            'page_size' => 25,
+            'page_size_param' => null,
+            'entity_class' => \ApigilityLogic\Distribution\Doctrine\Entity\Commission::class,
+            'collection_class' => \ApigilityLogic\Distribution\V1\Rest\Commission\CommissionCollection::class,
+            'service_name' => 'Commission',
+        ],
     ],
     'zf-content-negotiation' => [
         'controllers' => [
             'ApigilityLogic\\Distribution\\V1\\Rest\\Distributor\\Controller' => 'HalJson',
             'ApigilityLogic\\Distribution\\V1\\Rest\\ChainLevel\\Controller' => 'HalJson',
             'ApigilityLogic\\Distribution\\V1\\Rest\\ChainEvent\\Controller' => 'HalJson',
+            'ApigilityLogic\\Distribution\\V1\\Rest\\Commission\\Controller' => 'HalJson',
         ],
         'accept-whitelist' => [
             'ApigilityLogic\\Distribution\\V1\\Rest\\Distributor\\Controller' => [
@@ -131,6 +165,11 @@ return [
                 1 => 'application/hal+json',
                 2 => 'application/json',
             ],
+            'ApigilityLogic\\Distribution\\V1\\Rest\\Commission\\Controller' => [
+                0 => 'application/vnd.apigility-logic\\distribution.v1+json',
+                1 => 'application/hal+json',
+                2 => 'application/json',
+            ],
         ],
         'content-type-whitelist' => [
             'ApigilityLogic\\Distribution\\V1\\Rest\\Distributor\\Controller' => [
@@ -140,6 +179,9 @@ return [
                 0 => 'application/json',
             ],
             'ApigilityLogic\\Distribution\\V1\\Rest\\ChainEvent\\Controller' => [
+                0 => 'application/json',
+            ],
+            'ApigilityLogic\\Distribution\\V1\\Rest\\Commission\\Controller' => [
                 0 => 'application/json',
             ],
         ],
@@ -179,6 +221,17 @@ return [
                 'route_name' => 'apigility-logic\\distribution.rest.doctrine.chain-event',
                 'is_collection' => true,
             ],
+            \ApigilityLogic\Distribution\Doctrine\Entity\Commission::class => [
+                'route_identifier_name' => 'commission_id',
+                'entity_identifier_name' => 'id',
+                'route_name' => 'apigility-logic\\distribution.rest.doctrine.commission',
+                'hydrator' => 'ApigilityLogic\\Distribution\\V1\\Rest\\Commission\\CommissionHydrator',
+            ],
+            \ApigilityLogic\Distribution\V1\Rest\Commission\CommissionCollection::class => [
+                'entity_identifier_name' => 'id',
+                'route_name' => 'apigility-logic\\distribution.rest.doctrine.commission',
+                'is_collection' => true,
+            ],
         ],
     ],
     'zf-apigility' => [
@@ -194,6 +247,10 @@ return [
             \ApigilityLogic\Distribution\V1\Rest\ChainEvent\ChainEventResource::class => [
                 'object_manager' => 'doctrine.entitymanager.orm_default',
                 'hydrator' => 'ApigilityLogic\\Distribution\\V1\\Rest\\ChainEvent\\ChainEventHydrator',
+            ],
+            \ApigilityLogic\Distribution\V1\Rest\Commission\CommissionResource::class => [
+                'object_manager' => 'doctrine.entitymanager.orm_default',
+                'hydrator' => 'ApigilityLogic\\Distribution\\V1\\Rest\\Commission\\CommissionHydrator',
             ],
         ],
     ],
@@ -219,6 +276,13 @@ return [
             'strategies' => [],
             'use_generated_hydrator' => true,
         ],
+        'ApigilityLogic\\Distribution\\V1\\Rest\\Commission\\CommissionHydrator' => [
+            'entity_class' => \ApigilityLogic\Distribution\Doctrine\Entity\Commission::class,
+            'object_manager' => 'doctrine.entitymanager.orm_default',
+            'by_value' => true,
+            'strategies' => [],
+            'use_generated_hydrator' => true,
+        ],
     ],
     'zf-content-validation' => [
         'ApigilityLogic\\Distribution\\V1\\Rest\\Distributor\\Controller' => [
@@ -229,6 +293,9 @@ return [
         ],
         'ApigilityLogic\\Distribution\\V1\\Rest\\ChainEvent\\Controller' => [
             'input_filter' => 'ApigilityLogic\\Distribution\\V1\\Rest\\ChainEvent\\Validator',
+        ],
+        'ApigilityLogic\\Distribution\\V1\\Rest\\Commission\\Controller' => [
+            'input_filter' => 'ApigilityLogic\\Distribution\\V1\\Rest\\Commission\\Validator',
         ],
     ],
     'input_filter_specs' => [
@@ -331,6 +398,47 @@ return [
             2 => [
                 'name' => 'create_time',
                 'required' => false,
+                'filters' => [],
+                'validators' => [],
+            ],
+        ],
+        'ApigilityLogic\\Distribution\\V1\\Rest\\Commission\\Validator' => [
+            0 => [
+                'name' => 'amount',
+                'required' => true,
+                'filters' => [],
+                'validators' => [],
+            ],
+            1 => [
+                'name' => 'create_time',
+                'required' => false,
+                'filters' => [],
+                'validators' => [],
+            ],
+            2 => [
+                'name' => 'title',
+                'required' => false,
+                'filters' => [
+                    0 => [
+                        'name' => \Zend\Filter\StringTrim::class,
+                    ],
+                    1 => [
+                        'name' => \Zend\Filter\StripTags::class,
+                    ],
+                ],
+                'validators' => [
+                    0 => [
+                        'name' => \Zend\Validator\StringLength::class,
+                        'options' => [
+                            'min' => 1,
+                            'max' => 200,
+                        ],
+                    ],
+                ],
+            ],
+            3 => [
+                'name' => 'percent',
+                'required' => true,
                 'filters' => [],
                 'validators' => [],
             ],
