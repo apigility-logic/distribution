@@ -11,24 +11,36 @@ namespace ApigilityLogic\Distribution\Service;
 
 use ApigilityLogic\Distribution\Doctrine\Entity\ChainCommission;
 use ApigilityLogic\Distribution\Doctrine\Entity\ChainEvent;
+use ApigilityLogic\Distribution\Doctrine\Entity\Commission;
 use ApigilityLogic\Distribution\Doctrine\Entity\Distributor;
 use ApigilityLogic\Distribution\Doctrine\Entity\Event;
 use ApigilityLogic\Distribution\Doctrine\Entity\LeaderStatus;
 use ApigilityLogic\Distribution\Doctrine\Entity\TeamCommission;
 use ApigilityLogic\Distribution\Doctrine\Entity\TeamEvent;
+use ApigilityLogic\Distribution\Event\CommissionEvent;
 use Doctrine\ORM\EntityManager;
+use Zend\EventManager\EventManagerAwareInterface;
+use Zend\EventManager\EventManagerAwareTrait;
 use Zend\Hydrator\ClassMethods;
 use Zend\ServiceManager\ServiceManager;
 
-class CommissionService
+class CommissionService implements EventManagerAwareInterface
 {
+    use EventManagerAwareTrait;
+
     /**
      * @var EntityManager
      */
     private $em;
 
+    /**
+     * @var ServiceManager
+     */
+    private $sm;
+
     function __construct(ServiceManager $serviceManager)
     {
+        $this->sm = $serviceManager;
         $this->em = $serviceManager->get('Doctrine\ORM\EntityManager');
     }
 
@@ -70,7 +82,7 @@ class CommissionService
 
                 if ($commission_distributor) {
                     // 找到分佣者
-                    $this->create(ChainCommission::class, [
+                    $commission = $this->create(ChainCommission::class, [
                         'title' => $chainLevel->getLevel() . '级链式分佣'. $chainLevel->getPercent() .'%',
                         'percent' => $chainLevel->getPercent(),
                         'amount' => ($event_entity->getAmount() * $event_entity->getBasePercent() / 100)
@@ -79,6 +91,8 @@ class CommissionService
                         'chain_level' => $chainLevel,
                         'event' => $event_entity
                     ]);
+
+                    if ($commission instanceof ChainCommission) $this->triggerCommissionEvent($commission);
                 }
             }
         }
@@ -111,11 +125,13 @@ class CommissionService
                 if (!($last_leader_status instanceof LeaderStatus)) {
                     // 首次找到
                     $commission_data['amount'] *= $leader->getStatus()->getPercent() / 100;
-                    $this->create(TeamCommission::class, $commission_data);
+                    $commission = $this->create(TeamCommission::class, $commission_data);
+                    if ($commission instanceof TeamCommission) $this->triggerCommissionEvent($commission);
                 } elseif ((float)$distributor->getLeader()->getStatus()->getPercent() > (float)$last_leader_status->getPercent()) {
                     // 非首次，且等级上一次找到的更高
                     $commission_data['amount'] *= ($leader->getStatus()->getPercent()-$last_leader_status->getPercent()) / 100;
-                    $this->create(TeamCommission::class, $commission_data);
+                    $commission = $this->create(TeamCommission::class, $commission_data);
+                    if ($commission instanceof TeamCommission) $this->triggerCommissionEvent($commission);
                 }
 
                 $last_leader_status = $distributor->getLeader()->getStatus()->getId();
@@ -142,5 +158,26 @@ class CommissionService
         }
 
         return $current_distributor;
+    }
+
+    /**
+     * 触发分佣项生成事件
+     *
+     * @param Commission $entity
+     * @throws \Exception
+     */
+    private function triggerCommissionEvent(Commission $entity)
+    {
+        if ($entity instanceof ChainCommission) {
+            $commission_event = new CommissionEvent(CommissionEvent::EVENT_CHAIN_COMMISSION_CREATE_POST ,$this->sm);
+        } elseif ($entity instanceof TeamCommission) {
+            $commission_event = new CommissionEvent(CommissionEvent::EVENT_TEAM_COMMISSION_CREATE_POST ,$this->sm);
+        } else {
+            throw new \Exception('未知的Commission类型');
+        }
+
+        $commission_event->setTarget($this);
+        $commission_event->setEntity($entity);
+        $this->getEventManager()->triggerEvent($commission_event);
     }
 }

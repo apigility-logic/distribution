@@ -76,6 +76,9 @@ class Commission
         return $this;
     }
 
+    /**
+     * @return Distributor
+     */
     public function getDistributor()
     {
         return $this->distributor;
