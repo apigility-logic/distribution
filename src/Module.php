@@ -2,6 +2,7 @@
 namespace ApigilityLogic\Distribution;
 
 use ApigilityLogic\Distribution\Listener\CommissionListener;
+use ApigilityLogic\Distribution\Listener\DistributionCustomerListener;
 use ApigilityLogic\Distribution\Listener\EventEntityListener;
 use ZF\Apigility\Provider\ApigilityProviderInterface;
 use Zend\Config\Config;
@@ -41,6 +42,9 @@ class Module implements ApigilityProviderInterface
         $events   = $app->getEventManager();
 
         $sharedEvents = $events->getSharedManager();
+
+        $distribution_customer_listener = new DistributionCustomerListener($services);
+        $distribution_customer_listener->attachShared($sharedEvents);
 
         $event_entity_listener = new EventEntityListener($services);
         $event_entity_listener->attachShared($sharedEvents);

@@ -75,6 +75,13 @@ class Distributor
      */
     protected $commissions;
 
+    /**
+     * 对应的Finance客户
+     *
+     * @OneToOne(targetEntity="DistributionCustomer", mappedBy="distributor")
+     */
+    protected $distributionCustomer;
+
     public function __construct() {
         $this->downstream_distributors = new ArrayCollection();
         $this->events = new ArrayCollection();
@@ -107,5 +114,19 @@ class Distributor
     public function getLeader()
     {
         return $this->leader;
+    }
+
+    public function setDistributionCustomer($distributionCustomer)
+    {
+        $this->distributionCustomer = $distributionCustomer;
+        return $this;
+    }
+
+    /**
+     * @return DistributionCustomer
+     */
+    public function getDistributionCustomer()
+    {
+        return $this->distributionCustomer;
     }
 }
