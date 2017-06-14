@@ -83,7 +83,7 @@ class CommissionService implements EventManagerAwareInterface
                 if ($commission_distributor) {
                     // 找到分佣者
                     $commission = $this->create(ChainCommission::class, [
-                        'title' => $chainLevel->getLevel() . '级链式分佣'. $chainLevel->getPercent() .'%',
+                        'title' => $chainLevel->getLevel() . '级链式分佣'. $chainLevel->getPercent() .'% (来自：'. $event_entity->getDistributor()->getName() .')',
                         'percent' => $chainLevel->getPercent(),
                         'amount' => ($event_entity->getAmount() * $event_entity->getBasePercent() / 100)
                             * $chainLevel->getPercent() / 100,
@@ -114,7 +114,7 @@ class CommissionService implements EventManagerAwareInterface
                 // 找到领导节点
                 $leader = $distributor->getLeader();
                 $commission_data = [
-                    'title' => '团队分佣，' . $leader->getStatus()->getName() . $leader->getStatus()->getPercent() .'%',
+                    'title' => '团队分佣，' . $leader->getStatus()->getName() . $leader->getStatus()->getPercent() .'% (来自：'. $event_entity->getDistributor()->getName() .')',
                     'percent' => $leader->getStatus()->getPercent(),
                     'amount' => $event_entity->getAmount() * $event_entity->getBasePercent() / 100,
                     'distributor' => $distributor,
