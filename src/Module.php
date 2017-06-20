@@ -4,6 +4,7 @@ namespace ApigilityLogic\Distribution;
 use ApigilityLogic\Distribution\Listener\CommissionListener;
 use ApigilityLogic\Distribution\Listener\DistributionCustomerListener;
 use ApigilityLogic\Distribution\Listener\EventEntityListener;
+use ApigilityLogic\Distribution\Listener\LedgerListener;
 use ZF\Apigility\Provider\ApigilityProviderInterface;
 use Zend\Config\Config;
 use Zend\Mvc\MvcEvent;
@@ -51,5 +52,8 @@ class Module implements ApigilityProviderInterface
 
         $commission_listener = new CommissionListener();
         $commission_listener->attach($event_entity_listener->getEventManager());
+
+        $ledger_listener = new LedgerListener($services);
+        $ledger_listener->attach($services->get(CommissionService::class)->getEventManager());
     }
 }
