@@ -5,6 +5,7 @@ use ApigilityLogic\Distribution\Listener\CommissionListener;
 use ApigilityLogic\Distribution\Listener\DistributionCustomerListener;
 use ApigilityLogic\Distribution\Listener\EventEntityListener;
 use ApigilityLogic\Distribution\Listener\LedgerListener;
+use ApigilityLogic\Distribution\Service\CommissionService;
 use ZF\Apigility\Provider\ApigilityProviderInterface;
 use Zend\Config\Config;
 use Zend\Mvc\MvcEvent;

@@ -16,6 +16,13 @@ use Zend\ServiceManager\ServiceManager;
 use ZF\Apigility\Doctrine\Server\Event\DoctrineResourceEvent;
 use Zend\EventManager\SharedEventManagerInterface;
 
+/**
+ * 监听系统事件，当有[分销事件ApigilityLogic\Distribution\Doctrine\Entity\Event]实体被创建时，
+ * 创建一个模块级的事件 ApigilityLogic\Distribution\Event\EventEntityEvent 。
+ *
+ * Class EventEntityListener
+ * @package ApigilityLogic\Distribution\Listener
+ */
 class EventEntityListener implements EventManagerAwareInterface
 {
     use EventManagerAwareTrait;

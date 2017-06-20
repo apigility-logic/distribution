@@ -17,6 +17,15 @@ use Zend\EventManager\SharedEventManagerInterface;
 use Zend\ServiceManager\ServiceManager;
 use ZF\Apigility\Doctrine\Server\Event\DoctrineResourceEvent;
 
+/**
+ * 监听系统事件，当有[分销节点 ApigilityLogic\Distribution\Doctrine\Entity\Distributor]实体被创建时，
+ * 调用 ApigilityLogic\Finance 组件的服务，
+ * 创建 对应的的[记账客户 ApigilityLogic\Distribution\Doctrine\Entity\DistributionCustomer]，
+ * 同时为该记账客户创建两个记账账户：cumulative[累计账户]，balance[余额账户]。
+ *
+ * Class DistributionCustomerListener
+ * @package ApigilityLogic\Distribution\Listener
+ */
 class DistributionCustomerListener
 {
     protected $sharedListeners = [];

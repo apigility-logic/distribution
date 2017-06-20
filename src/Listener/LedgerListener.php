@@ -1,4 +1,11 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: figo-007
+ * Date: 2017/6/12
+ * Time: 11:55:17
+ */
+
 namespace ApigilityLogic\Distribution\Listener;
 
 use ApigilityLogic\Distribution\Event\CommissionEvent;
@@ -10,10 +17,10 @@ use Zend\EventManager\ListenerAggregateTrait;
 use Zend\ServiceManager\ServiceManager;
 
 /**
- * Created by PhpStorm.
- * User: figo-007
- * Date: 2017/6/12
- * Time: 11:55:17
+ * 监听分佣项生成事件，调用ApigilityLogic\Finance\Service\LedgerService服务生成记账记录
+ *
+ * Class LedgerListener
+ * @package ApigilityLogic\Distribution\Listener
  */
 class LedgerListener implements ListenerAggregateInterface
 {

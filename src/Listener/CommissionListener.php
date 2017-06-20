@@ -14,7 +14,9 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 
 /**
- * 分佣处理，生成分佣记录
+ * 分佣事件处理，生成分佣记录
+ * 事件 EventEntityEvent 发生时，调用 CommissionService 生成分佣记录
+ *
  * Class CommissionListener
  * @package ApigilityLogic\Distribution\Doctrine\Listener
  */
