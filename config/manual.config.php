@@ -10,7 +10,7 @@ return [
         'factories' => [
             \ApigilityLogic\Distribution\Doctrine\Query\CreateFilter\DistributorCreateFilter::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
             \ApigilityLogic\Distribution\Doctrine\Query\CreateFilter\TargetCreateFilter::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
-            \ApigilityLogic\Distribution\Doctrine\Query\CreateFilter\EventCreateFilter::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
+            \ApigilityLogic\Distribution\Doctrine\Query\CreateFilter\EventCreateFilter::class => \ApigilityLogic\Distribution\Doctrine\Query\CreateFilter\EventCreateFilterFactory::class,
         ],
     ],
     'zf-apigility' => [

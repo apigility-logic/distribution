@@ -11,7 +11,8 @@ use ApigilityLogic\Distribution\Service;
 return [
     'service_manager' => array(
         'factories' => array(
-            Service\CommissionService::class => Service\CommissionServiceFactory::class
+            Service\CommissionService::class => Service\CommissionServiceFactory::class,
+            Service\SettingService::class => Service\SettingServiceFactory::class
         ),
     )
 ];
