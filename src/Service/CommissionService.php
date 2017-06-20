@@ -134,7 +134,7 @@ class CommissionService implements EventManagerAwareInterface
                     if ($commission instanceof TeamCommission) $this->triggerCommissionEvent($commission);
                 }
 
-                $last_leader_status = $distributor->getLeader()->getStatus()->getId();
+                $last_leader_status = $distributor->getLeader()->getStatus();
             }
         } while($distributor && $distributor->getUpstreamDistributor());
     }
