@@ -65,6 +65,15 @@ return [
                     ],
                 ],
             ],
+            'apigility-logic\\distribution.rest.doctrine.leader' => [
+                'type' => 'Segment',
+                'options' => [
+                    'route' => '/apigility-logic/distribution/leader[/:leader_id]',
+                    'defaults' => [
+                        'controller' => 'ApigilityLogic\\Distribution\\V1\\Rest\\Leader\\Controller',
+                    ],
+                ],
+            ],
         ],
     ],
     'zf-versioning' => [
@@ -76,6 +85,7 @@ return [
             4 => 'apigility-logic\\distribution.rest.doctrine.distribution-customer',
             5 => 'apigility-logic\\distribution.rest.doctrine.setting',
             6 => 'apigility-logic\\distribution.rest.doctrine.leader-status',
+            7 => 'apigility-logic\\distribution.rest.doctrine.leader',
         ],
     ],
     'zf-rest' => [
@@ -240,6 +250,29 @@ return [
             'collection_class' => \ApigilityLogic\Distribution\V1\Rest\LeaderStatus\LeaderStatusCollection::class,
             'service_name' => 'LeaderStatus',
         ],
+        'ApigilityLogic\\Distribution\\V1\\Rest\\Leader\\Controller' => [
+            'listener' => \ApigilityLogic\Distribution\V1\Rest\Leader\LeaderResource::class,
+            'route_name' => 'apigility-logic\\distribution.rest.doctrine.leader',
+            'route_identifier_name' => 'leader_id',
+            'entity_identifier_name' => 'id',
+            'collection_name' => 'leader',
+            'entity_http_methods' => [
+                0 => 'GET',
+                1 => 'PATCH',
+                2 => 'PUT',
+                3 => 'DELETE',
+            ],
+            'collection_http_methods' => [
+                0 => 'GET',
+                1 => 'POST',
+            ],
+            'collection_query_whitelist' => [],
+            'page_size' => 25,
+            'page_size_param' => null,
+            'entity_class' => \ApigilityLogic\Distribution\Doctrine\Entity\Leader::class,
+            'collection_class' => \ApigilityLogic\Distribution\V1\Rest\Leader\LeaderCollection::class,
+            'service_name' => 'Leader',
+        ],
     ],
     'zf-content-negotiation' => [
         'controllers' => [
@@ -250,6 +283,7 @@ return [
             'ApigilityLogic\\Distribution\\V1\\Rest\\DistributionCustomer\\Controller' => 'HalJson',
             'ApigilityLogic\\Distribution\\V1\\Rest\\Setting\\Controller' => 'HalJson',
             'ApigilityLogic\\Distribution\\V1\\Rest\\LeaderStatus\\Controller' => 'HalJson',
+            'ApigilityLogic\\Distribution\\V1\\Rest\\Leader\\Controller' => 'HalJson',
         ],
         'accept-whitelist' => [
             'ApigilityLogic\\Distribution\\V1\\Rest\\Distributor\\Controller' => [
@@ -287,6 +321,11 @@ return [
                 1 => 'application/hal+json',
                 2 => 'application/json',
             ],
+            'ApigilityLogic\\Distribution\\V1\\Rest\\Leader\\Controller' => [
+                0 => 'application/vnd.apigility-logic\\distribution.v1+json',
+                1 => 'application/hal+json',
+                2 => 'application/json',
+            ],
         ],
         'content-type-whitelist' => [
             'ApigilityLogic\\Distribution\\V1\\Rest\\Distributor\\Controller' => [
@@ -308,6 +347,9 @@ return [
                 0 => 'application/json',
             ],
             'ApigilityLogic\\Distribution\\V1\\Rest\\LeaderStatus\\Controller' => [
+                0 => 'application/json',
+            ],
+            'ApigilityLogic\\Distribution\\V1\\Rest\\Leader\\Controller' => [
                 0 => 'application/json',
             ],
         ],
@@ -395,6 +437,17 @@ return [
                 'route_name' => 'apigility-logic\\distribution.rest.doctrine.leader-status',
                 'is_collection' => true,
             ],
+            \ApigilityLogic\Distribution\Doctrine\Entity\Leader::class => [
+                'route_identifier_name' => 'leader_id',
+                'entity_identifier_name' => 'id',
+                'route_name' => 'apigility-logic\\distribution.rest.doctrine.leader',
+                'hydrator' => 'ApigilityLogic\\Distribution\\V1\\Rest\\Leader\\LeaderHydrator',
+            ],
+            \ApigilityLogic\Distribution\V1\Rest\Leader\LeaderCollection::class => [
+                'entity_identifier_name' => 'id',
+                'route_name' => 'apigility-logic\\distribution.rest.doctrine.leader',
+                'is_collection' => true,
+            ],
         ],
     ],
     'zf-apigility' => [
@@ -426,6 +479,10 @@ return [
             \ApigilityLogic\Distribution\V1\Rest\LeaderStatus\LeaderStatusResource::class => [
                 'object_manager' => 'doctrine.entitymanager.orm_default',
                 'hydrator' => 'ApigilityLogic\\Distribution\\V1\\Rest\\LeaderStatus\\LeaderStatusHydrator',
+            ],
+            \ApigilityLogic\Distribution\V1\Rest\Leader\LeaderResource::class => [
+                'object_manager' => 'doctrine.entitymanager.orm_default',
+                'hydrator' => 'ApigilityLogic\\Distribution\\V1\\Rest\\Leader\\LeaderHydrator',
             ],
         ],
     ],
@@ -479,6 +536,13 @@ return [
             'strategies' => [],
             'use_generated_hydrator' => true,
         ],
+        'ApigilityLogic\\Distribution\\V1\\Rest\\Leader\\LeaderHydrator' => [
+            'entity_class' => \ApigilityLogic\Distribution\Doctrine\Entity\Leader::class,
+            'object_manager' => 'doctrine.entitymanager.orm_default',
+            'by_value' => true,
+            'strategies' => [],
+            'use_generated_hydrator' => true,
+        ],
     ],
     'zf-content-validation' => [
         'ApigilityLogic\\Distribution\\V1\\Rest\\Distributor\\Controller' => [
@@ -501,6 +565,9 @@ return [
         ],
         'ApigilityLogic\\Distribution\\V1\\Rest\\LeaderStatus\\Controller' => [
             'input_filter' => 'ApigilityLogic\\Distribution\\V1\\Rest\\LeaderStatus\\Validator',
+        ],
+        'ApigilityLogic\\Distribution\\V1\\Rest\\Leader\\Controller' => [
+            'input_filter' => 'ApigilityLogic\\Distribution\\V1\\Rest\\Leader\\Validator',
         ],
     ],
     'input_filter_specs' => [
@@ -734,6 +801,41 @@ return [
             3 => [
                 'name' => 'percent',
                 'required' => true,
+                'filters' => [],
+                'validators' => [],
+            ],
+        ],
+        'ApigilityLogic\\Distribution\\V1\\Rest\\Leader\\Validator' => [
+            0 => [
+                'name' => 'name',
+                'required' => false,
+                'filters' => [
+                    0 => [
+                        'name' => \Zend\Filter\StringTrim::class,
+                    ],
+                    1 => [
+                        'name' => \Zend\Filter\StripTags::class,
+                    ],
+                ],
+                'validators' => [
+                    0 => [
+                        'name' => \Zend\Validator\StringLength::class,
+                        'options' => [
+                            'min' => 1,
+                            'max' => 50,
+                        ],
+                    ],
+                ],
+            ],
+            1 => [
+                'name' => 'create_time',
+                'required' => false,
+                'filters' => [],
+                'validators' => [],
+            ],
+            2 => [
+                'name' => 'update_time',
+                'required' => false,
                 'filters' => [],
                 'validators' => [],
             ],
