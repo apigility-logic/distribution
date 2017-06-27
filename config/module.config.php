@@ -839,6 +839,14 @@ return [
                 'filters' => [],
                 'validators' => [],
             ],
+            3 => [
+                'required' => false,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'status',
+                'field_type' => 'int',
+                'description' => '领导级别',
+            ]
         ],
     ],
 ];
